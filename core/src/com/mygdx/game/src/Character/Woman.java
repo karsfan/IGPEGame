@@ -2,7 +2,7 @@ package com.mygdx.game.src.Character;
 
 public class Woman {
 	public static enum ManType {
-		MAN1, MAN2, MAN3
+		WOMAN1, WOMAN2, WOMAN3
 	};
 
 	private String name;

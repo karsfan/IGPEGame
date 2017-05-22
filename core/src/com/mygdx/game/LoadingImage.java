@@ -11,17 +11,17 @@ import com.mygdx.game.src.World.Enemy;
 
 public class LoadingImage {
 
-	public static Texture homeImage = new Texture("res/home.png");
-	public static Texture bigHomeImage = new Texture("res/bigHome.png");
-	private static Texture threeImage = new Texture("res/three.png");
-	private static Texture groundImage = new Texture("res/ground.png");
-	private static Texture floorImage = new Texture("res/floor.png");
-	private static Texture roadImage = new Texture("res/road.png");
-	private static Texture buildingImage = new Texture("res/building.png");
-	private static Texture waterImage = new Texture("res/water.png");
-	private static Texture rockImage = new Texture("res/rock.png");
-	private static Texture forest1Image = new Texture("res/forest1.png");
-	private static Texture forest2Image = new Texture("res/forest2.png");
+	public static Texture homeImage;
+	public static Texture bigHomeImage;
+	private static Texture threeImage;
+	private static Texture groundImage;
+	private static Texture floorImage;
+	private static Texture roadImage;
+	private static Texture buildingImage;
+	private static Texture waterImage;
+	private static Texture rockImage;
+	private static Texture forest1Image;
+	private static Texture forest2Image;
 
 	public static TextureAtlas atlasPlayer;
 	public static Animation<TextureRegion> playerRight;
@@ -39,6 +39,19 @@ public class LoadingImage {
 	public Texture enemyTexture;
 
 	public LoadingImage() {
+
+		homeImage = new Texture("res/home.png");
+		bigHomeImage = new Texture("res/bigHome.png");
+		threeImage = new Texture("res/three.png");
+		groundImage = new Texture("res/ground.png");
+		floorImage = new Texture("res/floor.png");
+		roadImage = new Texture("res/road.png");
+		buildingImage = new Texture("res/building.png");
+		waterImage = new Texture("res/water.png");
+		rockImage = new Texture("res/rock.png");
+		forest1Image = new Texture("res/forest1.png");
+		forest2Image = new Texture("res/forest2.png");
+
 		playerTexture = new Texture("assets/bpj.png");
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 

@@ -96,16 +96,12 @@ public class Character implements ICollidable {
 	}
 
 	public void movesRight(float dt) {
-		if (dt > 0.02)
+		if (dt > 0.018)
 			dt = (float) 0.017;
 		if (x < 1440 - width / 2) {
 			x += (int) (velocity * dt);
 			if (collide(this))
 				x -= (int) (velocity * dt);
-			if (velocity * dt > 3)
-				System.out.println(velocity * dt);
-			else
-				System.out.println(velocity * dt + "OK");
 		}
 		setState(State.RUNNINGRIGHT);
 	}
