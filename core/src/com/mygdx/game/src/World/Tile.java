@@ -17,7 +17,6 @@ public class Tile implements ICollidable {
 	}
 
 	public Tile(String elemen, Point point2) {
-		//ciao
 		this.point = point2;
 		switch (elemen) {
 		case "HOME":
