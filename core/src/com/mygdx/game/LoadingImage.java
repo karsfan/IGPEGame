@@ -23,20 +23,61 @@ public class LoadingImage {
 	private static Texture forest1Image;
 	private static Texture forest2Image;
 
-	public static TextureAtlas atlasPlayer;
+	public Texture playerTexture;
+	private static TextureRegion playerStand;
 	public static Animation<TextureRegion> playerRight;
 	public static Animation<TextureRegion> playerLeft;
 	public static Animation<TextureRegion> playerUp;
 	public static Animation<TextureRegion> playerDown;
-	public Texture playerTexture;
-	public static TextureAtlas atlasEnemy;
+
+	public Texture enemyTexture;
+	private static TextureRegion enemyStand;
 	public static Animation<TextureRegion> enemyRight;
 	public static Animation<TextureRegion> enemyLeft;
 	public static Animation<TextureRegion> enemyUp;
 	public static Animation<TextureRegion> enemyDown;
-	private static TextureRegion playerStand;
-	private static TextureRegion enemyStand;
-	public Texture enemyTexture;
+	
+	public Texture man1Texture;
+	private static TextureRegion man1Stand;
+	public static Animation<TextureRegion> man1Right;
+	public static Animation<TextureRegion> man1Left;
+	public static Animation<TextureRegion> man1Up;
+	public static Animation<TextureRegion> man1Down;
+	
+	public Texture man2Texture;
+	private static TextureRegion man2Stand;
+	public static Animation<TextureRegion> man2Right;
+	public static Animation<TextureRegion> man2Left;
+	public static Animation<TextureRegion> man2Up;
+	public static Animation<TextureRegion> man2Down;
+	
+	public Texture man3Texture;
+	private static TextureRegion man3Stand;
+	public static Animation<TextureRegion> man3Right;
+	public static Animation<TextureRegion> man3Left;
+	public static Animation<TextureRegion> man3Up;
+	public static Animation<TextureRegion> man3Down;
+	
+	public Texture woman1Texture;
+	private static TextureRegion woman1Stand;
+	public static Animation<TextureRegion> woman1Right;
+	public static Animation<TextureRegion> woman1Left;
+	public static Animation<TextureRegion> woman1Up;
+	public static Animation<TextureRegion> woman1Down;
+	
+	public Texture woman2Texture;
+	private static TextureRegion woman2Stand;
+	public static Animation<TextureRegion> woman2Right;
+	public static Animation<TextureRegion> woman2Left;
+	public static Animation<TextureRegion> woman2Up;
+	public static Animation<TextureRegion> woman2Down;
+	
+	public Texture woman3Texture;
+	private static TextureRegion woman3Stand;
+	public static Animation<TextureRegion> woman3Right;
+	public static Animation<TextureRegion> woman3Left;
+	public static Animation<TextureRegion> woman3Up;
+	public static Animation<TextureRegion> woman3Down;
 
 	public LoadingImage() {
 
@@ -84,60 +125,30 @@ public class LoadingImage {
 		enemyTexture = new Texture("assets/bpj.png");
 
 		for (int i = 0; i < 9; i++) {
-			frames.add(new TextureRegion(enemyTexture, i * 64, 200, 60, 60));
+			frames.add(new TextureRegion(enemyTexture, i * 64 / 2, 93, 60 / 2, 60 / 2));
 		}
 		enemyRight = new Animation<TextureRegion>(0.2f, frames);
 		frames.clear();
 
 		for (int i = 8; i != 0; i--) {
-			frames.add(new TextureRegion(enemyTexture, i * 64, 73, 60, 60));
+			frames.add(new TextureRegion(enemyTexture, i * 64 / 2, 31, 60 / 2, 60 / 2));
 		}
 		enemyLeft = new Animation<TextureRegion>(0.2f, frames);
 		frames.clear();
 
-		for (int i = 0; i < 9; i++) {
-			frames.add(new TextureRegion(enemyTexture, i * 64, 140, 60, 60));
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(enemyTexture, i * 64 / 2, 62, 60 / 2, 60 / 2));
 		}
 		enemyDown = new Animation<TextureRegion>(0.2f, frames);
 		frames.clear();
 
-		for (int i = 0; i < 9; i++) {
-			frames.add(new TextureRegion(enemyTexture, i * 64, 10, 60, 60));
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(enemyTexture, i * 64 / 2, 0, 60 / 2, 60 / 2));
 		}
 		enemyUp = new Animation<TextureRegion>(0.2f, frames);
-		frames.clear();
 
 		enemyStand = (TextureRegion) enemyRight.getKeyFrame(0);
 
-	}
-
-	public static TextureRegion getFrameCharacter(State currentState) {
-		TextureRegion region;
-		switch (currentState) {
-		case RUNNINGRIGHT:
-			region = (TextureRegion) playerRight.getKeyFrame(Character.getStateTimer(), true);
-			playerStand = region;
-			break;
-		case RUNNINGLEFT:
-			region = (TextureRegion) playerLeft.getKeyFrame(Character.getStateTimer(), true);
-			playerStand = region;
-			break;
-		case RUNNINGUP:
-			region = (TextureRegion) playerUp.getKeyFrame(Character.getStateTimer(), true);
-			playerStand = region;
-			break;
-		case RUNNINGDOWN:
-			region = (TextureRegion) playerDown.getKeyFrame(Character.getStateTimer(), true);
-			playerStand = region;
-			break;
-		case STANDING:
-			region = playerStand;
-			break;
-		default:
-			region = playerStand;
-			break;
-		}
-		return region;
 	}
 
 	public static Texture getHomeImage() {
@@ -172,6 +183,47 @@ public class LoadingImage {
 		return forest2Image;
 	}
 
+	public static Texture getFloorImage() {
+		return floorImage;
+	}
+
+	public static Texture getRoadImage() {
+		return roadImage;
+	}
+
+	public static Texture getBigHomeImage() {
+		return bigHomeImage;
+	}
+
+	public static TextureRegion getFrameCharacter(State currentState) {
+		TextureRegion region;
+		switch (currentState) {
+		case RUNNINGRIGHT:
+			region = (TextureRegion) playerRight.getKeyFrame(Character.getStateTimer(), true);
+			playerStand = region;
+			break;
+		case RUNNINGLEFT:
+			region = (TextureRegion) playerLeft.getKeyFrame(Character.getStateTimer(), true);
+			playerStand = region;
+			break;
+		case RUNNINGUP:
+			region = (TextureRegion) playerUp.getKeyFrame(Character.getStateTimer(), true);
+			playerStand = region;
+			break;
+		case RUNNINGDOWN:
+			region = (TextureRegion) playerDown.getKeyFrame(Character.getStateTimer(), true);
+			playerStand = region;
+			break;
+		case STANDING:
+			region = playerStand;
+			break;
+		default:
+			region = playerStand;
+			break;
+		}
+		return region;
+	}
+
 	public static TextureRegion getFrameEnemy(com.mygdx.game.src.World.Enemy.State currentState, Enemy enemy) {
 		TextureRegion region;
 		switch (currentState) {
@@ -200,19 +252,8 @@ public class LoadingImage {
 		}
 		return region;
 	}
-
-	public static Texture getFloorImage() {
-		return floorImage;
-	}
-
-	public static Texture getRoadImage() {
-		return roadImage;
-	}
-
-	public static Texture getBigHomeImage() {
-		return bigHomeImage;
-	}
-
+	
+	
 	public static void setFrameDurationCharacter(float frameDuration) {
 		playerLeft.setFrameDuration(frameDuration);
 		playerDown.setFrameDuration(frameDuration);
