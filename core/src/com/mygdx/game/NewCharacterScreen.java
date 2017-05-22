@@ -71,7 +71,6 @@ public class NewCharacterScreen implements Screen {
 		// Create buttons
 
 		TextField name = new TextField("Name", skin);
-
 		
 		TextButton mButton = new TextButton("M", skin);
 		TextButton fButton = new TextButton("F", skin);
