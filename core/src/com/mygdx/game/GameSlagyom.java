@@ -9,8 +9,8 @@ public class GameSlagyom extends Game{
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		//setScreen(new MenuScreen(this));
-		setScreen(new PlayScreen(this));
+		setScreen(new MenuScreen(this));
+		//setScreen(new PlayScreen(this));
 	}
 
 	@Override
