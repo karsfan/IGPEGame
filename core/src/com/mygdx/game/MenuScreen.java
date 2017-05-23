@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -38,21 +39,20 @@ public class MenuScreen implements Screen {
 
 	public TextButton musicButton;
 	public TextButton returnButton;
-
+	
 	public MenuScreen(final GameSlagyom game) {
 		MenuScreen.game = game;
 		atlas = new TextureAtlas("menu/vhs/vhs-ui.atlas");
 		skin = new Skin(Gdx.files.internal("menu/vhs/vhs-ui.json"), atlas);
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("res/menuMusic.mp3"));
-		music.play();
+		//music.play();
 
 		musicButton = new TextButton("Music", skin);
 		returnButton = new TextButton("Return", skin);
 
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
-
 		viewport.apply();
 
 		background = new Texture("res/background.png");
@@ -81,7 +81,7 @@ public class MenuScreen implements Screen {
 		TextButton editorButton = new TextButton("Level editor", skin);
 		TextButton optionsButton = new TextButton("Options", skin);
 		TextButton exitButton = new TextButton("Exit", skin);
-
+		
 		// Add listeners to buttons
 		playButton.addListener(new ClickListener() {
 			@Override
@@ -94,7 +94,7 @@ public class MenuScreen implements Screen {
 		continueButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("WAIT");
+				((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(game, ""));
 			}
 		});
 		editorButton.addListener(new ClickListener() {

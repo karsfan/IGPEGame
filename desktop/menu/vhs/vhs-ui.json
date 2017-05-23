@@ -34,6 +34,7 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 		font: font
 	}
 }
+
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
 		font: font
@@ -62,6 +63,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: title
 	}
 }
+
+
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
 	default-horizontal: {
 		background: progressbar
@@ -102,5 +105,6 @@ com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
 		label: default
 	}
+	
 }
 }

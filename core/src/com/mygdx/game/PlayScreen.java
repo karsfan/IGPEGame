@@ -98,10 +98,10 @@ public class PlayScreen implements Screen {
 	private void moveCharacter(float dt) {
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
 			Game.character.setVelocity(150f);
-			LoadingImage.setFrameDurationCharacter(0.1f);
+			//LoadingImage.setFrameDurationCharacter(0.1f);
 		} else {
 			Game.character.setVelocity(100);
-			LoadingImage.setFrameDurationCharacter(0.2f);
+			//LoadingImage.setFrameDurationCharacter(0.2f);
 		}
 		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
 			Game.character.movesLeft(dt);

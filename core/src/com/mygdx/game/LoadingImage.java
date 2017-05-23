@@ -79,6 +79,9 @@ public class LoadingImage {
 	public static Animation<TextureRegion> woman3Up;
 	public static Animation<TextureRegion> woman3Down;
 
+	static Integer b; 
+	Integer a; 
+	
 	public LoadingImage() {
 
 		homeImage = new Texture("res/home.png");
@@ -93,7 +96,10 @@ public class LoadingImage {
 		forest1Image = new Texture("res/forest1.png");
 		forest2Image = new Texture("res/forest2.png");
 
+		
 		playerTexture = new Texture("assets/bpj.png");
+		
+		//createFrame(playerTexture, playerRight, playerLeft, playerUp, playerDown, playerStand);
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 
 		for (int i = 0; i < 8; i++) {
@@ -122,7 +128,8 @@ public class LoadingImage {
 
 		playerStand = (TextureRegion) playerRight.getKeyFrame(0);
 
-		enemyTexture = new Texture("assets/bpj.png");
+		/*enemyTexture = new Texture("assets/bpj.png");
+		Array<TextureRegion> frames = new Array<TextureRegion>();
 
 		for (int i = 0; i < 9; i++) {
 			frames.add(new TextureRegion(enemyTexture, i * 64 / 2, 93, 60 / 2, 60 / 2));
@@ -147,10 +154,42 @@ public class LoadingImage {
 		}
 		enemyUp = new Animation<TextureRegion>(0.2f, frames);
 
-		enemyStand = (TextureRegion) enemyRight.getKeyFrame(0);
+		enemyStand = (TextureRegion) enemyRight.getKeyFrame(0);*/
 
 	}
+	
+	public static void createFrame (Texture texture, Animation <TextureRegion> right, Animation <TextureRegion> left,
+		Animation <TextureRegion> up, Animation <TextureRegion> down, TextureRegion stand){
 
+		Array<TextureRegion> frames = new Array<TextureRegion>();
+
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(texture, i * 64 / 2, 93, 60 / 2, 60 / 2));
+		}
+		right = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+
+		for (int i = 8; i != 0; i--) {
+			frames.add(new TextureRegion(texture, i * 64 / 2, 31, 60 / 2, 60 / 2));
+		}
+		left = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(texture, i * 64 / 2, 62, 60 / 2, 60 / 2));
+		}
+		down = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(texture, i * 64 / 2, 0, 60 / 2, 60 / 2));
+		}
+		up = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+		playerStand = (TextureRegion) right.getKeyFrame(0);
+	}
+	
+	
 	public static Texture getHomeImage() {
 		return homeImage;
 	}
