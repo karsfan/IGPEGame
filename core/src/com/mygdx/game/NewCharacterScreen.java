@@ -1,31 +1,26 @@
 package com.mygdx.game;
 
-import java.awt.event.TextEvent;
-import java.awt.event.TextListener;
-
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -42,6 +37,8 @@ public class NewCharacterScreen implements Screen {
 	private TextureAtlas atlas;
 	protected Skin skin;
 	MenuScreen menuscreen;
+	
+	private String charName;
 
 
 	public NewCharacterScreen (final GameSlagyom game, final MenuScreen menuscreen) {
@@ -68,30 +65,71 @@ public class NewCharacterScreen implements Screen {
 		mainTable.setFillParent(true);
 		mainTable.top();
 
+		charName = "";
+		
 		// Create buttons
 
-		TextField name = new TextField("Name", skin);
+		final TextField name = new TextField("", skin);
+		name.setMessageText("Name");
+		name.setFocusTraversal(true);
+		final StringBuilder sb = new StringBuilder();
+		name.setTextFieldListener(new TextFieldListener() {
+		    @Override
+		    public void keyTyped(TextField textField, char key) {
+		    	if ((key == '\r' || key == '\n')){
+		            textField.next(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT));
+		            charName = name.getText();
+		    	}
+		    }
+		});
+;
 		
-		TextButton mButton = new TextButton("M", skin);
-		TextButton fButton = new TextButton("F", skin);
-
-
-		//TextButton returnButton = new TextButton("Return", skin);
-		// Add listeners to buttons
-		/*defaultLevelButton.addListener(new ClickListener() {
+		Drawable maleDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/male.png")));
+		final ImageButton male = new ImageButton(maleDraw);
+		male.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(game));
-				menuscreen.music.stop();
+				System.out.println("MALE");
 			}
-		});*/
+		});
+		
+		Drawable femaleDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/male.png")));
+		ImageButton female = new ImageButton(femaleDraw);
+		female.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				System.out.println("FEMALE");
+			}
+		});
+		
+		TextButton continueButton = new TextButton("Continue", skin);
+		continueButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.input.setInputProcessor(menuscreen.stage);
+				game.setScreen(new InitializerScreen(game, menuscreen));
+			}
+		});
 
+		TextButton returnButton = new TextButton("Return", skin);
+		returnButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.input.setInputProcessor(menuscreen.stage);
+				game.setScreen(menuscreen);
+			}
+		});
 	
 		// Add buttons to table
 		mainTable.add(name).pad(5).padTop(Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 4);
 		mainTable.row();
-		mainTable.add(mButton).pad(5); 
-		mainTable.add(fButton).pad(5); 
+		mainTable.add(male).pad(30);
+		mainTable.columnDefaults(1);
+		mainTable.add(female).pad(5);
+		mainTable.row();
+		mainTable.add(continueButton).pad(20).center();
+		mainTable.row();
+		mainTable.add(returnButton).pad(20).center();
 
 		stage.addActor(mainTable);
 	}

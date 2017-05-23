@@ -88,7 +88,7 @@ public class MenuScreen implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 				//((Game) Gdx.app.getApplicationListener()).setScreen(initializerScreen);
 				((Game) Gdx.app.getApplicationListener()).setScreen(newCharacterScreen);
-				Gdx.input.setInputProcessor(initializerScreen.stage);
+				Gdx.input.setInputProcessor(newCharacterScreen.stage);
 			}
 		});
 		continueButton.addListener(new ClickListener() {
