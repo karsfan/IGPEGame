@@ -1,18 +1,15 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -20,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -34,18 +30,16 @@ public class NewCharacterScreen implements Screen {
 	private Texture background;
 	private Sprite backgroundSprite;
 
-	private TextureAtlas atlas;
-	protected Skin skin;
 	MenuScreen menuscreen;
 	
-	private String charName;
+	static String charName;
 
 
 	public NewCharacterScreen (final GameSlagyom game, final MenuScreen menuscreen) {
 		this.game = game;
 		this.menuscreen = menuscreen;
-		atlas = new TextureAtlas("menu/vhs/vhs-ui.atlas");
-		skin = new Skin(Gdx.files.internal("menu/vhs/vhs-ui.json"), atlas);
+		//atlas = new TextureAtlas("menu/vhs/vhs-ui.atlas");
+		//skin = new Skin(Gdx.files.internal("menu/vhs/vhs-ui.json"), atlas);
 
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
@@ -69,20 +63,18 @@ public class NewCharacterScreen implements Screen {
 		
 		// Create buttons
 
-		final TextField name = new TextField("", skin);
+		final TextField name = new TextField("", MenuScreen.skin);
 		name.setMessageText("Name");
 		name.setFocusTraversal(true);
-		final StringBuilder sb = new StringBuilder();
 		name.setTextFieldListener(new TextFieldListener() {
 		    @Override
 		    public void keyTyped(TextField textField, char key) {
-		    	if ((key == '\r' || key == '\n')){
-		            textField.next(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT));
-		            charName = name.getText();
-		    	}
+		    	//if ((key == '\r' || key == '\n')){
+		           // textField.next(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT));
+		    	//}
 		    }
 		});
-;
+		
 		
 		Drawable maleDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/male.png")));
 		final ImageButton male = new ImageButton(maleDraw);
@@ -102,16 +94,17 @@ public class NewCharacterScreen implements Screen {
 			}
 		});
 		
-		TextButton continueButton = new TextButton("Continue", skin);
+		TextButton continueButton = new TextButton("Continue", MenuScreen.skin);
 		continueButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+	            charName = name.getText().toUpperCase();
 				Gdx.input.setInputProcessor(menuscreen.stage);
 				game.setScreen(new InitializerScreen(game, menuscreen));
 			}
 		});
 
-		TextButton returnButton = new TextButton("Return", skin);
+		TextButton returnButton = new TextButton("Return", MenuScreen.skin);
 		returnButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -124,7 +117,6 @@ public class NewCharacterScreen implements Screen {
 		mainTable.add(name).pad(5).padTop(Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 4);
 		mainTable.row();
 		mainTable.add(male).pad(30);
-		mainTable.columnDefaults(1);
 		mainTable.add(female).pad(5);
 		mainTable.row();
 		mainTable.add(continueButton).pad(20).center();
@@ -177,8 +169,8 @@ public class NewCharacterScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		skin.dispose();
-		atlas.dispose();
+		MenuScreen.skin.dispose();
+		MenuScreen.atlas.dispose();
 	}
 
 }

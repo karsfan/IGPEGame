@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.src.Character.Character;
 
 public class Hud {
 	public SpriteBatch spriteBatch; 
@@ -17,21 +17,17 @@ public class Hud {
 	public Stage stage; 
 	private Viewport viewport;
 	
-	private Integer score; 
 	private Integer health; 
 	
-	Label scoreLabel;
 	Label healthLabel; 
-	
+	Label nameLabel;
 	Label villageLabel; 
 	
 	public Hud (SpriteBatch sb, OrthographicCamera gamecam, Viewport gamePort) {
 		spriteBatch = sb; 
-		score = 0;
 		health = 100; 
 		
 		viewport = new FitViewport(1200, 1200, new OrthographicCamera());
-	//	viewport = gamePort;
 		stage = new Stage(viewport, sb);
 		
 		Table table = new Table(); 
@@ -46,12 +42,12 @@ public class Hud {
 		
 		font.getData().setScale(2);
 		
-		scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(font, Color.WHITE));
-		healthLabel = new Label(String.format("%03d", health), new Label.LabelStyle(font, Color.WHITE));
-		villageLabel = new Label(String.format("VILLAGE 1"), new Label.LabelStyle(font, Color.WHITE));
+		nameLabel = new Label (Character.name, MenuScreen.skin);
+		healthLabel = new Label(String.format("%03d", health), MenuScreen.skin);
+		villageLabel = new Label(String.format("VILLAGE 1"), MenuScreen.skin);
 		
+		table.add(nameLabel).expandX().pad(20);
 		table.add(villageLabel).expandX().pad(20);
-		table.add(scoreLabel).expandX().pad(20);
 		table.add(healthLabel).expandX().pad(20);
 		table.row(); // nuova colonna
 		

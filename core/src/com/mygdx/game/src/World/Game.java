@@ -13,16 +13,16 @@ public class Game {
 	public static World world;
 	public static Character character;
 
-	public Game() {
-		character = new Character();
+	public Game(String name) {
+		character = new Character(name);
 		fc = new JFileChooser();
 		initialize();
 		readMap();
 		world.getListObjects().add(character);
 	}
-
-	public Game(String path) {
-		character = new Character();
+	
+	public Game(String path, String name) {
+		character = new Character(name);
 		fc = new JFileChooser();
 		initialize();
 		openFile(path);

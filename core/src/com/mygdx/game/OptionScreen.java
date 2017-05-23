@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -27,16 +28,12 @@ public class OptionScreen implements Screen {
 	private Texture background;
 	private Sprite backgroundSprite;
 
-	private TextureAtlas atlas;
-	protected Skin skin;
-
 	public boolean activeMusic;
 
 	public OptionScreen(final GameSlagyom game, final MenuScreen menuscreen) {
 		this.game = game;
 		this.menuscreen = menuscreen;
-		atlas = new TextureAtlas("menu/vhs/vhs-ui.atlas");
-		skin = new Skin(Gdx.files.internal("menu/vhs/vhs-ui.json"), atlas);
+	
 
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
@@ -58,18 +55,22 @@ public class OptionScreen implements Screen {
 		mainTable.top();
 
 		// Create buttons
-		TextButton musicButton = new TextButton("Music", skin);
-		TextButton returnButton = new TextButton("Return", skin);
+		final TextButton musicButton = new TextButton("Music ON", MenuScreen.skin);
+		TextButton returnButton = new TextButton("Return", MenuScreen.skin);
 
 		// Add listeners to buttons
 		musicButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				activeMusic = !activeMusic;
-				if (!activeMusic)
+				if (!activeMusic){
 					menuscreen.music.pause();
-				else
+					musicButton.setText("Music OFF");
+				}
+				else{
 					menuscreen.music.play();
+					musicButton.setText("Music ON");
+				}
 			}
 		});
 
@@ -132,8 +133,8 @@ public class OptionScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		skin.dispose();
-		atlas.dispose();
+		MenuScreen.skin.dispose();
+		MenuScreen.atlas.dispose();
 	}
 
 }

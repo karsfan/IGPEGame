@@ -16,7 +16,7 @@ public class Character implements ICollidable {
 		STANDING, RUNNINGRIGHT, RUNNINGLEFT, RUNNINGDOWN, RUNNINGUP
 	};
 
-	public String name;
+	public static String name;
 	public Bag bag;
 	public Weapon primary_weapon;
 	float health;
@@ -31,9 +31,9 @@ public class Character implements ICollidable {
 	public float width;
 	public float velocity = 100;
 
-	public Character() {
-
-		name = null;
+	@SuppressWarnings("static-access")
+	public Character(String name) {
+		this.name = name;
 		bag = new Bag();
 		primary_weapon = null;
 		health = 100;
@@ -60,6 +60,7 @@ public class Character implements ICollidable {
 		this.primary_weapon = primary_weapon;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -96,8 +97,8 @@ public class Character implements ICollidable {
 	}
 
 	public void movesRight(float dt) {
-		if (dt > 0.018)
-			dt = (float) 0.017;
+		if (dt > 0.017)
+			dt = (float) 0.0165;
 		if (x < 1440 - width / 2) {
 			x += (int) (velocity * dt);
 			if (collide(this))
@@ -107,6 +108,8 @@ public class Character implements ICollidable {
 	}
 
 	public void movesLeft(float dt) {
+		if (dt > 0.017)
+			dt = (float) 0.0165;
 		if (x > 5) {
 			x -= (int) (velocity * dt);
 			if (collide(this))
@@ -116,6 +119,8 @@ public class Character implements ICollidable {
 	}
 
 	public void movesUp(float dt) {
+		if (dt > 0.017)
+			dt = (float) 0.0165;
 		if (y < 960 - height - 5) {
 			y += (int) (velocity * dt);
 			if (collide(this))
@@ -125,6 +130,8 @@ public class Character implements ICollidable {
 	}
 
 	public void movesDown(float dt) {
+		if (dt > 0.017)
+			dt = (float) 0.0165;
 		if (y > 0) {
 			y -= (int) (velocity * dt);
 			if (collide(this))

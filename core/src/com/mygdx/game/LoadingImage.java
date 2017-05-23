@@ -96,7 +96,7 @@ public class LoadingImage {
 		playerTexture = new Texture("assets/bpj.png");
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 8; i++) {
 			frames.add(new TextureRegion(playerTexture, i * 64 / 2, 93, 60 / 2, 60 / 2));
 		}
 		playerRight = new Animation<TextureRegion>(0.2f, frames);

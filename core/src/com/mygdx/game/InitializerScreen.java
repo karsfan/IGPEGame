@@ -10,10 +10,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -30,17 +29,13 @@ public class InitializerScreen implements Screen{
 	private Texture background;
 	private Sprite backgroundSprite;
 
-	private TextureAtlas atlas;
-	protected Skin skin;
 	MenuScreen menuscreen;
 
 
 	public InitializerScreen (final GameSlagyom game, final MenuScreen menuscreen) {
 		this.game = game;
 		this.menuscreen = menuscreen;
-		atlas = new TextureAtlas("menu/vhs/vhs-ui.atlas");
-		skin = new Skin(Gdx.files.internal("menu/vhs/vhs-ui.json"), atlas);
-
+		
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
 		viewport.apply();
@@ -58,16 +53,19 @@ public class InitializerScreen implements Screen{
 		Table mainTable = new Table();
 		mainTable.setFillParent(true);
 		mainTable.top();
-
+		
+		
+		
+		Label name = new Label ("Welcome " + NewCharacterScreen.charName, MenuScreen.skin);
 		// Create buttons
-		TextButton defaultLevelButton = new TextButton("Default level", skin);
-		TextButton chooseLevelButton = new TextButton("Choose level...", skin);
-		TextButton returnButton = new TextButton("Return", skin);
+		TextButton defaultLevelButton = new TextButton("Default level", MenuScreen.skin);
+		TextButton chooseLevelButton = new TextButton("Choose level...", MenuScreen.skin);
+		TextButton returnButton = new TextButton("Return", MenuScreen.skin);
 		// Add listeners to buttons
 		defaultLevelButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(game));
+				((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(game, NewCharacterScreen.charName));
 				menuscreen.music.stop();
 			}
 		});
@@ -86,7 +84,7 @@ public class InitializerScreen implements Screen{
 				if (res == JFileChooser.APPROVE_OPTION) {
 					path = (fc.getSelectedFile().getAbsolutePath());
 				}
-				((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(game, path));
+				((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(game, path, NewCharacterScreen.charName));
 			}
 		});
 		
@@ -98,7 +96,9 @@ public class InitializerScreen implements Screen{
 			}
 		});
 		// Add buttons to table
-		mainTable.add(defaultLevelButton).pad(5).padTop(Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 5);
+		mainTable.add(name).pad(30);
+		mainTable.row();
+		mainTable.add(defaultLevelButton).pad(5).padTop(Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 3);
 		mainTable.row();
 		mainTable.add(chooseLevelButton).pad(5);
 		mainTable.row();
@@ -124,6 +124,8 @@ public class InitializerScreen implements Screen{
 
 		stage.act();
 		stage.draw();
+
+
 
 	}
 
@@ -151,8 +153,8 @@ public class InitializerScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		skin.dispose();
-		atlas.dispose();
+		MenuScreen.skin.dispose();
+		MenuScreen.atlas.dispose();
 	}
 
 }

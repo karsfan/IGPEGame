@@ -32,8 +32,8 @@ public class MenuScreen implements Screen {
 	private Texture background;
 	private Sprite backgroundSprite;
 	public Music music;
-	private TextureAtlas atlas;
-	protected Skin skin;
+	static TextureAtlas atlas;
+	protected static Skin skin;
 	public Table mainTable;
 
 	public TextButton musicButton;

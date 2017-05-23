@@ -24,7 +24,7 @@ public class PlayScreen implements Screen {
 	public LoadingImage loadingImage;
 	public Hud hud;
 
-	public PlayScreen(GameSlagyom game) {
+	/*public PlayScreen(GameSlagyom game) {
 		this.game = game;
 		new Game();
 		gamecam = new OrthographicCamera();
@@ -35,11 +35,24 @@ public class PlayScreen implements Screen {
 		gamecam.position.y = Game.character.getY();
 		hud = new Hud(game.batch, gamecam, gamePort);
 
+	}*/
+	
+	public PlayScreen(GameSlagyom game, String name) {
+		this.game = game;
+		new Game(name);
+		gamecam = new OrthographicCamera();
+		// gamePort = new StretchViewport(440, 260, gamecam);
+		gamePort = new ScreenViewport(gamecam);
+		loadingImage = new LoadingImage();
+		gamecam.position.x = Game.character.getX();
+		gamecam.position.y = Game.character.getY();
+		hud = new Hud(game.batch, gamecam, gamePort);
+
 	}
 	
-	public PlayScreen(GameSlagyom game, String path) {
+	public PlayScreen(GameSlagyom game, String path, String name) {
 		this.game = game;
-		new Game(path);
+		new Game(path, name);
 		gamecam = new OrthographicCamera();
 		// gamePort = new StretchViewport(440, 260, gamecam);
 		gamePort = new ScreenViewport(gamecam);
