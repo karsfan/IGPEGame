@@ -98,9 +98,9 @@ public class Character extends DynamicObjects implements ICollidable {
 		if (dt > 0.017)
 			dt = (float) 0.0165;
 		if (x < 1440 - width / 2) {
-			x += (int) (velocity * dt);
+			x += (velocity * dt);
 			if (collide(this))
-				x -= (int) (velocity * dt);
+				x -= (velocity * dt);
 		}
 		setState(State.RUNNINGRIGHT);
 	}
@@ -109,9 +109,9 @@ public class Character extends DynamicObjects implements ICollidable {
 		if (dt > 0.017)
 			dt = (float) 0.0165;
 		if (x > 5) {
-			x -= (int) (velocity * dt);
+			x -=  (velocity * dt);
 			if (collide(this))
-				x += (int) (velocity * dt);
+				x += (velocity * dt);
 		}
 		setState(State.RUNNINGLEFT);
 	}
@@ -120,9 +120,9 @@ public class Character extends DynamicObjects implements ICollidable {
 		if (dt > 0.017)
 			dt = (float) 0.0165;
 		if (y < 960 - height - 5) {
-			y += (int) (velocity * dt);
+			y +=  (velocity * dt);
 			if (collide(this))
-				y -= (int) (velocity * dt);
+				y -= (velocity * dt);
 		}
 		setState(State.RUNNINGUP);
 	}
@@ -131,9 +131,9 @@ public class Character extends DynamicObjects implements ICollidable {
 		if (dt > 0.017)
 			dt = (float) 0.0165;
 		if (y > 0) {
-			y -= (int) (velocity * dt);
+			y -= (velocity * dt);
 			if (collide(this))
-				y += (int) (velocity * dt);
+				y += (velocity * dt);
 		}
 		setState(State.RUNNINGDOWN);
 	}

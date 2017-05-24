@@ -155,7 +155,7 @@ public class PlayScreen implements Screen {
 	}
 
 	private void handleInput(float dt) {
-		Game.world.update(dt);
+		//Game.world.update(dt);
 	}
 
 	public void draw(SpriteBatch batch) {
