@@ -22,7 +22,7 @@ public class LoadingImage {
 	private Texture forest1Image;
 	private Texture forest2Image;
 
-	public Texture playerTexture;
+	public Texture texture;
 	private TextureRegion playerStand;
 	public Animation<TextureRegion>[] playerAnimation;
 
@@ -30,17 +30,13 @@ public class LoadingImage {
 	private static TextureRegion enemyStand;
 	public Animation<TextureRegion>[] enemyAnimation;
 
-	public Texture man1Texture;
 	private static TextureRegion man1Stand;
-	public static Animation<TextureRegion> man1Right;
-	public static Animation<TextureRegion> man1Left;
-	public static Animation<TextureRegion> man1Up;
-	public static Animation<TextureRegion> man1Down;
+	public Animation<TextureRegion>[] man1Animation;
 
 	public Texture man2Texture;
 	private static TextureRegion man2Stand;
 	public Animation<TextureRegion>[] man2Animation;
-	
+
 	public Texture man3Texture;
 	private static TextureRegion man3Stand;
 	public Animation<TextureRegion>[] man3Animation;
@@ -75,91 +71,25 @@ public class LoadingImage {
 		forest1Image = new Texture("res/forest1.png");
 		forest2Image = new Texture("res/forest2.png");
 
-		playerTexture = new Texture("assets/bpj.png");
-
-		// createFrame(playerTexture, playerRight, playerLeft, playerUp,
-		// playerDown, playerStand);
-		Array<TextureRegion> frames = new Array<TextureRegion>();
 		playerAnimation = new Animation[4];
-		createFrame(playerTexture, playerAnimation);
-		/*
-		 * for (int i = 0; i < 8; i++) { frames.add(new
-		 * TextureRegion(playerTexture, i * 64 / 2, 93, 60 / 2, 60 / 2)); }
-		 * playerRight = new Animation<TextureRegion>(0.2f, frames);
-		 * frames.clear();
-		 * 
-		 * for (int i = 8; i != 0; i--) { frames.add(new
-		 * TextureRegion(playerTexture, i * 64 / 2, 31, 60 / 2, 60 / 2)); }
-		 * playerLeft = new Animation<TextureRegion>(0.2f, frames);
-		 * frames.clear();
-		 * 
-		 * for (int i = 0; i < 8; i++) { frames.add(new
-		 * TextureRegion(playerTexture, i * 64 / 2, 62, 60 / 2, 60 / 2)); }
-		 * playerDown = new Animation<TextureRegion>(0.2f, frames);
-		 * frames.clear();
-		 * 
-		 * for (int i = 0; i < 8; i++) { frames.add(new
-		 * TextureRegion(playerTexture, i * 64 / 2, 0, 60 / 2, 60 / 2)); }
-		 * playerUp = new Animation<TextureRegion>(0.2f, frames);
-		 * frames.clear();
-		 * 
-		 * playerStand = (TextureRegion) playerRight.getKeyFrame(0);
-		 */
-		/*
-		 * enemyTexture = new Texture("assets/bpj.png"); Array<TextureRegion>
-		 * frames = new Array<TextureRegion>();
-		 * 
-		 * for (int i = 0; i < 9; i++) { frames.add(new
-		 * TextureRegion(enemyTexture, i * 64 / 2, 93, 60 / 2, 60 / 2)); }
-		 * enemyRight = new Animation<TextureRegion>(0.2f, frames);
-		 * frames.clear();
-		 * 
-		 * for (int i = 8; i != 0; i--) { frames.add(new
-		 * TextureRegion(enemyTexture, i * 64 / 2, 31, 60 / 2, 60 / 2)); }
-		 * enemyLeft = new Animation<TextureRegion>(0.2f, frames);
-		 * frames.clear();
-		 * 
-		 * for (int i = 0; i < 8; i++) { frames.add(new
-		 * TextureRegion(enemyTexture, i * 64 / 2, 62, 60 / 2, 60 / 2)); }
-		 * enemyDown = new Animation<TextureRegion>(0.2f, frames);
-		 * frames.clear();
-		 * 
-		 * for (int i = 0; i < 8; i++) { frames.add(new
-		 * TextureRegion(enemyTexture, i * 64 / 2, 0, 60 / 2, 60 / 2)); }
-		 * enemyUp = new Animation<TextureRegion>(0.2f, frames);
-		 * 
-		 * enemyStand = (TextureRegion) enemyRight.getKeyFrame(0);
-		 */
-		man1Texture = new Texture("assets/notPlaying.png");
+		enemyAnimation = new Animation[4];
+		man1Animation = new Animation[4];
+		man2Animation = new Animation[4];
+		man3Animation = new Animation[4];
+		woman1Animation = new Animation[4];
+		woman2Animation = new Animation[4];
+		woman3Animation = new Animation[4];
 
-		for (int i = 0; i < 8; i++) {
-			frames.add(new TextureRegion(man1Texture, i * 64 / 2, 93, 60 / 2, 60 / 2));
-		}
-		man1Right = new Animation<TextureRegion>(0.2f, frames);
-		frames.clear();
-
-		for (int i = 7; i != 0; i--) {
-			frames.add(new TextureRegion(man1Texture, i * 64 / 2, 31, 60 / 2, 60 / 2));
-		}
-		man1Left = new Animation<TextureRegion>(0.2f, frames);
-		frames.clear();
-
-		for (int i = 0; i < 8; i++) {
-			frames.add(new TextureRegion(man1Texture, i * 64 / 2, 62, 60 / 2, 60 / 2));
-		}
-		man1Down = new Animation<TextureRegion>(0.2f, frames);
-		frames.clear();
-
-		for (int i = 0; i < 8; i++) {
-			frames.add(new TextureRegion(man1Texture, i * 64 / 2, 0, 60 / 2, 60 / 2));
-		}
-		man1Up = new Animation<TextureRegion>(0.2f, frames);
-		frames.clear();
-		man1Stand = (TextureRegion) man1Right.getKeyFrame(0);
+		texture = new Texture("assets/bpj.png");
+		createFrame(texture, playerAnimation);
+		playerStand = playerAnimation[0].getKeyFrame(0,true);
+		texture = new Texture("assets/notPlaying.png");
+		createFrame(texture, man1Animation);
+		man1Stand = man1Animation[0].getKeyFrame(0,true);
 
 	}
 
-	public  void createFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation) {
+	public void createFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation) {
 
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		Animation<TextureRegion> right;
@@ -193,7 +123,6 @@ public class LoadingImage {
 		arrayAnimation[1] = left;
 		arrayAnimation[2] = up;
 		arrayAnimation[3] = down;
-		playerStand = (TextureRegion) arrayAnimation[0].getKeyFrame(0,true);
 
 	}
 
@@ -242,7 +171,8 @@ public class LoadingImage {
 	}
 
 	public TextureRegion getFrameCharacter(State currentState) {
-		TextureRegion region;
+		TextureRegion region = new TextureRegion();
+
 		switch (currentState) {
 		case RUNNINGRIGHT:
 			region = (TextureRegion) playerAnimation[0].getKeyFrame(Game.character.getStateTimer(), true);
@@ -261,7 +191,15 @@ public class LoadingImage {
 			playerStand = region;
 			break;
 		case STANDING:
-			region = playerStand;
+			if (Game.character.getPreviousState() == State.RUNNINGRIGHT)
+				playerStand = (TextureRegion) playerAnimation[0].getKeyFrame(0, true);
+			if (Game.character.getPreviousState() == State.RUNNINGLEFT)
+				playerStand = (TextureRegion) playerAnimation[1].getKeyFrame(0, true);
+			if (Game.character.getPreviousState() == State.RUNNINGUP)
+				playerStand = (TextureRegion) playerAnimation[2].getKeyFrame(0, true);
+			if (Game.character.getPreviousState() == State.RUNNINGDOWN)
+				playerStand = (TextureRegion) playerAnimation[3].getKeyFrame(0, true);
+				region = playerStand;
 			break;
 		default:
 			region = playerStand;
@@ -270,23 +208,23 @@ public class LoadingImage {
 		return region;
 	}
 
-	public static TextureRegion getFrameMan(com.mygdx.game.src.Character.Man.State state) {
+	public TextureRegion getFrameMan(com.mygdx.game.src.Character.Man.State state) {
 		TextureRegion region;
 		switch (state) {
 		case RUNNINGRIGHT:
-			region = (TextureRegion) man1Right.getKeyFrame(Game.man1.getStateTimer(), true);
+			region = (TextureRegion) man1Animation[0].getKeyFrame(Game.man1.getStateTimer(), true);
 			man1Stand = region;
 			break;
 		case RUNNINGLEFT:
-			region = (TextureRegion) man1Left.getKeyFrame(Game.man1.getStateTimer(), true);
+			region = (TextureRegion) man1Animation[1].getKeyFrame(Game.man1.getStateTimer(), true);
 			man1Stand = region;
 			break;
 		case RUNNINGUP:
-			region = (TextureRegion) man1Up.getKeyFrame(Game.man1.getStateTimer(), true);
+			region = (TextureRegion) man1Animation[2].getKeyFrame(Game.man1.getStateTimer(), true);
 			man1Stand = region;
 			break;
 		case RUNNINGDOWN:
-			region = (TextureRegion) man1Down.getKeyFrame(Game.man1.getStateTimer(), true);
+			region = (TextureRegion) man1Animation[3].getKeyFrame(Game.man1.getStateTimer(), true);
 			man1Stand = region;
 			break;
 		case STANDING:
@@ -299,7 +237,7 @@ public class LoadingImage {
 		return region;
 	}
 
-	public  TextureRegion getFrameEnemy(com.mygdx.game.src.World.Enemy.State currentState, Enemy enemy) {
+	public TextureRegion getFrameEnemy(com.mygdx.game.src.World.Enemy.State currentState, Enemy enemy) {
 		TextureRegion region;
 		switch (currentState) {
 		case RUNNINGRIGHT:

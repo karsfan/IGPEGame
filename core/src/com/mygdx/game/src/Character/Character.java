@@ -139,14 +139,15 @@ public class Character extends DynamicObjects implements ICollidable {
 		return stateTimer;
 	}
 
-	private void setState(State state) {
+	public void setState(State state) {
 		previousState = currentState;
 		currentState = state;
-
+		
 		if (previousState == currentState)
 			setStateTimer(getStateTimer() + Gdx.graphics.getDeltaTime());
 		else
 			setStateTimer(0);
+			
 	}
 
 	public State getState() {
