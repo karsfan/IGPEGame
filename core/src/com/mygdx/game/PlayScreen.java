@@ -7,7 +7,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.AddAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.src.Character.Character;
@@ -76,8 +84,26 @@ public class PlayScreen implements Screen {
 		draw(game.batch);
 		game.batch.end();
 		hud.stage.draw();
+	}
+	
+	
+	public void drawDialog (final String text) {
+		Drawable dialog = new TextureRegionDrawable(new TextureRegion(new Texture("res/dialogBox.png")));
+		Drawable noDialog = null;
+		if (hud.showDialog) {
+			Label dialogLabel = new Label (text,MenuScreen.skin);
+			hud.textTable.setBounds(Gdx.graphics.getWidth()/3+15, Gdx.graphics.getHeight()/8+20, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			hud.textTable.setSize(236 * 3, 47 * 4);
+			hud.textTable.setBackground(dialog);
 
+			
 
+			hud.textTable.add(dialogLabel).fillX().top();			
+		}
+		else{
+			hud.textTable.clear();
+			hud.textTable.setBackground(noDialog);
+		}
 	}
 
 	public void update(float dt) {
@@ -93,6 +119,7 @@ public class PlayScreen implements Screen {
 				&& Game.character.getY() + Gdx.graphics.getHeight() / 2 < 960)
 			gamecam.position.y = Game.character.getY();
 		gamecam.update();
+
 	}
 
 	private void moveCharacter(float dt) {
@@ -120,7 +147,15 @@ public class PlayScreen implements Screen {
 			gamecam.zoom += 0.2;
 			gamecam.position.x = Game.character.getX();
 			gamecam.position.y = Game.character.getY();
+		} else if (Gdx.input.isKeyJustPressed(Keys.K)) {
+			hud.showDialog = !hud.showDialog;
+			drawDialog("\nDIALOGO BLA BLA BLA BLA BLA BLA\n"
+					+ "DIALOGO BLA BLA BLA BLA BLA BLA \n"
+					+ "DIALOGO BLA BLA BLA BLA BLA BLA \n");
+
 		}
+		
+		
 	
 	}
 

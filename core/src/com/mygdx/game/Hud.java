@@ -28,7 +28,7 @@ public class Hud {
 	Label nameLabel;
 	Label villageLabel;
 	public boolean showDialog = true;
-
+	public Table textTable = new Table();
 	public Hud(SpriteBatch sb, OrthographicCamera gamecam, Viewport gamePort) {
 		spriteBatch = sb;
 		health = 100;
@@ -37,7 +37,6 @@ public class Hud {
 		stage = new Stage(viewport, sb);
 
 		Table table = new Table();
-		Table textTable = new Table();
 		table.top(); // la allinea sopra al centro
 		table.setFillParent(true);
 
@@ -54,17 +53,16 @@ public class Hud {
 		stage.addActor(table);
 
 		Drawable dialog = new TextureRegionDrawable(new TextureRegion(new Texture("res/dialogBox.png")));
-		if (showDialog) {
-			TextButton dialogLabel = new TextButton("DIALOGO BLA BLA BLA BLA BLA BLA\n DIALOGO BLA BLA BLA BLA BLA BLA \n DIALOGO BLA BLA BLA BLA BLA BLA \n", MenuScreen.skin);
-			textTable.pad(15);
-			//textTable.bottom();
-			//textTable.center();
-			textTable.setBounds(Gdx.graphics.getWidth()/3+15, Gdx.graphics.getHeight()/8+30, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		/*if (showDialog) {
+			TextButton dialogLabel = new TextButton("\nDIALOGO BLA BLA BLA BLA BLA BLA\n DIALOGO BLA BLA BLA BLA BLA BLA \n DIALOGO BLA BLA BLA BLA BLA BLA \n", MenuScreen.skin);
+			
+			textTable.setBounds(Gdx.graphics.getWidth()/3+15, Gdx.graphics.getHeight()/8+20, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			textTable.setSize(236 * 3, 47 * 4);
 			textTable.setBackground(dialog);
-			textTable.add(dialogLabel).pad(65).center();
-			stage.addActor(textTable);
-		}
+
+			textTable.add(dialogLabel);
+		}*/
+		stage.addActor(textTable);
 	}
 
 }
