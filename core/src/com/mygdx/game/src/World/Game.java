@@ -7,25 +7,31 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 import com.mygdx.game.src.Character.Character;
+import com.mygdx.game.src.Character.Man;
 
 public class Game {
 	public static JFileChooser fc;
 	public static World world;
 	public static Character character;
+	public static Man man1;
 
 	public Game(String name) {
+		man1 = new Man();
 		character = new Character(name);
 		fc = new JFileChooser();
 		initialize();
 		readMap();
+		world.getListObjects().add(man1);
 		world.getListObjects().add(character);
 	}
 	
 	public Game(String path, String name) {
+		man1 = new Man();
 		character = new Character(name);
 		fc = new JFileChooser();
 		initialize();
 		openFile(path);
+		//world.getListObjects().add(man1);
 		world.getListObjects().add(character);
 	}
 

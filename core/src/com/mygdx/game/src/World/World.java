@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.mygdx.game.src.Character.Character;
+import com.mygdx.game.src.Character.Man;
 import com.mygdx.game.src.Map.AmbientElement;
 import com.mygdx.game.src.Map.Map;
 import com.mygdx.game.src.Tool.Tool;
@@ -82,6 +83,9 @@ public class World {
 			 * if (ob instanceof Character) { ((Character) ob).moveCharacter();
 			 * }
 			 */
+			if (ob instanceof Man) {
+				((Man) ob).update(dt);
+			}
 			if (ob instanceof Enemy) {
 				((Enemy) ob).update(dt);
 			}

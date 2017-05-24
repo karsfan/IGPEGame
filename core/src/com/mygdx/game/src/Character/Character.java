@@ -11,11 +11,7 @@ import com.mygdx.game.src.World.Tile;
 import com.mygdx.game.src.World.Weapon;
 import com.mygdx.game.src.World.World.Element;
 
-public class Character implements ICollidable {
-	public enum State {
-		STANDING, RUNNINGRIGHT, RUNNINGLEFT, RUNNINGDOWN, RUNNINGUP
-	};
-
+public class Character extends DynamicObjects implements ICollidable {
 	public static String name;
 	public Bag bag;
 	public Weapon primary_weapon;
@@ -29,10 +25,11 @@ public class Character implements ICollidable {
 	protected static float stateTimer;
 	public float height;
 	public float width;
-	public float velocity = 100;
+	public float velocity;
 
 	@SuppressWarnings("static-access")
 	public Character(String name) {
+		super();
 		this.name = name;
 		bag = new Bag();
 		primary_weapon = null;
@@ -41,6 +38,7 @@ public class Character implements ICollidable {
 		coins = 10;
 		x = 1000;
 		y = 600;
+		velocity = 100;
 		currentState = State.STANDING;
 		previousState = State.STANDING;
 		stateTimer = 0;
@@ -144,7 +142,7 @@ public class Character implements ICollidable {
 		stateTimer = f;
 	}
 
-	public static float getStateTimer() {
+	public float getStateTimer() {
 		return stateTimer;
 	}
 
@@ -180,6 +178,12 @@ public class Character implements ICollidable {
 					if (((Tile) ob).collide(this))
 						return true;
 			}
+			if (ob instanceof Man) {
+				if (!((x > ((Man) ob).getX() + ((Man) ob).getWidth() / 2 - 1 || ((Man) ob).getX() > x + width/2)
+						|| (y > ((Man) ob).getY() + ((Man) ob).getHeight() / 2 || ((Man) ob).getY() > y + height/2)))
+					return true;
+			}
+
 		}
 		return false;
 	}
