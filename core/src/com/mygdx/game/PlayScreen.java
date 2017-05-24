@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.src.Character.Character;
+import com.mygdx.game.src.Character.DynamicObjects.State;
 import com.mygdx.game.src.Character.Man;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.Tile;
@@ -148,7 +149,8 @@ public class PlayScreen implements Screen {
 			drawDialog("CIAO");
 
 		}
-		
+		else
+			Game.character.setState(State.STANDING);
 		
 	
 	}
