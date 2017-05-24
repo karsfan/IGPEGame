@@ -12,8 +12,7 @@ public class World {
 	public enum Element {
 		HOME, THREE, FOREST1, FOREST2, GROUND, BUILDING, WATER, ROCK, CHARACTER, ENEMY, PARCHMENTLEVEL1, PARCHMENTLEVEL2, PARCHMENTLEVEL3, POTION_H_L1, POTION_H_L2, POTION_H_L3, FLOOR, ROAD, BIGHOME
 	};
-
-	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	
 	ArrayList<Tool> tools = new ArrayList<Tool>();
 	Shop shop;
 	public Weapon spada;
@@ -89,8 +88,8 @@ public class World {
 
 	public void addTile(String element, Point point) {
 		Tile tile = new Tile(element, point);
-		if (element != "GROUND")
-			tile.setPoint(new Point(tile.getPoint().x, tile.getPoint().y - (tile.getSize().height / 32) + 1));
+		//if (element != "GROUND" && element!= "ROAD")
+			tile.setPoint(new Point((int)tile.shape.getRectangle().x, (int)(tile.shape.getRectangle().y - (tile.shape.getRectangle().height / 32) + 1)));
 		listObjects.add(tile);
 	}
 

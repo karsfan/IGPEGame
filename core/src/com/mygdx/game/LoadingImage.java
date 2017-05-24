@@ -53,9 +53,6 @@ public class LoadingImage {
 	private static TextureRegion woman3Stand;
 	public Animation<TextureRegion>[] woman3Animation;
 
-	static Integer b;
-	Integer a;
-
 	@SuppressWarnings("unchecked")
 	public LoadingImage() {
 
