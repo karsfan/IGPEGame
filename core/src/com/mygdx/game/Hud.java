@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -26,7 +27,7 @@ public class Hud {
 	Label healthLabel;
 	Label nameLabel;
 	Label villageLabel;
-	//public boolean showDialog = true;
+	public boolean showDialog = true;
 
 	public Hud(SpriteBatch sb, OrthographicCamera gamecam, Viewport gamePort) {
 		spriteBatch = sb;
@@ -36,11 +37,10 @@ public class Hud {
 		stage = new Stage(viewport, sb);
 
 		Table table = new Table();
-		//Table textTable = new Table();
+		Table textTable = new Table();
 		table.top(); // la allinea sopra al centro
 		table.setFillParent(true);
 
-		// FileHandle fileFont = new FileHandle("src/res/vcr.ttf");
 
 		nameLabel = new Label(Character.name, MenuScreen.skin);
 		healthLabel = new Label(String.format("%03d", health), MenuScreen.skin);
@@ -53,7 +53,7 @@ public class Hud {
 
 		stage.addActor(table);
 
-		/*Drawable dialog = new TextureRegionDrawable(new TextureRegion(new Texture("res/dialogBox.png")));
+		Drawable dialog = new TextureRegionDrawable(new TextureRegion(new Texture("res/dialogBox.png")));
 		if (showDialog) {
 			TextButton dialogLabel = new TextButton("DIALOGO BLA BLA BLA BLA BLA BLA\n DIALOGO BLA BLA BLA BLA BLA BLA \n DIALOGO BLA BLA BLA BLA BLA BLA \n", MenuScreen.skin);
 			textTable.pad(15);
@@ -64,8 +64,7 @@ public class Hud {
 			textTable.setBackground(dialog);
 			textTable.add(dialogLabel).pad(65).center();
 			stage.addActor(textTable);
-		}*/
-
+		}
 	}
 
 }
