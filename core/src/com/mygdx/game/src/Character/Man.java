@@ -33,7 +33,7 @@ public class Man extends DynamicObjects implements ICollidable {
 		width = 30;
 		height = 30;
 		x = 1000;
-		y = 800;
+		y = 700;
 		mainX = 100;
 		mainY = 100;
 		velocity = 80;
