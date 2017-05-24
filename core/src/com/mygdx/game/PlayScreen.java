@@ -48,7 +48,6 @@ public class PlayScreen implements Screen {
 		gamecam = new OrthographicCamera();
 		// gamePort = new StretchViewport(440, 260, gamecam);
 		gamePort = new ScreenViewport(gamecam);
-		loadingImage = new LoadingImage();
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
 		hud = new Hud(game.batch, gamecam, gamePort);
@@ -62,7 +61,6 @@ public class PlayScreen implements Screen {
 		gamecam = new OrthographicCamera();
 		// gamePort = new StretchViewport(440, 260, gamecam);
 		gamePort = new ScreenViewport(gamecam);
-		loadingImage = new LoadingImage();
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
 		hud = new Hud(game.batch, gamecam, gamePort);
