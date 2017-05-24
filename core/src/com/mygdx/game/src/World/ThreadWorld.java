@@ -1,8 +1,8 @@
 package com.mygdx.game.src.World;
 
-public class ThreadWolrd extends Thread {
+public class ThreadWorld extends Thread {
 	Game game;
-	public ThreadWolrd(Game game) {
+	public ThreadWorld(Game game) {
 		this.game = game;
 	}
 	@Override
@@ -12,7 +12,6 @@ public class ThreadWolrd extends Thread {
 		while (true) {
 			long attuale = System.currentTimeMillis();
 			float dt = (attuale - start);
-			System.out.println(dt);
 			Game.world.update(dt/1000);
 			start = attuale;
 		}

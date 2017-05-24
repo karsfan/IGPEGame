@@ -14,7 +14,7 @@ public class Game {
 	public static World world;
 	public static Character character;
 	public static Man man1;
-	public ThreadWolrd thread;
+	public ThreadWorld thread;
 	public Game(String name) {
 		man1 = new Man();
 		character = new Character(name);
@@ -23,7 +23,7 @@ public class Game {
 		readMap();
 		world.getListObjects().add(man1);
 		world.getListObjects().add(character);
-		thread = new ThreadWolrd(this);
+		thread = new ThreadWorld(this);
 		thread.start();
 	}
 	

@@ -53,7 +53,6 @@ public class Enemy implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("ckjna");
 	}
 
 	public void movesRight() {
