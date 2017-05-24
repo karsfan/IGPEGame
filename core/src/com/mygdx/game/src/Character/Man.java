@@ -13,12 +13,6 @@ public class Man extends DynamicObjects implements ICollidable {
 		MAN1, MAN2, MAN3
 	};
 
-	/*
-	 * public static float x; public static float y; public static State
-	 * currentState; public static State previousState; protected static float
-	 * stateTimer; public float height; public float width; public float
-	 * velocity;
-	 */
 	private String name;
 	public int mainX;
 	public int mainY;
@@ -60,9 +54,9 @@ public class Man extends DynamicObjects implements ICollidable {
 		if (dt > 0.017)
 			dt = (float) 0.0165;
 		if (x < 1440 - width / 2) {
-			x += (int) (velocity * dt);
+			x += velocity * dt;
 			if (collide(this)) {
-				x -= (int) (velocity * dt);
+				x -= velocity * dt;
 			}
 		}
 		setState(State.RUNNINGRIGHT, dt);
@@ -70,13 +64,12 @@ public class Man extends DynamicObjects implements ICollidable {
 
 	public void movesLeft(float dt) {
 
-		// System.out.println(dt*velocity);
 		if (dt > 0.017)
 			dt = (float) 0.0165;
 		if (x > 5) {
-			x -= (velocity * dt);
+			x -= velocity * dt;
 			if (collide(this)) {
-				x += (velocity * dt);
+				x += velocity * dt;
 			}
 		}
 		setState(State.RUNNINGLEFT, dt);
@@ -86,9 +79,9 @@ public class Man extends DynamicObjects implements ICollidable {
 		if (dt > 0.017)
 			dt = (float) 0.0165;
 		if (y < 960 - height - 5) {
-			y += (int) (velocity * dt);
+			y += velocity * dt;
 			if (collide(this)) {
-				y -= (int) (velocity * dt);
+				y -= velocity * dt;
 			}
 		}
 		setState(State.RUNNINGUP, dt);
@@ -98,9 +91,9 @@ public class Man extends DynamicObjects implements ICollidable {
 		if (dt > 0.017)
 			dt = (float) 0.0165;
 		if (y > 0) {
-			y -= (int) (velocity * dt);
+			y -= velocity * dt;
 			if (collide(this)) {
-				y += (int) (velocity * dt);
+				y += velocity * dt;
 			}
 		}
 		setState(State.RUNNINGDOWN, dt);

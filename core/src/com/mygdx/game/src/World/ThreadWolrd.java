@@ -12,7 +12,6 @@ public class ThreadWolrd extends Thread {
 		while (true) {
 			long attuale = System.currentTimeMillis();
 			float dt = (attuale - start);
-			System.out.println(dt);
 			Game.world.update(dt/1000);
 			start = attuale;
 		}
