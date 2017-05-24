@@ -147,9 +147,7 @@ public class PlayScreen implements Screen {
 			gamecam.position.y = Game.character.getY();
 		} else if (Gdx.input.isKeyJustPressed(Keys.K)) {
 			hud.showDialog = !hud.showDialog;
-			drawDialog("\nDIALOGO BLA BLA BLA BLA BLA BLA\n"
-					+ "DIALOGO BLA BLA BLA BLA BLA BLA \n"
-					+ "DIALOGO BLA BLA BLA BLA BLA BLA \n");
+			drawDialog("CIAO");
 
 		}
 		
