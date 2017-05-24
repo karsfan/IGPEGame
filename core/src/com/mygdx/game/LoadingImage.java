@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.src.Character.Character;
-import com.mygdx.game.src.Character.Character.State;
+import com.mygdx.game.src.Character.DynamicObjects.State;
 import com.mygdx.game.src.World.Enemy;
+import com.mygdx.game.src.World.Game;
 
 public class LoadingImage {
 
@@ -154,7 +154,33 @@ public class LoadingImage {
 		enemyUp = new Animation<TextureRegion>(0.2f, frames);
 
 		enemyStand = (TextureRegion) enemyRight.getKeyFrame(0);*/
+		man1Texture = new Texture("assets/notPlaying.png");
 
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(man1Texture, i * 64 / 2, 93, 60 / 2, 60 / 2));
+		}
+		man1Right = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+
+		for (int i = 7; i != 0; i--) {
+			frames.add(new TextureRegion(man1Texture, i * 64 / 2, 31, 60 / 2, 60 / 2));
+		}
+		man1Left = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(man1Texture, i * 64 / 2, 62, 60 / 2, 60 / 2));
+		}
+		man1Down = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(man1Texture, i * 64 / 2, 0, 60 / 2, 60 / 2));
+		}
+		man1Up = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+		man1Stand = (TextureRegion) man1Right.getKeyFrame(0);
+		
 	}
 	
 	public static void createFrame (Texture texture, Animation <TextureRegion> right, Animation <TextureRegion> left,
@@ -237,19 +263,19 @@ public class LoadingImage {
 		TextureRegion region;
 		switch (currentState) {
 		case RUNNINGRIGHT:
-			region = (TextureRegion) playerRight.getKeyFrame(Character.getStateTimer(), true);
+			region = (TextureRegion) playerRight.getKeyFrame(Game.character.getStateTimer(), true);
 			playerStand = region;
 			break;
 		case RUNNINGLEFT:
-			region = (TextureRegion) playerLeft.getKeyFrame(Character.getStateTimer(), true);
+			region = (TextureRegion) playerLeft.getKeyFrame(Game.character.getStateTimer(), true);
 			playerStand = region;
 			break;
 		case RUNNINGUP:
-			region = (TextureRegion) playerUp.getKeyFrame(Character.getStateTimer(), true);
+			region = (TextureRegion) playerUp.getKeyFrame(Game.character.getStateTimer(), true);
 			playerStand = region;
 			break;
 		case RUNNINGDOWN:
-			region = (TextureRegion) playerDown.getKeyFrame(Character.getStateTimer(), true);
+			region = (TextureRegion) playerDown.getKeyFrame(Game.character.getStateTimer(), true);
 			playerStand = region;
 			break;
 		case STANDING:
@@ -257,6 +283,35 @@ public class LoadingImage {
 			break;
 		default:
 			region = playerStand;
+			break;
+		}
+		return region;
+	}
+	
+	public static TextureRegion getFrameMan(com.mygdx.game.src.Character.Man.State state) {
+		TextureRegion region;
+		switch (state) {
+		case RUNNINGRIGHT:
+			region = (TextureRegion) man1Right.getKeyFrame(Game.man1.getStateTimer(), true);
+			man1Stand = region;
+			break;
+		case RUNNINGLEFT:
+			region = (TextureRegion) man1Left.getKeyFrame(Game.man1.getStateTimer(), true);
+			man1Stand = region;
+			break;
+		case RUNNINGUP:
+			region = (TextureRegion) man1Up.getKeyFrame(Game.man1.getStateTimer(), true);
+			man1Stand = region;
+			break;
+		case RUNNINGDOWN:
+			region = (TextureRegion) man1Down.getKeyFrame(Game.man1.getStateTimer(), true);
+			man1Stand = region;
+			break;
+		case STANDING:
+			region = man1Stand;
+			break;
+		default:
+			region = man1Stand;
 			break;
 		}
 		return region;

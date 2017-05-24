@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.src.Character.Character;
-import com.mygdx.game.src.World.Enemy;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.Tile;
 import com.mygdx.game.src.World.World.Element;
@@ -132,14 +130,19 @@ public class PlayScreen implements Screen {
 		Iterator<Object> it = Game.world.getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
-			if (ob instanceof Character) {
+			/*if (ob instanceof Character) {
 				game.batch.draw(LoadingImage.getFrameCharacter(((Character) ob).getState()), ((Character) ob).getX(),
 						((Character) ob).getY(), ((Character) ob).getWidth(), ((Character) ob).getHeight());
+			}
+			if (ob instanceof Man) {
+				game.batch.draw(LoadingImage.getFrameMan(((Man) ob).getState()), ((Man) ob).getX(),
+						((Man) ob).getY(), ((Man) ob).getWidth(), ((Man) ob).getHeight());
+				System.out.println("akj");
 			}
 			if (ob instanceof Enemy) {
 				game.batch.draw(LoadingImage.getFrameEnemy(((Enemy) ob).getState(), (Enemy) ob), ((Enemy) ob).x,
 						((Enemy) ob).y, ((Enemy) ob).getWidth(), ((Enemy) ob).getHeight());
-			}
+			}*/
 			if (ob instanceof Tile) {
 				if (((Tile) ob).getElement() == Element.BUILDING) {
 					game.batch.draw(LoadingImage.getBuildingImage(), (float) ((Tile) ob).getPoint().getX() * 32,
@@ -203,8 +206,13 @@ public class PlayScreen implements Screen {
 							(float) ((Tile) ob).getPoint().getY() * 32, (float) ((Tile) ob).getSize().getWidth(),
 							(float) ((Tile) ob).getSize().getHeight());
 				}
+				
 			}
 		}
+		game.batch.draw(LoadingImage.getFrameCharacter(Game.character.getState()), Game.character.getX(),
+				Game.character.getY(), Game.character.getWidth(), Game.character.getHeight());
+		game.batch.draw(LoadingImage.getFrameMan(Game.man1.getState()), Game.man1.getX(),
+				Game.man1.getY(), Game.man1.getWidth(), Game.man1.getHeight());
 	}
 
 	@Override

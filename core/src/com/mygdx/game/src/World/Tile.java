@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import com.mygdx.game.src.World.World.Element;
 import com.mygdx.game.src.Character.Character;
+import com.mygdx.game.src.Character.Man;
 
 public class Tile implements ICollidable {
 	private Point point;
@@ -105,6 +106,13 @@ public class Tile implements ICollidable {
 							|| ((Character) e).getY() > point.y * 32 + size.height))) {
 				return true;
 			}
+		}
+		if (e instanceof Man) {
+			if (!((point.x * 32 > ((Man) e).getX() + ((Man) e).getWidth() / 2 - 1
+					|| ((Man) e).getX() > point.x * 32 + size.width)
+					|| (point.y * 32 > ((Man) e).getY() + ((Man) e).getHeight() / 2
+							|| ((Man) e).getY() > point.y * 32 + size.height)))
+				return true;
 		}
 		return false;
 	}
