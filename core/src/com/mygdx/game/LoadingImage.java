@@ -155,7 +155,7 @@ public class LoadingImage {
 		}
 		man1Up = new Animation<TextureRegion>(0.2f, frames);
 		frames.clear();
-		playerStand = (TextureRegion) man1Right.getKeyFrame(0);
+		man1Stand = (TextureRegion) man1Right.getKeyFrame(0);
 
 	}
 
@@ -189,11 +189,11 @@ public class LoadingImage {
 		}
 		up = new Animation<TextureRegion>(0.2f, frames);
 		frames.clear();
-		playerStand = (TextureRegion) arrayAnimation[0].getKeyFrame(0,true);
 		arrayAnimation[0] = right;
 		arrayAnimation[1] = left;
 		arrayAnimation[2] = up;
 		arrayAnimation[3] = down;
+		playerStand = (TextureRegion) arrayAnimation[0].getKeyFrame(0,true);
 
 	}
 
