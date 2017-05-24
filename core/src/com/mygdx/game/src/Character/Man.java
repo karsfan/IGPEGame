@@ -14,14 +14,14 @@ public class Man extends DynamicObjects implements ICollidable {
 		MAN1, MAN2, MAN3
 	};
 
-	public static float x;
+	/*public static float x;
 	public static float y;
 	public static State currentState;
 	public static State previousState;
 	protected static float stateTimer;
 	public float height;
 	public float width;
-	public float velocity;
+	public float velocity;*/
 	private String name;
 	public int mainX;
 	public int mainY;
@@ -33,7 +33,7 @@ public class Man extends DynamicObjects implements ICollidable {
 		width = 30;
 		height = 30;
 		x = 1000;
-		y = 800;
+		y = 700;
 		mainX = 100;
 		mainY = 100;
 		velocity = 80;
@@ -147,13 +147,18 @@ public class Man extends DynamicObjects implements ICollidable {
 					if (((Tile) ob).collide(this))
 						return true;
 			}
+			if (ob instanceof DynamicObjects && ob!=this) {
+				if (!((x > ((DynamicObjects) ob).getX() + ((DynamicObjects) ob).getWidth() / 2 - 1 || ((DynamicObjects) ob).getX() > x + width/2)
+						|| (y > ((DynamicObjects) ob).getY() + ((DynamicObjects) ob).getHeight() / 2 || ((DynamicObjects) ob).getY() > y + height/2)))
+					return true;
+			}
 			
 		}
 		return false;
 	}
 
 	public void update(float dt) {
-		
-	}
+		movesLeft(dt);
+	}	
 
 }

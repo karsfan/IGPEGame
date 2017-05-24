@@ -18,7 +18,7 @@ public class Character extends DynamicObjects implements ICollidable {
 	float health;
 	float power;
 	int coins;
-	public static float x;
+	/*public static float x;
 	public static float y;
 	public static State currentState;
 	public static State previousState;
@@ -26,7 +26,7 @@ public class Character extends DynamicObjects implements ICollidable {
 	public float height;
 	public float width;
 	public float velocity;
-
+*/
 	@SuppressWarnings("static-access")
 	public Character(String name) {
 		super();
@@ -178,9 +178,9 @@ public class Character extends DynamicObjects implements ICollidable {
 					if (((Tile) ob).collide(this))
 						return true;
 			}
-			if (ob instanceof Man) {
-				if (!((x > ((Man) ob).getX() + ((Man) ob).getWidth() / 2 - 1 || ((Man) ob).getX() > x + width/2)
-						|| (y > ((Man) ob).getY() + ((Man) ob).getHeight() / 2 || ((Man) ob).getY() > y + height/2)))
+			if (ob instanceof DynamicObjects && ob!=this) {
+				if (!((x > ((DynamicObjects) ob).getX() + ((DynamicObjects) ob).getWidth() / 2 - 1 || ((DynamicObjects) ob).getX() > x + width/2)
+						|| (y > ((DynamicObjects) ob).getY() + ((DynamicObjects) ob).getHeight() / 2 || ((DynamicObjects) ob).getY() > y + height/2)))
 					return true;
 			}
 
