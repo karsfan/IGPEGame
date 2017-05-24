@@ -15,7 +15,6 @@ public class World {
 		HOME, THREE, FOREST1, FOREST2, GROUND, BUILDING, WATER, ROCK, CHARACTER, ENEMY, PARCHMENTLEVEL1, PARCHMENTLEVEL2, PARCHMENTLEVEL3, POTION_H_L1, POTION_H_L2, POTION_H_L3, FLOOR, ROAD, BIGHOME
 	};
 
-	Map map = new Map();
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	ArrayList<Tool> tools = new ArrayList<Tool>();
 	Shop shop;
@@ -28,17 +27,12 @@ public class World {
 	public Tool parchmentLevel1;
 	public Tool parchmentLevel2;
 	public Tool parchmentLevel3;
-
+	
 	public Tool potionWeaponLevel1;
-	Battle battle;
-	public AmbientElement building;
-	public Enemy[] enemy;
 	private static ArrayList<Object> listObjects;
-	private static ArrayList<Tile> listHome;
 
 	public World() {
 		setListObjects(new ArrayList<Object>());
-		setListHome(new ArrayList<Tile>());
 		/*
 		 * spada = new Weapon("Spada", 10, 1); mazza = new Weapon("Mazza", 5,
 		 * 1); pugnale = new Weapon("Pugnale", 6, 1); ascia = new
@@ -78,11 +72,6 @@ public class World {
 		Iterator<Object> it = (Iterator<Object>) getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
-
-			/*
-			 * if (ob instanceof Character) { ((Character) ob).moveCharacter();
-			 * }
-			 */
 			if (ob instanceof Man) {
 				((Man) ob).update(dt);
 			}
@@ -114,11 +103,4 @@ public class World {
 		}
 	}
 
-	public static ArrayList<Tile> getListHome() {
-		return listHome;
-	}
-
-	public static void setListHome(ArrayList<Tile> listHome) {
-		World.listHome = listHome;
-	}
 }

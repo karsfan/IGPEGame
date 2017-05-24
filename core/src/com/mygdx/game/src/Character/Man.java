@@ -2,7 +2,6 @@ package com.mygdx.game.src.Character;
 
 import java.util.Iterator;
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.ICollidable;
 import com.mygdx.game.src.World.Tile;
@@ -14,14 +13,12 @@ public class Man extends DynamicObjects implements ICollidable {
 		MAN1, MAN2, MAN3
 	};
 
-	public static float x;
-	public static float y;
-	public static State currentState;
-	public static State previousState;
-	protected static float stateTimer;
-	public float height;
-	public float width;
-	public float velocity;
+	/*
+	 * public static float x; public static float y; public static State
+	 * currentState; public static State previousState; protected static float
+	 * stateTimer; public float height; public float width; public float
+	 * velocity;
+	 */
 	private String name;
 	public int mainX;
 	public int mainY;
@@ -67,20 +64,22 @@ public class Man extends DynamicObjects implements ICollidable {
 			if (collide(this)) {
 				x -= (int) (velocity * dt);
 			}
-		} 
-		setState(State.RUNNINGRIGHT);
+		}
+		setState(State.RUNNINGRIGHT, dt);
 	}
 
 	public void movesLeft(float dt) {
+
+		// System.out.println(dt*velocity);
 		if (dt > 0.017)
 			dt = (float) 0.0165;
 		if (x > 5) {
-			x -= (int) (velocity * dt);
+			x -= (velocity * dt);
 			if (collide(this)) {
-				x += (int) (velocity * dt);
+				x += (velocity * dt);
 			}
 		}
-		setState(State.RUNNINGLEFT);
+		setState(State.RUNNINGLEFT, dt);
 	}
 
 	public void movesUp(float dt) {
@@ -92,7 +91,7 @@ public class Man extends DynamicObjects implements ICollidable {
 				y -= (int) (velocity * dt);
 			}
 		}
-		setState(State.RUNNINGUP);
+		setState(State.RUNNINGUP, dt);
 	}
 
 	public void movesDown(float dt) {
@@ -103,8 +102,8 @@ public class Man extends DynamicObjects implements ICollidable {
 			if (collide(this)) {
 				y += (int) (velocity * dt);
 			}
-		} 
-		setState(State.RUNNINGDOWN);
+		}
+		setState(State.RUNNINGDOWN, dt);
 	}
 
 	private void setStateTimer(float f) {
@@ -115,12 +114,12 @@ public class Man extends DynamicObjects implements ICollidable {
 		return stateTimer;
 	}
 
-	private void setState(State state) {
+	private void setState(State state, float dt) {
 		previousState = currentState;
 		currentState = state;
 
 		if (previousState == currentState)
-			setStateTimer(getStateTimer() + Gdx.graphics.getDeltaTime());
+			setStateTimer(getStateTimer() + dt);
 		else
 			setStateTimer(0);
 	}
@@ -147,13 +146,20 @@ public class Man extends DynamicObjects implements ICollidable {
 					if (((Tile) ob).collide(this))
 						return true;
 			}
-			
+			if (ob instanceof DynamicObjects && ob != this) {
+				if (!((x > ((DynamicObjects) ob).getX() + ((DynamicObjects) ob).getWidth() / 2 - 1
+						|| ((DynamicObjects) ob).getX() > x + width / 2)
+						|| (y > ((DynamicObjects) ob).getY() + ((DynamicObjects) ob).getHeight() / 2
+								|| ((DynamicObjects) ob).getY() > y + height / 2)))
+					return true;
+			}
+
 		}
 		return false;
 	}
 
 	public void update(float dt) {
-		
+		movesLeft(dt);
 	}
 
 }
