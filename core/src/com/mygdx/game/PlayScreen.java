@@ -8,7 +8,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -25,11 +24,12 @@ import com.mygdx.game.src.Map.StaticObject.Element;
 public class PlayScreen implements Screen {
 
 	public OrthographicCamera gamecam;
-	private Viewport gamePort;
+	public Viewport gamePort;
 	public GameSlagyom game;
 	public LoadingImage loadingImage;
 	public Hud hud;
 
+	
 	public PlayScreen(GameSlagyom game, String name) {
 		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
 		loadingImage = new LoadingImage();
@@ -41,7 +41,7 @@ public class PlayScreen implements Screen {
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
 		hud = new Hud(game.batch, gamecam, gamePort);
-
+		
 	}
 
 	public PlayScreen(GameSlagyom game, String path, String name) {
@@ -67,7 +67,7 @@ public class PlayScreen implements Screen {
 		game.batch.setProjectionMatrix(gamecam.combined);
 
 		game.batch.begin();
-		draw(game.batch);
+		draw();
 		game.batch.end();
 		hud.stage.draw();
 	}
@@ -90,8 +90,6 @@ public class PlayScreen implements Screen {
 	}
 
 	public void update(float dt) {
-		handleInput(dt);
-
 		// Game.world.update(dt);
 		moveCharacter(dt);
 		if ((Game.character.getX() - Gdx.graphics.getWidth() / 2 > 0
@@ -139,11 +137,8 @@ public class PlayScreen implements Screen {
 
 	}
 
-	private void handleInput(float dt) {
-		// Game.world.update(dt);
-	}
 
-	public void draw(SpriteBatch batch) {
+	public void draw() {
 		Iterator<Object> it = Game.world.getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
@@ -243,6 +238,7 @@ public class PlayScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		gamePort.update(width, height);
+		
 		// controlli per la posizione della camera
 		if (Gdx.graphics.getWidth() + Game.character.getX() - 1440 > 0
 				&& !(Game.character.getX() - Gdx.graphics.getWidth() / 2 < 0)) {

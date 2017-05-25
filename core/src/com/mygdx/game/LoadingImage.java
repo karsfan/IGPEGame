@@ -21,7 +21,9 @@ public class LoadingImage {
 	private Texture rockImage;
 	private Texture forest1Image;
 	private Texture forest2Image;
-
+	
+	private Texture interior1image;
+	
 	public Texture texture;
 	private TextureRegion playerStand;
 	public Animation<TextureRegion>[] playerAnimation;
@@ -68,6 +70,7 @@ public class LoadingImage {
 		forest1Image = new Texture("res/forest1.png");
 		forest2Image = new Texture("res/forest2.png");
 
+		interior1image = new Texture ("res/home.png");
 		playerAnimation = new Animation[4];
 		enemyAnimation = new Animation[4];
 		man1Animation = new Animation[4];
@@ -165,6 +168,10 @@ public class LoadingImage {
 
 	public Texture getBigHomeImage() {
 		return bigHomeImage;
+	}
+	
+	public Texture getInterior1image() {
+		return interior1image;
 	}
 
 	public TextureRegion getFrameCharacter(State currentState) {
