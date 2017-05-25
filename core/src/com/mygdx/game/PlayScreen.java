@@ -43,6 +43,7 @@ public class PlayScreen implements Screen {
 	}*/
 	
 	public PlayScreen(GameSlagyom game, String name) {
+		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
 		loadingImage = new LoadingImage();
 		this.game = game;
 		new Game(name);
