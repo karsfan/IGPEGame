@@ -10,77 +10,67 @@ import com.mygdx.game.src.Map.StaticObject;
 
 public class Tile extends StaticObject implements ICollidable {
 
+	private Rectangle door;
+
 	public Tile(Point point, Element element, Dimension size) {
-		shape = new Rectangle( (int) point.getX(),(int) point.getY(),(int) size.getWidth(),(int) size.getHeight());
+		shape = new Rectangle((int) point.getX(), (int) point.getY(), (int) size.getWidth(), (int) size.getHeight());
 		this.element = element;
+
+		door = new Rectangle();
 	}
 
 	public Tile(String elemen, Point point) {
-		// this.point = point2;
 		switch (elemen) {
 		case "HOME":
 			this.element = Element.HOME;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 64, 64);
-			// size = new Dimension(64, 64);
+			// door = new Rectangle((int) point.getX()+2, (int) point.getY(), 5
+			// , 5);
 			break;
 		case "BUILDING":
 			this.element = Element.BUILDING;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 96, 128);
-			// size = new Dimension(96, 128);
 			break;
 		case "GROUND":
 			this.element = Element.GROUND;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 32, 32);
-			// size = new Dimension(32, 32);
 			break;
 		case "TREE":
 			this.element = Element.THREE;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 32, 32);
-			// size = new Dimension(32, 32);
 			break;
 		case "WATER":
 			this.element = Element.WATER;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 32, 32);
-			// size = new Dimension(32, 32);
 			break;
 		case "ROCK":
 			this.element = Element.ROCK;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 32, 32);
-			// size = new Dimension(32, 32);
 			break;
 		case "BIGHOME":
 			this.element = Element.BIGHOME;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 128, 96);
-			// size = new Dimension(128, 96);
 			break;
 		case "FLOOR":
 			this.element = Element.FLOOR;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 32, 32);
-			// size = new Dimension(32, 32);
 			break;
 		case "ROAD":
 			this.element = Element.ROAD;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 32, 32);
-			// size = new Dimension(32, 32);
 			break;
 		case "FOREST1":
 			this.element = Element.FOREST1;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 64, 96);
-			// size = new Dimension(64, 96);
 			break;
 		case "FOREST2":
 			this.element = Element.FOREST2;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 64, 96);
-			// size = new Dimension(64, 96);
 			break;
 		default:
 			break;
 		}
 	}
-
-	// public Dimension getSize() {
-	// return size;
-	// }
 
 	public float getHeight() {
 		return (float) shape.getHeight();
@@ -98,10 +88,6 @@ public class Tile extends StaticObject implements ICollidable {
 		return (float) shape.getY();
 	}
 
-	// public void setSize(Dimension size) {
-	// this.size = size;
-	// }
-
 	public void setElement(Element element) {
 		this.element = element;
 	}
@@ -114,17 +100,25 @@ public class Tile extends StaticObject implements ICollidable {
 		this.element = element;
 	}
 
-	// public Point getPoint() {
-	// return point;
-	// }
-
 	public void setPoint(Point point) {
 		shape.x = point.x;
 		shape.y = point.y;
+		if (element == Element.HOME)
+			door = new Rectangle((int) point.getX(), (int) point.getY(), 8, 5);
 	}
 
 	@Override
 	public boolean collide(Object e) {
+		if (this.getElement() == Element.HOME && e instanceof Character) {//5 è lo scarto di errore
+			if (!((door.x * 32 + shape.getWidth() / 4 > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 5
+					|| ((Character) e).getX() > door.x * 32 + door.width + shape.getWidth() / 4)
+					|| (door.y * 32 > ((Character) e).getY() + ((Character) e).getHeight() / 2
+							|| ((Character) e).getY() > door.y * 32 + door.height))) {
+				System.out.println("PORTAAA "+ (door.x * 32 + shape.getWidth() / 4)+ " "+(int)(door.x * 32 + door.width + shape.getWidth() / 4));
+				System.out.println("GIOCATORE "+ ((Character) e).getX() + " "+ (((Character) e).getX() + ((Character) e).getWidth() / 2 - 5));
+				return true;
+			}
+		}
 		if (e instanceof Character) {
 			if (!((shape.x * 32 > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 1
 					|| ((Character) e).getX() > shape.x * 32 + shape.width)

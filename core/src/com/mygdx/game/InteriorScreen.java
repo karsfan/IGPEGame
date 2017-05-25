@@ -21,9 +21,48 @@ import com.mygdx.game.src.Character.Character;
 import com.mygdx.game.src.Character.DynamicObjects.State;
 import com.mygdx.game.src.World.Game;
 
-public class InteriorScreen extends PlayScreen implements Screen {
-	public InteriorScreen(GameSlagyom game, String name) {
-		super(game, name);
+public class InteriorScreen implements Screen {
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
