@@ -9,7 +9,9 @@ import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.ICollidable;
 import com.mygdx.game.src.World.Tile;
 import com.mygdx.game.src.World.Weapon;
-import com.mygdx.game.src.World.World.Element;
+//import com.mygdx.game.src.World.World.Element;
+import com.mygdx.game.src.Map.StaticObject.Element;
+
 
 public class Character extends DynamicObjects implements ICollidable {
 	
