@@ -11,12 +11,14 @@ import com.mygdx.game.src.Map.StaticObject;
 public class Tile extends StaticObject implements ICollidable {
 
 	private Rectangle door;
+	private String infoHouse;
 
 	public Tile(Point point, Element element, Dimension size) {
 		shape = new Rectangle((int) point.getX(), (int) point.getY(), (int) size.getWidth(), (int) size.getHeight());
 		this.element = element;
-
 		door = new Rectangle();
+		if (element == Element.HOME)
+			infoHouse = "In questa casa c'è sto cazzo";
 	}
 
 	public Tile(String elemen, Point point) {
@@ -24,8 +26,7 @@ public class Tile extends StaticObject implements ICollidable {
 		case "HOME":
 			this.element = Element.HOME;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 64, 64);
-			// door = new Rectangle((int) point.getX()+2, (int) point.getY(), 5
-			// , 5);
+			infoHouse = "In questa casa c'è sto cazzo";
 			break;
 		case "BUILDING":
 			this.element = Element.BUILDING;
@@ -103,22 +104,25 @@ public class Tile extends StaticObject implements ICollidable {
 	public void setPoint(Point point) {
 		shape.x = point.x;
 		shape.y = point.y;
-		if (element == Element.HOME)
+		if (element == Element.HOME) {
 			door = new Rectangle((int) point.getX(), (int) point.getY(), 8, 5);
+			infoHouse = "In questa casa c'è sto cazzo";
+		}
+	}
+
+	public boolean collideDoor(Object e) {
+		if (this.getElement() == Element.HOME && e instanceof Character) {
+			if (!((door.x * 32 + shape.getWidth() / 4 > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 5
+					|| ((Character) e).getX() > door.x * 32 + door.width + shape.getWidth() / 4)
+					|| (door.y * 32 > ((Character) e).getY() + ((Character) e).getHeight() / 2
+							|| ((Character) e).getY() > door.y * 32 + door.height)))
+				return true;
+		}
+		return false;
 	}
 
 	@Override
 	public boolean collide(Object e) {
-		if (this.getElement() == Element.HOME && e instanceof Character) {//5 è lo scarto di errore
-			if (!((door.x * 32 + shape.getWidth() / 4 > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 5
-					|| ((Character) e).getX() > door.x * 32 + door.width + shape.getWidth() / 4)
-					|| (door.y * 32 > ((Character) e).getY() + ((Character) e).getHeight() / 2
-							|| ((Character) e).getY() > door.y * 32 + door.height))) {
-				System.out.println("PORTAAA "+ (door.x * 32 + shape.getWidth() / 4)+ " "+(int)(door.x * 32 + door.width + shape.getWidth() / 4));
-				System.out.println("GIOCATORE "+ ((Character) e).getX() + " "+ (((Character) e).getX() + ((Character) e).getWidth() / 2 - 5));
-				return true;
-			}
-		}
 		if (e instanceof Character) {
 			if (!((shape.x * 32 > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 1
 					|| ((Character) e).getX() > shape.x * 32 + shape.width)
@@ -135,6 +139,14 @@ public class Tile extends StaticObject implements ICollidable {
 				return true;
 		}
 		return false;
+	}
+
+	public String getInfoHouse() {
+		return infoHouse;
+	}
+
+	public void setInfoHouse(String infoHouse) {
+		this.infoHouse = infoHouse;
 	}
 
 }

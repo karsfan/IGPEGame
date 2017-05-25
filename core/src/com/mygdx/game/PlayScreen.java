@@ -104,6 +104,9 @@ public class PlayScreen implements Screen {
 	}
 
 	private void moveCharacter(float dt) {
+		
+		
+		
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
 			Game.character.setVelocity(150f);
 			loadingImage.setFrameDurationCharacter(0.1f);
@@ -132,9 +135,9 @@ public class PlayScreen implements Screen {
 			hud.showDialog = !hud.showDialog;
 			drawDialog("CIAO");
 
-		} else
+		}
+		else
 			Game.character.setState(State.STANDING);
-
 	}
 
 
