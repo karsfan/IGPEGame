@@ -1,7 +1,7 @@
 package com.mygdx.game.src.Map;
 
 
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import java.awt.Rectangle;
 
 public class StaticObject {
 	
@@ -9,11 +9,11 @@ public class StaticObject {
 		HOME, THREE, FOREST1, FOREST2, GROUND, BUILDING, WATER, ROCK, CHARACTER, ENEMY, PARCHMENTLEVEL1, PARCHMENTLEVEL2, PARCHMENTLEVEL3, POTION_H_L1, POTION_H_L2, POTION_H_L3, FLOOR, ROAD, BIGHOME
 	};
 	protected Element element;
-	public RectangleMapObject shape;
+	public Rectangle shape;
 	
 	public StaticObject(){
 		element = null;
-		shape = new RectangleMapObject();
+		shape = new Rectangle();
 		
 	}
 }

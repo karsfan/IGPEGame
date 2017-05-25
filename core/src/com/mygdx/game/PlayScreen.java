@@ -157,81 +157,81 @@ public class PlayScreen implements Screen {
 			if (ob instanceof Tile) {
 				if (((Tile) ob).getElement() == Element.BUILDING) {
 					game.batch.draw(loadingImage.getBuildingImage(),
-							(float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+							(float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.HOME) {
-					game.batch.draw(loadingImage.getHomeImage(), (float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+					game.batch.draw(loadingImage.getHomeImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.THREE) {
-					game.batch.draw(loadingImage.getThreeImage(), (float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+					game.batch.draw(loadingImage.getThreeImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.ROCK) {
-					game.batch.draw(loadingImage.getRockImage(), (float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+					game.batch.draw(loadingImage.getRockImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.WATER) {
-					game.batch.draw(loadingImage.getWaterImage(), (float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+					game.batch.draw(loadingImage.getWaterImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.GROUND) {
-					game.batch.draw(loadingImage.getGroundImage(), (float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+					game.batch.draw(loadingImage.getGroundImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.GROUND) {
-					game.batch.draw(loadingImage.getGroundImage(), (float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+					game.batch.draw(loadingImage.getGroundImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.FLOOR) {
-					game.batch.draw(loadingImage.getFloorImage(), (float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+					game.batch.draw(loadingImage.getFloorImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 
 				if (((Tile) ob).getElement() == Element.ROAD) {
-					game.batch.draw(loadingImage.getRoadImage(), (float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+					game.batch.draw(loadingImage.getRoadImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 
 				if (((Tile) ob).getElement() == Element.BIGHOME) {
 					game.batch.draw(loadingImage.getBigHomeImage(),
-							(float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+							(float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.FOREST1) {
 					game.batch.draw(loadingImage.getForest1Image(),
-							(float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+							(float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.FOREST2) {
 					game.batch.draw(loadingImage.getForest2Image(),
-							(float) ((Tile) ob).shape.getRectangle().getX() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getY() * 32,
-							(float) ((Tile) ob).shape.getRectangle().getWidth(),
-							(float) ((Tile) ob).shape.getRectangle().getHeight());
+							(float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32,
+							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
 				}
 
 			}
