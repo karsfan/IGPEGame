@@ -156,4 +156,10 @@ public class Man extends DynamicObjects implements ICollidable {
 		movesLeft(dt);
 	}
 
+	@Override
+	public boolean collide() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -2,11 +2,10 @@ package com.mygdx.game.src.World;
 
 import com.badlogic.gdx.Gdx;
 
-public class Enemy implements Runnable {
-	public enum State {
-		STANDING, RUNNINGRIGHT, RUNNINGLEFT, RUNNINGDOWN, RUNNINGUP
+public class Enemy {
+	public enum StateBattleEnemy {
+		JUMPING, STANDING, RUNNINGLEFT, RUNNINGRIGHT, FIGHTING, DEFENDING
 	};
-
 	public enum Level {
 		EASY, MEDIUM, HARD
 	};
@@ -19,23 +18,26 @@ public class Enemy implements Runnable {
 	public int passi = 0;
 	public float x;
 	public float y;
-	private static State currentState;
-	public static State previousState;
 	protected static float stateTimer;
 	public Level level;
 	public float height;
 	public float width;
+	public float velocity;
+
+	private static StateBattleEnemy currentState;
+	public static StateBattleEnemy previousState;
 
 	public Enemy(String name, float life, float power, Weapon weapon, Pack win_bonus, Level level) {
 
+		velocity = 80;
 		this.name = name;
 		this.life = life;
 		this.power = power;
 		this.weapon = weapon;
 		this.win_bonus = win_bonus;
 		this.level = level;
-		setCurrentState(State.STANDING);
-		previousState = State.STANDING;
+		setCurrentState(StateBattleEnemy.STANDING);
+		previousState = StateBattleEnemy.STANDING;
 		stateTimer = 0;
 		x = (float) (Math.random() * 300);
 		y = (float) (Math.random() * 400);
@@ -51,32 +53,21 @@ public class Enemy implements Runnable {
 		return width;
 	}
 
-	@Override
-	public void run() {
+	public void movesRight(float dt) {
+		if (x + width < Battle.WIDTH)
+			x += velocity * dt;
+		setState(StateBattleEnemy.RUNNINGRIGHT);
 	}
 
-	public void movesRight() {
-		x++;
-		setState(State.RUNNINGRIGHT);
+	public void movesLeft(float dt) {
+		if (x - width / 2 > 0)
+			x -= velocity * dt;
+
+		setState(StateBattleEnemy.RUNNINGLEFT);
 	}
 
-	public void movesLeft() {
-		x--;
-		setState(State.RUNNINGLEFT);
-	}
-
-	public void movesUp() {
-		y++;
-		setState(State.RUNNINGUP);
-	}
-
-	public void movesDown() {
-		y--;
-		setState(State.RUNNINGDOWN);
-	}
-
-	public void update(float dt) {
-		run();
+	public void jump() {
+		setState(StateBattleEnemy.JUMPING);
 	}
 
 	private void setStateTimer(float f) {
@@ -87,7 +78,7 @@ public class Enemy implements Runnable {
 		return stateTimer;
 	}
 
-	private void setState(State state) {
+	private void setState(StateBattleEnemy state) {
 		previousState = currentState;
 		currentState = state;
 
@@ -97,12 +88,26 @@ public class Enemy implements Runnable {
 			setStateTimer(0);
 	}
 
-	public State getState() {
+	public StateBattleEnemy getState() {
 		return currentState;
 	}
 
-	public static void setCurrentState(State currentState) {
+	public static void setCurrentState(StateBattleEnemy currentState) {
 		Enemy.currentState = currentState;
+	}
+	public float getX(){
+		return x;
+	}
+	public float getY(){
+		return y;
+	}
+
+	public void decreaseHealth(Weapon weaponCharacter) {
+		life -= weaponCharacter.getDamage();
+	}
+
+	public void update(float dt) {
+		
 	}
 
 }

@@ -1,35 +1,44 @@
-package  com.mygdx.game.src.World;
+package com.mygdx.game.src.World;
+
+import com.mygdx.game.src.Character.Character;
+import com.mygdx.game.src.Character.CharacterBattle;
+import com.mygdx.game.src.Character.CharacterBattle.StateBattleCharacter;
 
 public class Battle {
 
-	Character character;
-	Enemy enemy;
-
+	public CharacterBattle character;
+	public static Enemy enemy;
+	public static int WIDTH;
+	public static int HEIGHT;
+	public static int gravity;
+	ThreadBattle thread;
+	
 	public Battle() {
 		character = null;
 		enemy = null;
 	}
-	
-	public Battle(Character character, Enemy enemy){
-		this.character=character;
-		this.enemy=enemy;
+
+	@SuppressWarnings("static-access")
+	public Battle(Character character, Enemy enemy) {
+		this.character = new CharacterBattle(character);
+		this.enemy = enemy;
+		WIDTH  = 720;
+		HEIGHT = 480;
+		thread.start();
 	}
 	
-	public void moveCharacter(){
-		
+	public void moveEnemy(float dt) {
+		enemy.update(dt);
 	}
-	
-	public void jumpCharacter(){
-		
+
+	public void jumpEnemy() {
+
 	}
-	
-	public void moveEnemy(){
-		
+
+	public void update(float dt) {
+		moveEnemy(dt);
+		if(character.collide() && character.state == StateBattleCharacter.FIGHTING)
+			enemy.decreaseHealth(character.getWeapon());
 	}
-	
-	public void jumpEnemy(){
-		
-	}
-	
-	
+
 }

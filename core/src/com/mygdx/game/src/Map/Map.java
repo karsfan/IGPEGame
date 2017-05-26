@@ -1,5 +1,8 @@
 package  com.mygdx.game.src.Map;
 
-public class Map {
+import java.util.ArrayList;
 
+public class Map {
+	private static ArrayList<StaticObject> staticObjects;
+	
 }

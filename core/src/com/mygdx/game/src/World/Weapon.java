@@ -44,4 +44,8 @@ public class Weapon extends Shape {
 		else
 			;//ATTENZIONE non ci sono potion per aumentare l'i PP dell'arma
 	}
+
+	public float getDamage() {
+		return damage;
+	}
 }

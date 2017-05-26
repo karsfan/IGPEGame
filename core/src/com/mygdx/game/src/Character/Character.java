@@ -116,8 +116,9 @@ public class Character extends DynamicObjects implements ICollidable {
 			dt = (float) 0.0165;
 		if (y < 960 - height - 5) {
 			y += (velocity * dt);
-			if (collide(this))
+			if (collide(this)){
 				y -= (velocity * dt);
+			}
 		}
 		setState(State.RUNNINGUP);
 	}
@@ -173,6 +174,7 @@ public class Character extends DynamicObjects implements ICollidable {
 				if (((Tile) ob).getElement() != Element.GROUND && ((Tile) ob).getElement() != Element.ROAD)
 					if (((Tile) ob).collide(this))
 						return true;
+					
 			}
 			if (ob instanceof DynamicObjects && ob != this) {
 				if (!((x > ((DynamicObjects) ob).getX() + ((DynamicObjects) ob).getWidth() / 2 - 1
@@ -188,6 +190,16 @@ public class Character extends DynamicObjects implements ICollidable {
 
 	public void setVelocity(float velocity) {
 		this.velocity = velocity;
+	}
+
+	@Override
+	public boolean collide() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Weapon getWeapon() {
+		return primary_weapon;
 	}
 
 }
