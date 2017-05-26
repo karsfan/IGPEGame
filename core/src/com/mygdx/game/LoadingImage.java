@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.src.Character.DynamicObjects.State;
 import com.mygdx.game.src.World.Enemy;
+import com.mygdx.game.src.World.Enemy.StateBattleEnemy;
 import com.mygdx.game.src.World.Game;
 
 public class LoadingImage {
@@ -241,7 +242,7 @@ public class LoadingImage {
 		return region;
 	}
 
-	public TextureRegion getFrameEnemy(com.mygdx.game.src.World.Enemy.State currentState, Enemy enemy) {
+	public TextureRegion getFrameEnemy(StateBattleEnemy currentState, Enemy enemy) {
 		TextureRegion region;
 		switch (currentState) {
 		case RUNNINGRIGHT:
@@ -250,14 +251,6 @@ public class LoadingImage {
 			break;
 		case RUNNINGLEFT:
 			region = (TextureRegion) enemyAnimation[1].getKeyFrame(enemy.getStateTimer(), true);
-			enemyStand = region;
-			break;
-		case RUNNINGUP:
-			region = (TextureRegion) enemyAnimation[2].getKeyFrame(enemy.getStateTimer(), true);
-			enemyStand = region;
-			break;
-		case RUNNINGDOWN:
-			region = (TextureRegion) enemyAnimation[3].getKeyFrame(enemy.getStateTimer(), true);
 			enemyStand = region;
 			break;
 		case STANDING:

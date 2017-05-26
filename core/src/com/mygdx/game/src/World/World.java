@@ -16,7 +16,7 @@ public class World {
 	
 	public Tool potionWeaponLevel1;
 	private static ArrayList<Object> listObjects;
-
+	public Battle battle;
 	public World() {
 		setListObjects(new ArrayList<Object>());
 	}

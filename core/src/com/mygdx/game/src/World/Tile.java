@@ -149,4 +149,10 @@ public class Tile extends StaticObject implements ICollidable {
 		this.infoHouse = infoHouse;
 	}
 
+	@Override
+	public boolean collide() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

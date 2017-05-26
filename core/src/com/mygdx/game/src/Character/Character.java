@@ -192,4 +192,14 @@ public class Character extends DynamicObjects implements ICollidable {
 		this.velocity = velocity;
 	}
 
+	@Override
+	public boolean collide() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Weapon getWeapon() {
+		return primary_weapon;
+	}
+
 }
