@@ -31,12 +31,11 @@ public class PlayScreen implements Screen {
 
 	
 	public PlayScreen(GameSlagyom game, String name) {
-		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
+		//System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
 		loadingImage = new LoadingImage();
 		this.game = game;
 		new Game(name);
 		gamecam = new OrthographicCamera();
-		// gamePort = new StretchViewport(440, 260, gamecam);
 		gamePort = new ScreenViewport(gamecam);
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
