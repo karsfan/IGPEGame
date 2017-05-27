@@ -74,8 +74,8 @@ public class OptionScreen implements Screen {
 		returnButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Gdx.input.setInputProcessor(menuscreen.stage);
 				game.setScreen(menuscreen);
+				Gdx.input.setInputProcessor(menuscreen.stage);
 			}
 		});
 		// Add buttons to table

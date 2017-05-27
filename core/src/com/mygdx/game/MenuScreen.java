@@ -93,7 +93,8 @@ public class MenuScreen implements Screen {
 		continueButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(game, ""));
+				((Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen (game));
+
 			}
 		});
 		editorButton.addListener(new ClickListener() {

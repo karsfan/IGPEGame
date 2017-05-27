@@ -6,6 +6,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.src.Character.CharacterBattle.StateBattleCharacter;
 import com.mygdx.game.src.World.Game;
@@ -17,12 +20,22 @@ public class BattleScreen implements Screen {
 	public LoadingImage loadingImage;
 	public Hud hud;
 
+	public BattleScreen (GameSlagyom game) {
+		this.game = game; 
+		loadingImage = new LoadingImage();
+		gamecam = new OrthographicCamera();
+		gamecam.position.x = Game.character.getX();
+		gamecam.position.y = Game.character.getY();
+		hud = new Hud(game.batch, gamecam, gamePort);
+	}
+	
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
 
 	}
-
+	
+	
+	
 	@Override
 	public void render(float delta) {
 		update(delta);
@@ -30,7 +43,7 @@ public class BattleScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		game.batch.setProjectionMatrix(gamecam.combined);
+		//game.batch.setProjectionMatrix(gamecam.combined);
 
 		game.batch.begin();
 		draw();
@@ -39,7 +52,7 @@ public class BattleScreen implements Screen {
 	}
 
 	private void draw() {
-
+		game.batch.draw(loadingImage.getBattleBgImage(), 100, 100);
 	}
 
 	public void update(float dt) {
@@ -68,7 +81,9 @@ public class BattleScreen implements Screen {
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.A))
 			Game.world.battle.character.fight();
-
+		else if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+			GameScreen.swapScreen(GameScreen.State.PLAYING);
+		}
 	}
 
 	@Override

@@ -22,6 +22,8 @@ public class LoadingImage {
 	private Texture rockImage;
 	private Texture forest1Image;
 	private Texture forest2Image;
+	private Texture battleBackground;
+
 	
 	private Texture interior1image;
 	
@@ -70,6 +72,7 @@ public class LoadingImage {
 		rockImage = new Texture("res/rock.png");
 		forest1Image = new Texture("res/forest1.png");
 		forest2Image = new Texture("res/forest2.png");
+		battleBackground = new Texture("res/battleBg.jpg");
 
 		interior1image = new Texture ("res/home.png");
 		playerAnimation = new Animation[4];
@@ -174,7 +177,10 @@ public class LoadingImage {
 	public Texture getInterior1image() {
 		return interior1image;
 	}
-
+	
+	public Texture getBattleBgImage() {
+		return battleBackground;
+	}
 	public TextureRegion getFrameCharacter(State currentState) {
 		TextureRegion region = new TextureRegion();
 
