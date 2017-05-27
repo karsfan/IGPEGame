@@ -115,8 +115,10 @@ public class Tile extends StaticObject implements ICollidable {
 			if (!((door.x * 32 + shape.getWidth() / 4 > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 5
 					|| ((Character) e).getX() > door.x * 32 + door.width + shape.getWidth() / 4)
 					|| (door.y * 32 > ((Character) e).getY() + ((Character) e).getHeight() / 2
-							|| ((Character) e).getY() > door.y * 32 + door.height)))
+							|| ((Character) e).getY() > door.y * 32 + door.height))){
+				System.out.println("porta");
 				return true;
+			}
 		}
 		return false;
 	}

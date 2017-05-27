@@ -11,32 +11,32 @@ import com.mygdx.game.src.World.Game;
 
 public class LoadingImage {
 
-	private Texture homeImage;
-	private Texture bigHomeImage;
-	private Texture threeImage;
-	private Texture groundImage;
-	private Texture floorImage;
-	private Texture roadImage;
-	private Texture buildingImage;
-	private Texture waterImage;
-	private Texture rockImage;
-	private Texture forest1Image;
-	private Texture forest2Image;
-	private Texture battleBackground;
+	private static Texture homeImage;
+	private static Texture bigHomeImage;
+	private static Texture threeImage;
+	private static Texture groundImage;
+	private static Texture floorImage;
+	private static Texture roadImage;
+	private static Texture buildingImage;
+	private static Texture waterImage;
+	private static Texture rockImage;
+	private static Texture forest1Image;
+	private static Texture forest2Image;
+	private static Texture battleBackground;
 
 	
-	private Texture interior1image;
+	private static Texture interior1image;
 	
 	public Texture texture;
-	private TextureRegion playerStand;
-	public Animation<TextureRegion>[] playerAnimation;
+	private static TextureRegion playerStand;
+	public static Animation<TextureRegion>[] playerAnimation;
 
 	public Texture enemyTexture;
 	private static TextureRegion enemyStand;
 	public Animation<TextureRegion>[] enemyAnimation;
 
 	private static TextureRegion man1Stand;
-	public Animation<TextureRegion>[] man1Animation;
+	public static Animation<TextureRegion>[] man1Animation;
 
 	public Texture man2Texture;
 	private static TextureRegion man2Stand;
@@ -130,58 +130,58 @@ public class LoadingImage {
 
 	}
 
-	public Texture getHomeImage() {
+	public static Texture getHomeImage() {
 		return homeImage;
 	}
 
-	public Texture getThreeImage() {
+	public static Texture getThreeImage() {
 		return threeImage;
 	}
 
-	public Texture getGroundImage() {
+	public static Texture getGroundImage() {
 		return groundImage;
 	}
 
-	public Texture getBuildingImage() {
+	public static Texture getBuildingImage() {
 		return buildingImage;
 	}
 
-	public Texture getWaterImage() {
+	public static Texture getWaterImage() {
 		return waterImage;
 	}
 
-	public Texture getRockImage() {
+	public static Texture getRockImage() {
 		return rockImage;
 	}
 
-	public Texture getForest1Image() {
+	public static Texture getForest1Image() {
 		return forest1Image;
 	}
 
-	public Texture getForest2Image() {
+	public static Texture getForest2Image() {
 		return forest2Image;
 	}
 
-	public Texture getFloorImage() {
+	public static Texture getFloorImage() {
 		return floorImage;
 	}
 
-	public Texture getRoadImage() {
+	public static Texture getRoadImage() {
 		return roadImage;
 	}
 
-	public Texture getBigHomeImage() {
+	public static Texture getBigHomeImage() {
 		return bigHomeImage;
 	}
 	
-	public Texture getInterior1image() {
+	public static Texture getInterior1image() {
 		return interior1image;
 	}
 	
-	public Texture getBattleBgImage() {
+	public static Texture getBattleBgImage() {
 		return battleBackground;
 	}
-	public TextureRegion getFrameCharacter(State currentState) {
+	public static TextureRegion getFrameCharacter(State currentState) {
 		TextureRegion region = new TextureRegion();
 
 		switch (currentState) {
@@ -219,7 +219,7 @@ public class LoadingImage {
 		return region;
 	}
 
-	public TextureRegion getFrameMan(com.mygdx.game.src.Character.Man.State state) {
+	public static TextureRegion getFrameMan(com.mygdx.game.src.Character.Man.State state) {
 		TextureRegion region;
 		switch (state) {
 		case RUNNINGRIGHT:
@@ -269,7 +269,7 @@ public class LoadingImage {
 		return region;
 	}
 
-	public void setFrameDurationCharacter(float frameDuration) {
+	public static void setFrameDurationCharacter(float frameDuration) {
 		playerAnimation[0].setFrameDuration(frameDuration);
 		playerAnimation[1].setFrameDuration(frameDuration);
 		playerAnimation[2].setFrameDuration(frameDuration);

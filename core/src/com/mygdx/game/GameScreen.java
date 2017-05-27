@@ -11,7 +11,7 @@ public class GameScreen implements Screen {
 	static BattleScreen battleScreen;
 
 	public GameScreen (GameSlagyom game) {
-		System.out.println("AFSI");
+		//System.out.println("AFSI");
 		playScreen = new PlayScreen(game, NewCharacterScreen.charName);
 		battleScreen = new BattleScreen(game); 
 	}

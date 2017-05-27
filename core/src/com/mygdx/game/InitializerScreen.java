@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.GameSlagyom.State;
 
 public class InitializerScreen implements Screen{
 
@@ -29,12 +30,9 @@ public class InitializerScreen implements Screen{
 	private Texture background;
 	private Sprite backgroundSprite;
 
-	MenuScreen menuscreen;
-
-
-	public InitializerScreen (final GameSlagyom game, final MenuScreen menuscreen) {
+	
+	public InitializerScreen (final GameSlagyom game) {
 		this.game = game;
-		this.menuscreen = menuscreen;
 		
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
@@ -47,7 +45,6 @@ public class InitializerScreen implements Screen{
 		camera.update();
 
 		stage = new Stage(viewport, game.batch);
-		Gdx.input.setInputProcessor(stage);
 
 		// Create Table
 		Table mainTable = new Table();
@@ -65,8 +62,7 @@ public class InitializerScreen implements Screen{
 		defaultLevelButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(game, NewCharacterScreen.charName));
-				menuscreen.music.stop();
+				game.swapScreen(State.PLAYING);
 			}
 		});
 
@@ -91,8 +87,7 @@ public class InitializerScreen implements Screen{
 		returnButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Gdx.input.setInputProcessor(menuscreen.stage);
-				game.setScreen(menuscreen);
+				game.swapScreen(State.NEWGAME);
 			}
 		});
 		// Add buttons to table

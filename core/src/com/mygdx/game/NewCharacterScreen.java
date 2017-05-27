@@ -19,9 +19,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.GameSlagyom.State;
 
 public class NewCharacterScreen implements Screen {
-	
+
 	private GameSlagyom game;
 	protected Stage stage;
 	private Viewport viewport;
@@ -30,21 +31,15 @@ public class NewCharacterScreen implements Screen {
 	private Texture background;
 	private Sprite backgroundSprite;
 
-	MenuScreen menuscreen;
-	
 	static String charName;
 
-
-	public NewCharacterScreen (final GameSlagyom game, final MenuScreen menuscreen) {
+	public NewCharacterScreen(final GameSlagyom game) {
 		this.game = game;
-		this.menuscreen = menuscreen;
-		//atlas = new TextureAtlas("menu/vhs/vhs-ui.atlas");
-		//skin = new Skin(Gdx.files.internal("menu/vhs/vhs-ui.json"), atlas);
 
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
 		viewport.apply();
-		
+
 		background = new Texture("res/background.png");
 		backgroundSprite = new Sprite(background);
 
@@ -52,7 +47,6 @@ public class NewCharacterScreen implements Screen {
 		camera.update();
 
 		stage = new Stage(viewport, game.batch);
-		Gdx.input.setInputProcessor(stage);
 
 		// Create Table
 		Table mainTable = new Table();
@@ -60,22 +54,22 @@ public class NewCharacterScreen implements Screen {
 		mainTable.top();
 
 		charName = "";
-		
+
 		// Create buttons
 
 		final TextField name = new TextField("", MenuScreen.skin);
 		name.setMessageText("Name");
 		name.setFocusTraversal(true);
 		name.setTextFieldListener(new TextFieldListener() {
-		    @Override
-		    public void keyTyped(TextField textField, char key) {
-		    	//if ((key == '\r' || key == '\n')){
-		           // textField.next(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT));
-		    	//}
-		    }
+			@Override
+			public void keyTyped(TextField textField, char key) {
+				// if ((key == '\r' || key == '\n')){
+				// textField.next(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) ||
+				// Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT));
+				// }
+			}
 		});
-		
-		
+
 		Drawable maleDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/male.png")));
 		final ImageButton male = new ImageButton(maleDraw);
 		male.addListener(new ClickListener() {
@@ -84,7 +78,7 @@ public class NewCharacterScreen implements Screen {
 				System.out.println("MALE");
 			}
 		});
-		
+
 		Drawable femaleDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/male.png")));
 		ImageButton female = new ImageButton(femaleDraw);
 		female.addListener(new ClickListener() {
@@ -93,14 +87,13 @@ public class NewCharacterScreen implements Screen {
 				System.out.println("FEMALE");
 			}
 		});
-		
+
 		TextButton continueButton = new TextButton("Continue", MenuScreen.skin);
 		continueButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-	            charName = name.getText().toUpperCase();
-				Gdx.input.setInputProcessor(menuscreen.stage);
-				game.setScreen(new InitializerScreen(game, menuscreen));
+				charName = name.getText().toUpperCase();
+				game.swapScreen(State.WELCOME);
 			}
 		});
 
@@ -108,11 +101,10 @@ public class NewCharacterScreen implements Screen {
 		returnButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Gdx.input.setInputProcessor(menuscreen.stage);
-				game.setScreen(menuscreen);
+				game.swapScreen(State.MENU);
 			}
 		});
-	
+
 		// Add buttons to table
 		mainTable.add(name).pad(5).padTop(Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 4);
 		mainTable.row();
@@ -128,7 +120,7 @@ public class NewCharacterScreen implements Screen {
 
 	@Override
 	public void show() {
-		
+
 	}
 
 	@Override

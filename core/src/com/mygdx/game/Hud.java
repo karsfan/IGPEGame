@@ -1,31 +1,26 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.src.Character.Character;
 
 public class Hud {
+	
 	public SpriteBatch spriteBatch;
-
 	public Stage stage;
 	private Viewport viewport;
-
 	private Integer health;
-
-	Label healthLabel;
-	Label nameLabel;
-	Label villageLabel;
+	private Label healthLabel;
+	private Label nameLabel;
+	private Label villageLabel;
 	public boolean showDialog = true;
 	public Table textTable = new Table();
+	
 	public Hud(SpriteBatch sb, OrthographicCamera gamecam, Viewport gamePort) {
 		spriteBatch = sb;
 		health = 100;
@@ -49,7 +44,7 @@ public class Hud {
 
 		stage.addActor(table);
 
-		Drawable dialog = new TextureRegionDrawable(new TextureRegion(new Texture("res/dialogBox.png")));
+		//Drawable dialog = new TextureRegionDrawable(new TextureRegion(new Texture("res/dialogBox.png")));
 		/*if (showDialog) {
 			TextButton dialogLabel = new TextButton("\nDIALOGO BLA BLA BLA BLA BLA BLA\n DIALOGO BLA BLA BLA BLA BLA BLA \n DIALOGO BLA BLA BLA BLA BLA BLA \n", MenuScreen.skin);
 			

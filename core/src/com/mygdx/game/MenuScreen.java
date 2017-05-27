@@ -1,9 +1,7 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,12 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.levels.editor.Editor;
+import com.mygdx.game.GameSlagyom.State;
 
 public class MenuScreen implements Screen {
-	static GameSlagyom game;
-	private NewCharacterScreen newCharacterScreen; 
-	private InitializerScreen initializerScreen;
-	private OptionScreen optionScreen;
+	 GameSlagyom game;
+	
 	protected Stage stage;
 	private Viewport viewport;
 	private OrthographicCamera camera;
@@ -32,6 +29,7 @@ public class MenuScreen implements Screen {
 	private Texture background;
 	private Sprite backgroundSprite;
 	public Music music;
+	
 	static TextureAtlas atlas;
 	protected static Skin skin;
 	public Table mainTable;
@@ -40,12 +38,12 @@ public class MenuScreen implements Screen {
 	public TextButton returnButton;
 	
 	public MenuScreen(final GameSlagyom game) {
-		MenuScreen.game = game;
+		this.game = game;
 		atlas = new TextureAtlas("menu/vhs/vhs-ui.atlas");
 		skin = new Skin(Gdx.files.internal("menu/vhs/vhs-ui.json"), atlas);
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("res/menuMusic.mp3"));
-		//music.play();
+		music.play();
 
 		musicButton = new TextButton("Music", skin);
 		returnButton = new TextButton("Return", skin);
@@ -61,9 +59,6 @@ public class MenuScreen implements Screen {
 		camera.update();
 
 		stage = new Stage(viewport, game.batch);
-		optionScreen = new OptionScreen(game, MenuScreen.this);
-		newCharacterScreen = new NewCharacterScreen(game, MenuScreen.this); 
-		initializerScreen = new InitializerScreen(game, MenuScreen.this);
 		// Stage should controll input:
 		Gdx.input.setInputProcessor(stage);
 
@@ -85,16 +80,13 @@ public class MenuScreen implements Screen {
 		playButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				//((Game) Gdx.app.getApplicationListener()).setScreen(initializerScreen);
-				((Game) Gdx.app.getApplicationListener()).setScreen(newCharacterScreen);
-				Gdx.input.setInputProcessor(newCharacterScreen.stage);
+				game.swapScreen(State.NEWGAME);
 			}
 		});
 		continueButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				((Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen (game));
-
+				game.swapScreen(State.PLAYING);
 			}
 		});
 		editorButton.addListener(new ClickListener() {
@@ -106,8 +98,7 @@ public class MenuScreen implements Screen {
 		optionsButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				((Game) Gdx.app.getApplicationListener()).setScreen(optionScreen);
-				Gdx.input.setInputProcessor(optionScreen.stage);
+				game.swapScreen(State.OPTIONMENU);
 			}
 		});
 		exitButton.addListener(new ClickListener() {
@@ -148,9 +139,6 @@ public class MenuScreen implements Screen {
 
 		stage.act(delta);
 		stage.draw();
-
-		if (Gdx.input.isKeyPressed(Keys.SPACE))
-			((Game) Gdx.app.getApplicationListener()).setScreen(initializerScreen);
 
 	}
 

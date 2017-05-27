@@ -3,7 +3,7 @@ package  com.mygdx.game.src.World;
 import  com.mygdx.game.src.Character.Bag;
 import  com.mygdx.game.src.Tool.Potion;
 
-public class Weapon extends Shape {
+public class Weapon {
 	public String name;
 	float damage;
 	int level;

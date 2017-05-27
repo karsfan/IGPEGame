@@ -14,7 +14,8 @@ public class Game {
 	public static World world;
 	public static Character character;
 	public static Man man1;
-	public ThreadWorld thread;
+	public static ThreadWorld thread;
+	
 	public Game(String name) {
 		man1 = new Man();
 		character = new Character(name);
@@ -44,7 +45,6 @@ public class Game {
 	public void initialize() {
 		setWorld(new World());
 
-		// openFile("C:/Users/Nicholas/Documents/a.txt");
 	}
 
 	public static void readMap() {
