@@ -14,7 +14,7 @@ public class BattleScreen implements Screen {
 	public OrthographicCamera gamecam;
 	public Viewport gamePort;
 	public GameSlagyom game;
-	public Hud hud;
+	public BattleHud hud;
 
 	public BattleScreen (GameSlagyom game) {
 		this.game = game; 
@@ -22,7 +22,7 @@ public class BattleScreen implements Screen {
 		gamePort = new ScreenViewport(gamecam);
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
-		hud = new Hud(game.batch, gamecam, gamePort);
+		hud = new BattleHud(game.batch);
 	}
 	
 	@Override
@@ -45,10 +45,12 @@ public class BattleScreen implements Screen {
 
 	private void draw() {
 		game.batch.draw(LoadingImage.getBattleBgImage(), 100, 100);
+		
 	}
 
 	public void update(float dt) {
 		handleInput(dt);
+		hud.update(dt);
 	}
 	@SuppressWarnings("static-access")
 	private void handleInput(float dt){

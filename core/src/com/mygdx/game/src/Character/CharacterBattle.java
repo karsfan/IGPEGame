@@ -11,17 +11,19 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 
 	Character character;
 	public StateBattleCharacter state;
+	public int stateTimer;
 
 	public CharacterBattle(Character character) {
+		stateTimer = 0;
 		this.character = character;
-		character.x = 100;
-		character.y = 100;
-		character.width = 60;
-		character.height = 60;
+		this.character.x = 100;
+		this.character.y = 100;
+		this.character.width = 60;
+		this.character.height = 60;
 	}
 
 	public void fight() {
-		
+	//	character.width += character.primary_weapon.
 		setState(StateBattleCharacter.FIGHTING);
 	}
 

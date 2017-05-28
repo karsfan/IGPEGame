@@ -29,7 +29,7 @@ public class OptionScreen implements Screen {
 
 	public OptionScreen(final GameSlagyom game) {
 		this.game = game;
-	
+		
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
 		viewport.apply();

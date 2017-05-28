@@ -36,7 +36,7 @@ public class PlayScreen implements Screen {
 		gamePort = new ScreenViewport(gamecam);
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
-		hud = new Hud(game.batch, gamecam, gamePort);
+		hud = new Hud(game.batch);
 		
 	}
 
@@ -51,7 +51,7 @@ public class PlayScreen implements Screen {
 
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
-		hud = new Hud(game.batch, gamecam, gamePort);
+		hud = new Hud(game.batch);
 
 	}
 

@@ -14,18 +14,19 @@ public class Hud {
 	public SpriteBatch spriteBatch;
 	public Stage stage;
 	private Viewport viewport;
-	private Integer health;
+	
 	private Label healthLabel;
 	private Label nameLabel;
 	private Label villageLabel;
+	
 	public boolean showDialog = true;
 	public Table textTable = new Table();
-	
-	public Hud(SpriteBatch sb, OrthographicCamera gamecam, Viewport gamePort) {
+	Integer health;
+	public Hud(SpriteBatch sb) {
 		spriteBatch = sb;
-		health = 100;
-
+		health = 90;
 		viewport = new FitViewport(1200, 1200, new OrthographicCamera());
+		
 		stage = new Stage(viewport, sb);
 
 		Table table = new Table();

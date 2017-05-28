@@ -40,7 +40,9 @@ public class Character extends DynamicObjects implements ICollidable {
 		height = 30;
 		width = 30;
 	}
-
+	public float getHealth(){
+		return health;
+	}
 	public float getX() {
 		return x;
 	}
@@ -77,7 +79,7 @@ public class Character extends DynamicObjects implements ICollidable {
 	}
 
 	public void upgradeWeapon(Weapon weapon) {
-		weapon.upgrade(bag);
+		//weapon.upgrade(bag);
 	}
 
 	public void usePotionWeapon(Weapon weapon, Potion potion) {

@@ -75,6 +75,7 @@ public class LoadingImage {
 		battleBackground = new Texture("res/battleBg.jpg");
 
 		interior1image = new Texture ("res/home.png");
+		
 		playerAnimation = new Animation[4];
 		enemyAnimation = new Animation[4];
 		man1Animation = new Animation[4];
