@@ -106,10 +106,13 @@ public class NewCharacterScreen implements Screen {
 		});
 
 		// Add buttons to table
+		Table gender = new Table(); 
 		mainTable.add(name).pad(5).padTop(Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 4);
 		mainTable.row();
-		mainTable.add(male).pad(30);
-		mainTable.add(female).pad(5);
+		
+		gender.add(male);
+		gender.add(female);
+		mainTable.add(gender);
 		mainTable.row();
 		mainTable.add(continueButton).pad(20).center();
 		mainTable.row();

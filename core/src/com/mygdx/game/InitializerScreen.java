@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -30,10 +32,8 @@ public class InitializerScreen implements Screen{
 	private Texture background;
 	private Sprite backgroundSprite;
 
-	
 	public InitializerScreen (final GameSlagyom game) {
 		this.game = game;
-		
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
 		viewport.apply();
@@ -91,6 +91,8 @@ public class InitializerScreen implements Screen{
 			}
 		});
 		// Add buttons to table
+		
+		
 		mainTable.add(name).pad(30);
 		mainTable.row();
 		mainTable.add(defaultLevelButton).pad(5).padTop(Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 3);
@@ -98,14 +100,18 @@ public class InitializerScreen implements Screen{
 		mainTable.add(chooseLevelButton).pad(5);
 		mainTable.row();
 		mainTable.add(returnButton).pad(5);
-		mainTable.row();
+		mainTable.row();		
 
 		stage.addActor(mainTable);
+		
+		
+	
+		
 	}
 
 	@Override
 	public void show() {
-		
+
 	}
 
 	@Override
@@ -119,8 +125,6 @@ public class InitializerScreen implements Screen{
 
 		stage.act();
 		stage.draw();
-
-
 
 	}
 

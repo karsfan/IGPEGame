@@ -119,6 +119,7 @@ public class MenuScreen implements Screen {
 		mainTable.row();
 		mainTable.add(exitButton).pad(5);
 
+
 		// Add table to stage
 		stage.addActor(mainTable);
 	}
