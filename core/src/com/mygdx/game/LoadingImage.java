@@ -76,7 +76,7 @@ public class LoadingImage {
 		rockImage = new Texture("res/rock.png");
 		forest1Image = new Texture("res/forest1.png");
 		forest2Image = new Texture("res/forest2.png");
-		battleBackground = new Texture("res/battleBg.jpg");
+		battleBackground = new Texture("res/battleBg.png");
 
 		interior1image = new Texture("res/home.png");
 
@@ -107,7 +107,7 @@ public class LoadingImage {
 		Animation<TextureRegion> left;
 		Animation<TextureRegion> fightingRight;
 		Animation<TextureRegion> fightingLeft;
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 8; i++) {
 			frames.add(new TextureRegion(texture, i * 64, 65, 65, 65));
 		}
 		right = new Animation<TextureRegion>(0.2f, frames);
@@ -119,13 +119,13 @@ public class LoadingImage {
 		left = new Animation<TextureRegion>(0.2f, frames);
 		frames.clear();
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 8; i++) {
 			frames.add(new TextureRegion(texture, i * 64, 195, 65, 65));
 		}
 		fightingRight = new Animation<TextureRegion>(0.2f, frames);
 		frames.clear();
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 8; i++) {
 			frames.add(new TextureRegion(texture, i * 64, 130, 65, 65));
 		}
 		fightingLeft = new Animation<TextureRegion>(0.2f, frames);
@@ -134,9 +134,11 @@ public class LoadingImage {
 		arrayAnimation[1] = left;
 		arrayAnimation[2] = fightingRight;
 		arrayAnimation[3] = fightingLeft;
+		arrayAnimation[2].setFrameDuration(0.025f);
+		arrayAnimation[3].setFrameDuration(0.01f);
 
 	}
-
+	
 	public void createFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation) {
 
 		Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -271,7 +273,7 @@ public class LoadingImage {
 		case RUNNINGRIGHT:
 			region = (TextureRegion) battleCharacterAnimation[0]
 					.getKeyFrame(Game.world.battle.character.getStateTimer(), true);
-			battleCharacterStand = region;
+			battleCharacterStand = (TextureRegion) battleCharacterAnimation[0].getKeyFrame(0, true);;
 			break;
 		case RUNNINGLEFT:
 			region = (TextureRegion) battleCharacterAnimation[1]
@@ -280,7 +282,7 @@ public class LoadingImage {
 			break;
 		case FIGHTINGRIGHT:
 			region = (TextureRegion) battleCharacterAnimation[2]
-					.getKeyFrame(Game.world.battle.character.getStateTimer(), true);
+					.getKeyFrame(Game.world.battle.character.getStateTimer(),true);
 			battleCharacterStand = region;
 			break;
 		case FIGHTINGLEFT:
@@ -289,6 +291,7 @@ public class LoadingImage {
 			battleCharacterStand = region;
 			break;
 		case STANDING:
+			
 			if (Game.world.battle.character.getPreviousState() == StateBattleCharacter.RUNNINGRIGHT)
 				battleCharacterStand = (TextureRegion) battleCharacterAnimation[0].getKeyFrame(0, true);
 			if (Game.world.battle.character.getPreviousState() == StateBattleCharacter.RUNNINGLEFT)

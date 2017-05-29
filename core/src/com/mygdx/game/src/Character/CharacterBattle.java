@@ -14,17 +14,24 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 	public StateBattleCharacter currentState;
 	public StateBattleCharacter previousState;
 	public float stateTimer;
+	private boolean fighting;
+	private float fightingTimeCurrent;
+	private float fightingTime;
+	//
 
 	public CharacterBattle(final Character character1) {
 		stateTimer = 0;
 		currentState = StateBattleCharacter.STANDING;
 		previousState = null;
-				
+
 		character = new Character(character1);
 		character.x = 100;
-		character.y = 100;
-		character.width = 100;
-		character.height = 200;
+		character.y = 250;
+		character.width = 120;
+		character.height = 120;
+		fighting = false;
+		fightingTimeCurrent = 0;
+		fightingTime = 0.2f;
 	}
 
 	public float getX() {
@@ -43,20 +50,40 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		return character.getWidth();
 	}
 
-	public void fight() {
-		// character.width += character.primary_weapon.width;
-		//if (collide())
-			//Battle.enemy.decreaseHealth(character.primary_weapon);
-		// character.width -= character.primary_weapon.width;
-		//if (currentState == StateBattleCharacter.RUNNINGRIGHT)
+	public void update(float dt) {
+		if (fighting && fightingTimeCurrent < fightingTime) {
+			fightingTimeCurrent += 0.025f;
 			setState(StateBattleCharacter.FIGHTINGRIGHT);
-		//if (currentState == StateBattleCharacter.RUNNINGLEFT)
-			//setState(StateBattleCharacter.FIGHTINGLEFT);
+		} else if (fighting && fightingTimeCurrent > fightingTime) {
+			fighting = false;
+			fightingTimeCurrent = 0;
+			// stand();
+		}
+
+	}
+
+	public void fightRight() {
+		// character.width += character.primary_weapon.width;
+		// if (collide())
+		// Battle.enemy.decreaseHealth(character.primary_weapon);
+		// character.width -= character.primary_weapon.width;
+		setState(StateBattleCharacter.FIGHTINGRIGHT);
+		fighting = true;
+		// System.out.println(Gdx.graphics.getWidth());
+	}
+
+	public void stand() {
+		if (!fighting) {
+			setState(StateBattleCharacter.STANDING);
+			stateTimer = 0;
+		}
 	}
 
 	public void movesRight(float dt) {
+		
 		if (character.x + character.width < Battle.WIDTH)
 			character.x += character.velocity * dt;
+		if(!fighting)
 		setState(StateBattleCharacter.RUNNINGRIGHT);
 	}
 
@@ -75,7 +102,7 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		previousState = currentState;
 		currentState = state;
 
-		if (previousState == currentState)
+		if (previousState == currentState && currentState != StateBattleCharacter.STANDING)
 			setStateTimer(getStateTimer() + Gdx.graphics.getDeltaTime());
 		else
 			setStateTimer(0);
@@ -115,6 +142,11 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 
 	public StateBattleCharacter getCurrentState() {
 		return currentState;
+	}
+
+	public void fightLeft() {
+		setState(StateBattleCharacter.FIGHTINGLEFT);
+		fighting = true;
 	}
 
 }
