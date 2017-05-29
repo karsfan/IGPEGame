@@ -82,9 +82,6 @@ public class Character extends DynamicObjects implements ICollidable {
 		//weapon.upgrade(bag);
 	}
 
-	public void usePotionWeapon(Weapon weapon, Potion potion) {
-		weapon.upgradePP(bag, potion);
-	}
 
 	public void usePotionHealth(Potion potion) {
 		health += potion.getLevel() * 10;

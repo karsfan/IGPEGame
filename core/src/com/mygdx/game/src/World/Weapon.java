@@ -1,31 +1,41 @@
 package com.mygdx.game.src.World;
 
-import com.mygdx.game.src.Character.Bag;
-import com.mygdx.game.src.Tool.Potion;
-
 public class Weapon {
 	public enum Type {
-		SPADA, ARCO, LANCIA
+		SPADA, ARCO, LANCIA, FRECCIA
 	};
-	
+
 	public enum Level {
-		
+		BASIC, NORMAL, RARE
 	};
-	
+
 	public String name;
 	float damage;
 	Level level;
 	Type type;
-	int powerPoints;
 	float width;
 
-	public Weapon(String name, float damage, Level level, Type type) {
+	public Weapon(String name, Level level, Type type) {
 
 		this.name = name;
-		this.damage = damage;
 		this.level = level;
 		this.type = type;
-		switch(type){
+		switch (this.type) {
+		case SPADA:
+			damage = 10;
+			width = 10;
+			break;
+		case ARCO:
+			damage = 8;
+			width = 0;
+			break;
+		case LANCIA:
+			damage = 8;
+			width = 20;
+			break;
+		case FRECCIA:
+			damage = 8;
+			width = 0;
 		default:
 			break;
 		}
@@ -44,21 +54,10 @@ public class Weapon {
 		return name;
 	}
 
-	/*public void upgrade(Bag bag) {
-		if (level < 3) {
-			level++;
-			powerPoints = level * 20;
-			damage += 20;
-			bag.deleteParchments(level);
-		}
-	}*/
-
-	public void upgradePP(Bag bag, Potion potion) {
-		if (bag.deletePotion(potion))
-			powerPoints += 10 * potion.getLevel();
-		else
-			;// ATTENZIONE non ci sono potion per aumentare l'i PP dell'arma
-	}
+	/*
+	 * public void upgrade(Bag bag) { if (level < 3) { level++; powerPoints =
+	 * level * 20; damage += 20; bag.deleteParchments(level); } }
+	 */
 
 	public float getDamage() {
 		return damage;

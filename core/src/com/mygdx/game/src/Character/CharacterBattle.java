@@ -23,7 +23,10 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 	}
 
 	public void fight() {
-	//	character.width += character.primary_weapon.
+	//	character.width += character.primary_weapon.width;
+		if(collide())
+			Battle.enemy.decreaseHealth(character.primary_weapon);
+		//character.width -= character.primary_weapon.width;
 		setState(StateBattleCharacter.FIGHTING);
 	}
 
