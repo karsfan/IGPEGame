@@ -135,6 +135,7 @@ public class PlayScreen implements Screen {
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			game.setScreen(new MenuScreen(game));
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
+			Game.world.createBattle();
 			game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
 			//GameScreen.swapScreen(GameScreen.State.FIGHTING);
 		}

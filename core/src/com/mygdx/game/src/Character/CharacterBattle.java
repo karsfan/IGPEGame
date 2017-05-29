@@ -1,33 +1,57 @@
 package com.mygdx.game.src.Character;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.src.World.Battle;
 import com.mygdx.game.src.World.Weapon;
 
 public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 
 	public enum StateBattleCharacter {
-		JUMPING, STANDING, RUNNINGLEFT, RUNNINGRIGHT, FIGHTING, DEFENDING
+		JUMPING, STANDING, RUNNINGLEFT, RUNNINGRIGHT, FIGHTINGRIGHT, FIGHTINGLEFT, DEFENDING
 	};
 
 	Character character;
-	public StateBattleCharacter state;
-	public int stateTimer;
+	public StateBattleCharacter currentState;
+	public StateBattleCharacter previousState;
+	public float stateTimer;
 
-	public CharacterBattle(Character character) {
+	public CharacterBattle(final Character character1) {
 		stateTimer = 0;
-		this.character = character;
-		this.character.x = 100;
-		this.character.y = 100;
-		this.character.width = 60;
-		this.character.height = 60;
+		currentState = StateBattleCharacter.STANDING;
+		previousState = null;
+				
+		character = new Character(character1);
+		character.x = 100;
+		character.y = 100;
+		character.width = 100;
+		character.height = 200;
+	}
+
+	public float getX() {
+		return character.getX();
+	}
+
+	public float getY() {
+		return character.getY();
+	}
+
+	public float getHeight() {
+		return character.getHeight();
+	}
+
+	public float getWidth() {
+		return character.getWidth();
 	}
 
 	public void fight() {
-	//	character.width += character.primary_weapon.width;
-		if(collide())
-			Battle.enemy.decreaseHealth(character.primary_weapon);
-		//character.width -= character.primary_weapon.width;
-		setState(StateBattleCharacter.FIGHTING);
+		// character.width += character.primary_weapon.width;
+		//if (collide())
+			//Battle.enemy.decreaseHealth(character.primary_weapon);
+		// character.width -= character.primary_weapon.width;
+		//if (currentState == StateBattleCharacter.RUNNINGRIGHT)
+			setState(StateBattleCharacter.FIGHTINGRIGHT);
+		//if (currentState == StateBattleCharacter.RUNNINGLEFT)
+			//setState(StateBattleCharacter.FIGHTINGLEFT);
 	}
 
 	public void movesRight(float dt) {
@@ -43,12 +67,23 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		setState(StateBattleCharacter.RUNNINGLEFT);
 	}
 
-	public void jump() {
+	public void jump(float dt) {
 		setState(StateBattleCharacter.JUMPING);
 	}
 
 	public void setState(StateBattleCharacter state) {
-		this.state = state;
+		previousState = currentState;
+		currentState = state;
+
+		if (previousState == currentState)
+			setStateTimer(getStateTimer() + Gdx.graphics.getDeltaTime());
+		else
+			setStateTimer(0);
+
+	}
+
+	private void setStateTimer(float f) {
+		stateTimer = f;
 	}
 
 	@Override
@@ -68,6 +103,18 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 
 	public Weapon getWeapon() {
 		return character.getWeapon();
+	}
+
+	public float getStateTimer() {
+		return stateTimer;
+	}
+
+	public StateBattleCharacter getPreviousState() {
+		return previousState;
+	}
+
+	public StateBattleCharacter getCurrentState() {
+		return currentState;
 	}
 
 }
