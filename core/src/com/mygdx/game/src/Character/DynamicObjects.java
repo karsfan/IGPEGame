@@ -14,6 +14,25 @@ public class DynamicObjects {
 	public float width;
 	public float velocity;
 
+	public DynamicObjects(float x, float y, State currentState, State previousState, float stateTimer, float height,
+			float width, float velocity) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.currentState = currentState;
+		this.previousState = previousState;
+		this.stateTimer = stateTimer;
+		this.height = height;
+		this.width = width;
+		this.velocity = velocity;
+	}
+
+	
+
+	public DynamicObjects() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public float getX() {
 		return x;
 	}

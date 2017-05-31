@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.src.Character.CharacterBattle.StateBattleCharacter;
 import com.mygdx.game.src.Character.DynamicObjects.State;
 import com.mygdx.game.src.World.Enemy;
 import com.mygdx.game.src.World.Enemy.StateBattleEnemy;
@@ -24,9 +25,12 @@ public class LoadingImage {
 	private static Texture forest2Image;
 	private static Texture battleBackground;
 
-	
 	private static Texture interior1image;
-	
+
+	private static Texture battleCharacter;
+	private static TextureRegion battleCharacterStand;
+	public static Animation<TextureRegion>[] battleCharacterAnimation;
+
 	public Texture texture;
 	private static TextureRegion playerStand;
 	public static Animation<TextureRegion>[] playerAnimation;
@@ -72,10 +76,10 @@ public class LoadingImage {
 		rockImage = new Texture("res/rock.png");
 		forest1Image = new Texture("res/forest1.png");
 		forest2Image = new Texture("res/forest2.png");
-		battleBackground = new Texture("res/battleBg.jpg");
+		battleBackground = new Texture("res/battleBg.png");
 
-		interior1image = new Texture ("res/home.png");
-		
+		interior1image = new Texture("res/home.png");
+
 		playerAnimation = new Animation[4];
 		enemyAnimation = new Animation[4];
 		man1Animation = new Animation[4];
@@ -84,16 +88,57 @@ public class LoadingImage {
 		woman1Animation = new Animation[4];
 		woman2Animation = new Animation[4];
 		woman3Animation = new Animation[4];
-
+		battleCharacterAnimation = new Animation[4];
 		texture = new Texture("assets/bpj.png");
 		createFrame(texture, playerAnimation);
-		playerStand = playerAnimation[0].getKeyFrame(0,true);
+		playerStand = playerAnimation[0].getKeyFrame(0, true);
 		texture = new Texture("assets/notPlaying.png");
 		createFrame(texture, man1Animation);
-		man1Stand = man1Animation[0].getKeyFrame(0,true);
+		man1Stand = man1Animation[0].getKeyFrame(0, true);
 
+		battleCharacter = new Texture("assets/lancia.png");
+		createBattleFrame(battleCharacter, battleCharacterAnimation);
+		battleCharacterStand = battleCharacterAnimation[0].getKeyFrame(0, true);
 	}
 
+	private void createBattleFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation) {
+		Array<TextureRegion> frames = new Array<TextureRegion>();
+		Animation<TextureRegion> right;
+		Animation<TextureRegion> left;
+		Animation<TextureRegion> fightingRight;
+		Animation<TextureRegion> fightingLeft;
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(texture, i * 64, 65, 65, 65));
+		}
+		right = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+
+		for (int i = 7; i != 0; i--) {
+			frames.add(new TextureRegion(texture, i * 64, 0, 65, 65));
+		}
+		left = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(texture, i * 64, 195, 65, 65));
+		}
+		fightingRight = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+
+		for (int i = 0; i < 8; i++) {
+			frames.add(new TextureRegion(texture, i * 64, 130, 65, 65));
+		}
+		fightingLeft = new Animation<TextureRegion>(0.2f, frames);
+		frames.clear();
+		arrayAnimation[0] = right;
+		arrayAnimation[1] = left;
+		arrayAnimation[2] = fightingRight;
+		arrayAnimation[3] = fightingLeft;
+		arrayAnimation[2].setFrameDuration(0.025f);
+		arrayAnimation[3].setFrameDuration(0.01f);
+
+	}
+	
 	public void createFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation) {
 
 		Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -174,14 +219,15 @@ public class LoadingImage {
 	public static Texture getBigHomeImage() {
 		return bigHomeImage;
 	}
-	
+
 	public static Texture getInterior1image() {
 		return interior1image;
 	}
-	
+
 	public static Texture getBattleBgImage() {
 		return battleBackground;
 	}
+
 	public static TextureRegion getFrameCharacter(State currentState) {
 		TextureRegion region = new TextureRegion();
 
@@ -211,10 +257,53 @@ public class LoadingImage {
 				playerStand = (TextureRegion) playerAnimation[2].getKeyFrame(0, true);
 			if (Game.character.getPreviousState() == State.RUNNINGDOWN)
 				playerStand = (TextureRegion) playerAnimation[3].getKeyFrame(0, true);
-				region = playerStand;
+			region = playerStand;
 			break;
 		default:
 			region = playerStand;
+			break;
+		}
+		return region;
+	}
+
+	public static TextureRegion getBattleFrameCharacter(StateBattleCharacter currentState) {
+		TextureRegion region = new TextureRegion();
+
+		switch (currentState) {
+		case RUNNINGRIGHT:
+			region = (TextureRegion) battleCharacterAnimation[0]
+					.getKeyFrame(Game.world.battle.character.getStateTimer(), true);
+			battleCharacterStand = (TextureRegion) battleCharacterAnimation[0].getKeyFrame(0, true);;
+			break;
+		case RUNNINGLEFT:
+			region = (TextureRegion) battleCharacterAnimation[1]
+					.getKeyFrame(Game.world.battle.character.getStateTimer(), true);
+			battleCharacterStand = region;
+			break;
+		case FIGHTINGRIGHT:
+			region = (TextureRegion) battleCharacterAnimation[2]
+					.getKeyFrame(Game.world.battle.character.getStateTimer(),true);
+			battleCharacterStand = region;
+			break;
+		case FIGHTINGLEFT:
+			region = (TextureRegion) battleCharacterAnimation[3]
+					.getKeyFrame(Game.world.battle.character.getStateTimer(), true);
+			battleCharacterStand = region;
+			break;
+		case STANDING:
+			
+			if (Game.world.battle.character.getPreviousState() == StateBattleCharacter.RUNNINGRIGHT)
+				battleCharacterStand = (TextureRegion) battleCharacterAnimation[0].getKeyFrame(0, true);
+			if (Game.world.battle.character.getPreviousState() == StateBattleCharacter.RUNNINGLEFT)
+				battleCharacterStand = (TextureRegion) battleCharacterAnimation[1].getKeyFrame(0, true);
+			if (Game.world.battle.character.getPreviousState() == StateBattleCharacter.FIGHTINGRIGHT)
+				battleCharacterStand = (TextureRegion) battleCharacterAnimation[2].getKeyFrame(0, true);
+			if (Game.world.battle.character.getPreviousState() == StateBattleCharacter.FIGHTINGLEFT)
+				battleCharacterStand = (TextureRegion) battleCharacterAnimation[3].getKeyFrame(0, true);
+			region = battleCharacterStand;
+			break;
+		default:
+			region = battleCharacterStand;
 			break;
 		}
 		return region;

@@ -12,7 +12,7 @@ import com.mygdx.game.src.Character.Man;
 public class Game {
 	public static JFileChooser fc;
 	public static World world;
-	public static Character character;
+	public static  Character character;
 	public static Man man1;
 	public static ThreadWorld thread;
 	

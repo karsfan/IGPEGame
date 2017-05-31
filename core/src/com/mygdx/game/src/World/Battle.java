@@ -12,7 +12,7 @@ public class Battle {
 	public static int HEIGHT;
 	public static int gravity;
 	ThreadBattle thread;
-	
+
 	public Battle() {
 		character = null;
 		enemy = null;
@@ -22,11 +22,12 @@ public class Battle {
 	public Battle(Character character, Enemy enemy) {
 		this.character = new CharacterBattle(character);
 		this.enemy = enemy;
-		WIDTH  = 720;
+		WIDTH = 720;
 		HEIGHT = 480;
-		thread.start();
+		//thread = new ThreadBattle(this);
+		//thread.start();
 	}
-	
+
 	public void moveEnemy(float dt) {
 		enemy.update(dt);
 	}
@@ -37,8 +38,10 @@ public class Battle {
 
 	public void update(float dt) {
 		moveEnemy(dt);
-		if(character.collide() && character.state == StateBattleCharacter.FIGHTING)
+		if (character.collide() && (character.currentState == StateBattleCharacter.FIGHTINGRIGHT
+				|| character.currentState == StateBattleCharacter.FIGHTINGLEFT))
 			enemy.decreaseHealth(character.getWeapon());
+
 	}
 
 }

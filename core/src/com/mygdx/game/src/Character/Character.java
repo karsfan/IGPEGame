@@ -9,7 +9,6 @@ import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.ICollidable;
 import com.mygdx.game.src.World.Tile;
 import com.mygdx.game.src.World.Weapon;
-//import com.mygdx.game.src.World.World.Element;
 import com.mygdx.game.src.Map.StaticObject.Element;
 
 
@@ -40,6 +39,17 @@ public class Character extends DynamicObjects implements ICollidable {
 		height = 30;
 		width = 30;
 	}
+	
+	public Character(Character character) {
+		super(character.x, character.y, character.currentState, character.previousState, character.stateTimer, character.width,
+				character.height, character.velocity);
+		this.bag = character.bag;
+		this.primary_weapon = character.primary_weapon;
+		this.health = character.health;
+		this.power = character.power;
+		this.coins = character.coins;
+	}
+
 	public float getHealth(){
 		return health;
 	}

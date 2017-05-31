@@ -42,7 +42,7 @@ public class BattleHud {
 	}
 	public void update(float dt){
 		
-		health ++;
+		//health ++;
 		healthLabel.setText(String.format("%03d",health));
 	}
 }
