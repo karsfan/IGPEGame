@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameSlagyom extends Game {
@@ -20,6 +21,7 @@ public class GameSlagyom extends Game {
 	static PauseScreen pauseScreen; 
 	static PlayScreen playScreen;
 	
+	public static Preferences prefs; 
 	SpriteBatch batch;
 
 	public GameSlagyom() {
@@ -40,8 +42,37 @@ public class GameSlagyom extends Game {
 		setScreen(menuScreen);
 		
 		//setScreen(new MenuScreen(this));
-	}
+		
+		//gameFiles = new SaveGame(prefs); 
+		prefs = Gdx.app.getPreferences("My saved game"); 
 
+	}
+	
+	public static void saveGame() {
+		//	prefs = Gdx.app.getPreferences("My saved game"); 
+			prefs.putString("name", com.mygdx.game.src.World.Game.character.name);	
+			prefs.putFloat("xCharPosition", com.mygdx.game.src.World.Game.character.x);
+			prefs.putFloat("yCharPosition", com.mygdx.game.src.World.Game.character.y);
+			prefs.putFloat("health", com.mygdx.game.src.World.Game.character.health);
+			prefs.putFloat("power", com.mygdx.game.src.World.Game.character.power);
+			prefs.putInteger("coins", com.mygdx.game.src.World.Game.character.coins);
+			
+			prefs.flush();
+
+		}
+	
+	public static  void loadGame() {
+		prefs = Gdx.app.getPreferences("My saved game"); 
+
+		com.mygdx.game.src.World.Game.character.setName(prefs.getString("name"));
+		com.mygdx.game.src.World.Game.character.x = prefs.getFloat("xCharPosition");
+		com.mygdx.game.src.World.Game.character.y = prefs.getFloat("yCharPosition");
+		com.mygdx.game.src.World.Game.character.health = prefs.getFloat("health");
+		com.mygdx.game.src.World.Game.character.power = prefs.getFloat("power");
+		com.mygdx.game.src.World.Game.character.coins = prefs.getInteger("coins");
+		
+	}
+	
 	@Override
 	public void render() {
 		super.render();

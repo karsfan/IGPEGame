@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,12 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameSlagyom.State;
 
-public class PauseScreen implements Screen{
-
+public class PauseScreen implements Screen {
 
 	private GameSlagyom game;
 	protected Stage stage;
@@ -27,14 +28,13 @@ public class PauseScreen implements Screen{
 	private Texture background;
 	private Sprite backgroundSprite;
 
-
 	public PauseScreen(final GameSlagyom game) {
 		this.game = game;
-		
+
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
 		viewport.apply();
-		
+
 		background = new Texture("res/background.png");
 		backgroundSprite = new Sprite(background);
 		camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
@@ -46,27 +46,51 @@ public class PauseScreen implements Screen{
 		Table mainTable = new Table();
 		mainTable.setFillParent(true);
 		mainTable.top();
-		Label pauseLabel = new Label ("PAUSE", MenuScreen.skin); 
+		Label pauseLabel = new Label("PAUSE", MenuScreen.skin);
 		// Create buttons
 		TextButton saveGame = new TextButton("Save game", MenuScreen.skin);
 		TextButton loadGame = new TextButton("Load game", MenuScreen.skin);
 		TextButton returnButton = new TextButton("Return", MenuScreen.skin);
-		TextButton exitButton = new TextButton ("Exit", MenuScreen.skin);
+		TextButton exitButton = new TextButton("Exit", MenuScreen.skin);
+
+		final Drawable noDialog = null;
+
 		// Add listeners to buttons
 		saveGame.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				//game.swapScreen(State.CONTINUEGAME);
+				GameSlagyom.saveGame();
+				game.setScreen(GameSlagyom.playScreen);
+				PlayScreen.drawDialog("SALVATO!");
+
+				long i = System.currentTimeMillis();
+				while (System.currentTimeMillis() < i + 2000);
+				
+				PlayScreen.hud.showDialog = false; 
+
+				//PlayScreen.hud.textTable.clear();
+				//PlayScreen.hud.textTable.setBackground(noDialog);
+
+			}
+		});
+
+		loadGame.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				GameSlagyom.loadGame();
+				System.out.println("CARICATO");
+				game.setScreen(GameSlagyom.playScreen);
+
 			}
 		});
 
 		returnButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.swapScreen(State.PLAYING);
+				game.setScreen(GameSlagyom.playScreen);
 			}
 		});
-		
+
 		exitButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -90,7 +114,7 @@ public class PauseScreen implements Screen{
 
 	@Override
 	public void show() {
-		
+
 	}
 
 	@Override
@@ -104,6 +128,10 @@ public class PauseScreen implements Screen{
 
 		stage.act();
 		stage.draw();
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			game.setScreen(game.playScreen);
+
+		}
 
 	}
 

@@ -25,7 +25,7 @@ public class PlayScreen implements Screen {
 	public OrthographicCamera gamecam;
 	public Viewport gamePort;
 	public GameSlagyom game;
-	public Hud hud;
+	public static Hud hud;
 
 	
 	public PlayScreen(GameSlagyom game, String name) {
@@ -70,7 +70,7 @@ public class PlayScreen implements Screen {
 		hud.stage.draw();
 	}
 
-	public void drawDialog(final String text) {
+	public static void drawDialog(final String text) {
 		Drawable dialog = new TextureRegionDrawable(new TextureRegion(new Texture("res/dialogBox.png")));
 		Drawable noDialog = null;
 		if (hud.showDialog) {
@@ -131,9 +131,10 @@ public class PlayScreen implements Screen {
 			gamecam.position.y = Game.character.getY();
 		} else if (Gdx.input.isKeyJustPressed(Keys.K)) {
 			hud.showDialog = !hud.showDialog;
-			drawDialog("CIAO");
+			drawDialog(Game.character.name);
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			game.swapScreen(GameSlagyom.State.PAUSE);
+			
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
 			Game.world.createBattle();
 			game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
