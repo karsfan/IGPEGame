@@ -21,8 +21,8 @@ public class Tile extends StaticObject implements ICollidable {
 			infoHouse = "In questa casa c'è sto cazzo";
 	}
 
-	public Tile(String elemen, Point point) {
-		switch (elemen) {
+	public Tile(String element, Point point) {
+		switch (element) {
 		case "HOME":
 			this.element = Element.HOME;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 64, 64);
