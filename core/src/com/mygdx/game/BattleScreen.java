@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.GameSlagyom.State;
 import com.mygdx.game.src.Character.CharacterBattle;
 import com.mygdx.game.src.Character.CharacterBattle.StateBattleCharacter;
 import com.mygdx.game.src.World.Game;
@@ -16,7 +17,7 @@ public class BattleScreen implements Screen {
 	public OrthographicCamera gamecam;
 	public Viewport gamePort;
 	public GameSlagyom game;
-	// public BattleHud hud;
+	public BattleHud hud;
 
 	public BattleScreen(GameSlagyom game) {
 		this.game = game;
@@ -26,7 +27,7 @@ public class BattleScreen implements Screen {
 		gamePort.apply();
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
-		// hud = new BattleHud(game.batch);
+		hud = new BattleHud(game.batch);
 	}
 
 	@Override
@@ -44,13 +45,12 @@ public class BattleScreen implements Screen {
 		game.batch.begin();
 		draw();
 		game.batch.end();
-		// hud.stage.draw();
+		hud.stage.draw();
 		gamePort.apply();
 	}
 
 	private void draw() {
-		// game.batch.draw(LoadingImage.getBattleBgImage(),0,0,
-		// Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
 		game.batch.draw(LoadingImage.getBattleBgImage(), 0, 0);
 		CharacterBattle tmp = Game.world.battle.character;
 		game.batch.draw(LoadingImage.getBattleFrameCharacter(tmp.getCurrentState()), tmp.getX(), tmp.getY(),
@@ -63,14 +63,13 @@ public class BattleScreen implements Screen {
 		// hud.update(dt);
 	}
 
-	@SuppressWarnings({ "static-access", "deprecation" })
+	@SuppressWarnings({ "deprecation" })
 	private void handleInput(float dt) {
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			// va messo in pausa e poi in caso bisogna ritornare nel playscreen
 			Game.thread.resume();
-			game.setScreen(game.playScreen);
-			// game.swapScreen(State.PLAYING);
+			game.swapScreen(State.PLAYING);
 		}
 
 		moveCharacter(dt);
@@ -79,8 +78,7 @@ public class BattleScreen implements Screen {
 
 	private void moveCharacter(float dt) {
 
-		if(Gdx.input.isKeyJustPressed(Keys.A))
-		{
+		if (Gdx.input.isKeyJustPressed(Keys.A)) {
 			Game.world.battle.character.fightRight();
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.S))
@@ -94,11 +92,7 @@ public class BattleScreen implements Screen {
 				Game.world.battle.character.movesRight(dt);
 		} else if (Gdx.input.isKeyPressed(Keys.UP)) {
 			Game.world.battle.character.jump(dt);
-		}
-		// else if (Gdx.input.isKeyJustPressed(Keys.A) &&
-		// Gdx.input.isKeyPressed(Keys.RIGHT))
-		// Game.world.battle.character.fightRight();
-		else {
+		} else {
 			Game.world.battle.character.stand();
 		}
 	}

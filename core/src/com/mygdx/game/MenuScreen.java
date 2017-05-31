@@ -85,10 +85,9 @@ public class MenuScreen implements Screen {
 		});
 		continueButton.addListener(new ClickListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				
-				game.swapScreen(State.PLAYING);
-				GameSlagyom.loadGame();
+			public void clicked(InputEvent event, float x, float y) {		
+				game.loadGame();
+				game.swapScreen(State.CONTINUEGAME);
 
 			}
 		});

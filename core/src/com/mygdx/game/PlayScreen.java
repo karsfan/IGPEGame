@@ -29,7 +29,7 @@ public class PlayScreen implements Screen {
 	public static Hud hud;
 
 	public PlayScreen(GameSlagyom game, String name) {
-		new LoadingImage();
+		//new LoadingImage();
 		this.game = game;
 		new Game(name);
 		gamecam = new OrthographicCamera();
@@ -41,7 +41,7 @@ public class PlayScreen implements Screen {
 	}
 
 	public PlayScreen(GameSlagyom game, String path, String name) {
-		new LoadingImage();
+		//new LoadingImage();
 		new Game(path, name);
 
 		this.game = game;

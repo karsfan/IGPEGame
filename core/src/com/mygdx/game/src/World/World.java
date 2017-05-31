@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.mygdx.game.src.Character.Character;
 import com.mygdx.game.src.Character.Man;
 import com.mygdx.game.src.Map.Map;
 import com.mygdx.game.src.Tool.Tool;

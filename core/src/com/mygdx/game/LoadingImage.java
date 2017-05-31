@@ -44,23 +44,23 @@ public class LoadingImage {
 	public static Animation<TextureRegion>[] man1Animation;
 
 	public Texture man2Texture;
-	private static TextureRegion man2Stand;
+	//private static TextureRegion man2Stand;
 	public Animation<TextureRegion>[] man2Animation;
 
 	public Texture man3Texture;
-	private static TextureRegion man3Stand;
+	//private static TextureRegion man3Stand;
 	public Animation<TextureRegion>[] man3Animation;
 
 	public Texture woman1Texture;
-	private static TextureRegion woman1Stand;
+	//private static TextureRegion woman1Stand;
 	public Animation<TextureRegion>[] woman1Animation;
 
 	public Texture woman2Texture;
-	private static TextureRegion woman2Stand;
+	//private static TextureRegion woman2Stand;
 	public Animation<TextureRegion>[] woman2Animation;
 
 	public Texture woman3Texture;
-	private static TextureRegion woman3Stand;
+	//private static TextureRegion woman3Stand;
 	public Animation<TextureRegion>[] woman3Animation;
 
 	@SuppressWarnings("unchecked")

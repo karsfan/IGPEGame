@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameSlagyom.State;
@@ -53,14 +52,15 @@ public class PauseScreen implements Screen {
 		TextButton returnButton = new TextButton("Return", MenuScreen.skin);
 		TextButton exitButton = new TextButton("Exit", MenuScreen.skin);
 
-		final Drawable noDialog = null;
+		//final Drawable noDialog = null;
 
 		// Add listeners to buttons
 		saveGame.addListener(new ClickListener() {
+			@SuppressWarnings("static-access")
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				GameSlagyom.saveGame();
-				game.setScreen(GameSlagyom.playScreen);
+				game.setScreen(game.playScreen);
+				game.saveGame();
 				PlayScreen.hud.textTable.clear();
 				PlayScreen.drawDialog("Game saved!");
 
@@ -70,9 +70,9 @@ public class PauseScreen implements Screen {
 		loadGame.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				GameSlagyom.loadGame();
 				//System.out.println("CARICATO");
-				game.setScreen(GameSlagyom.playScreen);
+				game.loadGame();
+				game.swapScreen(State.CONTINUEGAME);
 				PlayScreen.hud.textTable.clear();
 				PlayScreen.drawDialog("Game loaded!");
 
@@ -81,9 +81,10 @@ public class PauseScreen implements Screen {
 		});
 
 		returnButton.addListener(new ClickListener() {
+			@SuppressWarnings("static-access")
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.setScreen(GameSlagyom.playScreen);
+				game.setScreen(game.playScreen);
 			}
 		});
 
@@ -113,6 +114,7 @@ public class PauseScreen implements Screen {
 
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);

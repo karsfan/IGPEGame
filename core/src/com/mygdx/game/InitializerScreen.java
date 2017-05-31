@@ -3,10 +3,8 @@ package com.mygdx.game;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -60,13 +57,16 @@ public class InitializerScreen implements Screen{
 		TextButton returnButton = new TextButton("Return", MenuScreen.skin);
 		// Add listeners to buttons
 		defaultLevelButton.addListener(new ClickListener() {
+			@SuppressWarnings("static-access")
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				game.playScreen = new PlayScreen(game, NewCharacterScreen.charName);
 				game.swapScreen(State.PLAYING);
 			}
 		});
 
 		chooseLevelButton.addListener(new ClickListener() {
+			@SuppressWarnings("static-access")
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				JFrame f = new JFrame();
@@ -80,7 +80,8 @@ public class InitializerScreen implements Screen{
 				if (res == JFileChooser.APPROVE_OPTION) {
 					path = (fc.getSelectedFile().getAbsolutePath());
 				}
-				((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(game, path, NewCharacterScreen.charName));
+				game.playScreen = new PlayScreen(game, path, NewCharacterScreen.charName);
+				game.swapScreen(State.PLAYING);
 			}
 		});
 		

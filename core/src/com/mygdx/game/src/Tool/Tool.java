@@ -7,6 +7,7 @@ public class Tool {
 	
 	public String getInfo() {
 		return info;
+
 	}
 
 	public void setInfo(String info) {

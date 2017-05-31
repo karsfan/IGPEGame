@@ -20,7 +20,7 @@ public class Game {
 		man1 = new Man();
 		character = new Character(name);
 		fc = new JFileChooser();
-		initialize();
+		world = new World();
 		readMap();
 		world.getListObjects().add(man1);
 		world.getListObjects().add(character);

@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.src.Character.Character;
+import com.mygdx.game.src.World.Game;
 
 public class BattleHud {
 	
@@ -30,7 +30,7 @@ public class BattleHud {
 		table.setFillParent(true);
 
 
-		nameLabel = new Label(Character.name, MenuScreen.skin);
+		nameLabel = new Label(Game.character.name, MenuScreen.skin);
 		healthLabel = new Label(String.format("%03d", health), MenuScreen.skin);
 	
 		table.add(nameLabel).expandX().pad(20);

@@ -18,104 +18,99 @@ public class GameSlagyom extends Game {
 	static InitializerScreen initializerScreen;
 	static OptionScreen optionScreen;
 	static BattleScreen battlescreen;
-	static PauseScreen pauseScreen; 
+	static PauseScreen pauseScreen;
 	static PlayScreen playScreen;
-	
-	public static Preferences prefs; 
+
+	public static Preferences prefs;
 	SpriteBatch batch;
 
 	public GameSlagyom() {
-		
+
 	}
 
 	@Override
 	public void create() {
-		
+
 		batch = new SpriteBatch();
 		new LoadingImage();
 		menuScreen = new MenuScreen(this);
-		newCharacterScreen = new NewCharacterScreen(this);
-		initializerScreen = new InitializerScreen(this);
 		optionScreen = new OptionScreen(this);
 		currentState = State.MENU;
 		pauseScreen = new PauseScreen(this);
 		setScreen(menuScreen);
-		
-		//setScreen(new MenuScreen(this));
-		
-		//gameFiles = new SaveGame(prefs); 
-		prefs = Gdx.app.getPreferences("My saved game"); 
+
+		prefs = Gdx.app.getPreferences("My saved game");
 
 	}
-	
+
 	public static void saveGame() {
-		//	prefs = Gdx.app.getPreferences("My saved game"); 
-			prefs.putString("name", com.mygdx.game.src.World.Game.character.name);	
-			prefs.putFloat("xCharPosition", com.mygdx.game.src.World.Game.character.x);
-			prefs.putFloat("yCharPosition", com.mygdx.game.src.World.Game.character.y);
-			prefs.putFloat("health", com.mygdx.game.src.World.Game.character.health);
-			prefs.putFloat("power", com.mygdx.game.src.World.Game.character.power);
-			prefs.putInteger("coins", com.mygdx.game.src.World.Game.character.coins);
-			
-			prefs.flush();
 
-		}
-	
-	public static  void loadGame() {
-		prefs = Gdx.app.getPreferences("My saved game"); 
+		prefs.putString("name", com.mygdx.game.src.World.Game.character.name);
+		prefs.putFloat("xCharPosition", com.mygdx.game.src.World.Game.character.x);
+		prefs.putFloat("yCharPosition", com.mygdx.game.src.World.Game.character.y);
+		prefs.putFloat("health", com.mygdx.game.src.World.Game.character.health);
+		prefs.putFloat("power", com.mygdx.game.src.World.Game.character.power);
+		prefs.putInteger("coins", com.mygdx.game.src.World.Game.character.coins);
 
-		com.mygdx.game.src.World.Game.character.setName(prefs.getString("name"));
+		prefs.flush();
+
+	}
+
+	@SuppressWarnings("deprecation")
+	public void loadGame() {
+		prefs = Gdx.app.getPreferences("My saved game");
+
+		if (currentState == State.PAUSE)
+			com.mygdx.game.src.World.Game.thread.stop();
+
+		playScreen = new PlayScreen(this, prefs.getString("name"));
+
 		com.mygdx.game.src.World.Game.character.x = prefs.getFloat("xCharPosition");
 		com.mygdx.game.src.World.Game.character.y = prefs.getFloat("yCharPosition");
 		com.mygdx.game.src.World.Game.character.health = prefs.getFloat("health");
 		com.mygdx.game.src.World.Game.character.power = prefs.getFloat("power");
 		com.mygdx.game.src.World.Game.character.coins = prefs.getInteger("coins");
-		
+
 	}
-	
+
 	@Override
 	public void render() {
 		super.render();
 	}
-	
-	public static void setState(State newState){
+
+	public static void setState(State newState) {
 		currentState = newState;
 	}
-	
-	public  void swapScreen(State newState){
+
+	public void swapScreen(State newState) {
 		setState(newState);
-		if(currentState == State.MENU){
+		if (currentState == State.MENU) {
 			setScreen(menuScreen);
 			Gdx.input.setInputProcessor(menuScreen.stage);
-		}
-		else if(currentState == State.PLAYING){
-			playScreen = new PlayScreen(this, NewCharacterScreen.charName);
+		} else if (currentState == State.PLAYING) {
 			setScreen(playScreen);
 			menuScreen.music.stop();
-		}
-		else if(currentState == State.OPTIONMENU){
+			Gdx.input.setInputProcessor(null);
+		} else if (currentState == State.OPTIONMENU) {
 			setScreen(optionScreen);
 			Gdx.input.setInputProcessor(optionScreen.stage);
-		}
-		else if(currentState == State.NEWGAME){
+		} else if (currentState == State.NEWGAME) {
+			newCharacterScreen = new NewCharacterScreen(this);
 			setScreen(newCharacterScreen);
 			Gdx.input.setInputProcessor(newCharacterScreen.stage);
-		}
-		else if(currentState == State.WELCOME){
+		} else if (currentState == State.WELCOME) {
+			initializerScreen = new InitializerScreen(this);
 			setScreen(initializerScreen);
 			Gdx.input.setInputProcessor(initializerScreen.stage);
-		}
-		else if(currentState == State.BATTLE){
+		} else if (currentState == State.BATTLE) {
 			battlescreen = new BattleScreen(this);
 			setScreen(battlescreen);
-		}
-		else if(currentState == State.PAUSE){
+		} else if (currentState == State.PAUSE) {
 			setScreen(pauseScreen);
 			Gdx.input.setInputProcessor(pauseScreen.stage);
-		}
-		else if(currentState == State.CONTINUEGAME){
-			playScreen = new PlayScreen(this, "");
-			setScreen(playScreen);		
+		} else if (currentState == State.CONTINUEGAME) {
+			setScreen(playScreen);
+			Gdx.input.setInputProcessor(null);
 		}
 	}
 }
