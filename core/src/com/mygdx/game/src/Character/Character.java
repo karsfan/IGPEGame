@@ -17,9 +17,9 @@ public class Character extends DynamicObjects implements ICollidable {
 	public static String name;
 	public Bag bag;
 	public Weapon primary_weapon;
-	float health;
-	float power;
-	int coins;
+	public float health;
+	public float power;
+	public int coins;
 
 	@SuppressWarnings("static-access")
 	public Character(String name) {
