@@ -49,7 +49,7 @@ public class Game {
 	}
 
 	public static void readMap() {
-		openFile("res/map/map");
+		openFile("res/map/newMap");
 	}
 
 	public void exit() {

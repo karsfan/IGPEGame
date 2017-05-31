@@ -20,6 +20,7 @@ import com.mygdx.game.src.Character.Man;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.Tile;
 import com.mygdx.game.src.Map.StaticObject.Element;
+
 public class PlayScreen implements Screen {
 
 	public OrthographicCamera gamecam;
@@ -27,7 +28,6 @@ public class PlayScreen implements Screen {
 	public GameSlagyom game;
 	public static Hud hud;
 
-	
 	public PlayScreen(GameSlagyom game, String name) {
 		new LoadingImage();
 		this.game = game;
@@ -37,7 +37,7 @@ public class PlayScreen implements Screen {
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
 		hud = new Hud(game.batch);
-		
+
 	}
 
 	public PlayScreen(GameSlagyom game, String path, String name) {
@@ -45,7 +45,7 @@ public class PlayScreen implements Screen {
 		new Game(path, name);
 
 		this.game = game;
-		
+
 		gamecam = new OrthographicCamera();
 		gamePort = new ScreenViewport(gamecam);
 
@@ -63,7 +63,7 @@ public class PlayScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		game.batch.setProjectionMatrix(gamecam.combined);
-		
+
 		game.batch.begin();
 		draw();
 		game.batch.end();
@@ -100,11 +100,8 @@ public class PlayScreen implements Screen {
 		gamecam.update();
 
 	}
-	
+
 	private void moveCharacter(float dt) {
-		
-		
-		
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
 			Game.character.setVelocity(150f);
 			LoadingImage.setFrameDurationCharacter(0.1f);
@@ -134,16 +131,14 @@ public class PlayScreen implements Screen {
 			drawDialog(Game.character.name);
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			game.swapScreen(GameSlagyom.State.PAUSE);
-			
+
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
 			Game.world.createBattle();
 			game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
-			//GameScreen.swapScreen(GameScreen.State.FIGHTING);
-		}
-		else
+			// GameScreen.swapScreen(GameScreen.State.FIGHTING);
+		} else
 			Game.character.setState(State.STANDING);
 	}
-
 
 	public void draw() {
 		Iterator<Object> it = Game.world.getListObjects().iterator();
@@ -159,81 +154,71 @@ public class PlayScreen implements Screen {
 			}
 			if (ob instanceof Tile) {
 				if (((Tile) ob).getElement() == Element.BUILDING) {
-					game.batch.draw(LoadingImage.getBuildingImage(),
-							(float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+					game.batch.draw(LoadingImage.getBuildingImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.HOME) {
 					game.batch.draw(LoadingImage.getHomeImage(), (float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.THREE) {
 					game.batch.draw(LoadingImage.getThreeImage(), (float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.ROCK) {
 					game.batch.draw(LoadingImage.getRockImage(), (float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.WATER) {
 					game.batch.draw(LoadingImage.getWaterImage(), (float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.GROUND) {
 					game.batch.draw(LoadingImage.getGroundImage(), (float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.GROUND) {
 					game.batch.draw(LoadingImage.getGroundImage(), (float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.FLOOR) {
 					game.batch.draw(LoadingImage.getFloorImage(), (float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 
 				if (((Tile) ob).getElement() == Element.ROAD) {
 					game.batch.draw(LoadingImage.getRoadImage(), (float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 
 				if (((Tile) ob).getElement() == Element.BIGHOME) {
-					game.batch.draw(LoadingImage.getBigHomeImage(),
-							(float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+					game.batch.draw(LoadingImage.getBigHomeImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.FOREST1) {
-					game.batch.draw(LoadingImage.getForest1Image(),
-							(float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+					game.batch.draw(LoadingImage.getForest1Image(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 				if (((Tile) ob).getElement() == Element.FOREST2) {
-					game.batch.draw(LoadingImage.getForest2Image(),
-							(float) ((Tile) ob).shape.getX() * 32,
-							(float) ((Tile) ob).shape.getY() * 32,
-							(float) ((Tile) ob).shape.getWidth(),
+					game.batch.draw(LoadingImage.getForest2Image(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
+							(float) ((Tile) ob).shape.getHeight());
+				}
+				
+				if (((Tile) ob).getElement() == Element.TABLE) {
+					game.batch.draw(LoadingImage.getTableImage(), (float) ((Tile) ob).shape.getX() * 32,
+							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
 
@@ -245,7 +230,7 @@ public class PlayScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		gamePort.update(width, height);
-		
+
 		// controlli per la posizione della camera
 		if (Gdx.graphics.getWidth() + Game.character.getX() - 1440 > 0
 				&& !(Game.character.getX() - Gdx.graphics.getWidth() / 2 < 0)) {

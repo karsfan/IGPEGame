@@ -68,6 +68,10 @@ public class Tile extends StaticObject implements ICollidable {
 			this.element = Element.FOREST2;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 64, 96);
 			break;
+		case "TABLE":
+			this.element = Element.TABLE;
+			shape = new Rectangle((int) point.getX(), (int) point.getY(), 16, 16);
+			break;
 		default:
 			break;
 		}

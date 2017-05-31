@@ -23,9 +23,10 @@ public class LoadingImage {
 	private static Texture rockImage;
 	private static Texture forest1Image;
 	private static Texture forest2Image;
+	private static Texture tableImage;
+
 	private static Texture battleBackground;
 
-	private static Texture interior1image;
 
 	private static Texture battleCharacter;
 	private static TextureRegion battleCharacterStand;
@@ -76,9 +77,10 @@ public class LoadingImage {
 		rockImage = new Texture("res/rock.png");
 		forest1Image = new Texture("res/forest1.png");
 		forest2Image = new Texture("res/forest2.png");
+		tableImage = new Texture("res/table.png");
+
 		battleBackground = new Texture("res/battleBg.png");
 
-		interior1image = new Texture("res/home.png");
 
 		playerAnimation = new Animation[4];
 		enemyAnimation = new Animation[4];
@@ -220,8 +222,8 @@ public class LoadingImage {
 		return bigHomeImage;
 	}
 
-	public static Texture getInterior1image() {
-		return interior1image;
+	public static Texture getTableImage() {
+		return tableImage;
 	}
 
 	public static Texture getBattleBgImage() {
