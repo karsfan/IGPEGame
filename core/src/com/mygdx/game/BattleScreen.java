@@ -63,11 +63,12 @@ public class BattleScreen implements Screen {
 		// hud.update(dt);
 	}
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access", "deprecation" })
 	private void handleInput(float dt) {
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			// va messo in pausa e poi in caso bisogna ritornare nel playscreen
+			Game.thread.resume();
 			game.setScreen(game.playScreen);
 			// game.swapScreen(State.PLAYING);
 		}

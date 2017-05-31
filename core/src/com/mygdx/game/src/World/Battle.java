@@ -18,12 +18,13 @@ public class Battle {
 		enemy = null;
 	}
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access", "deprecation" })
 	public Battle(Character character, Enemy enemy) {
 		this.character = new CharacterBattle(character);
 		this.enemy = enemy;
 		WIDTH = 720;
 		HEIGHT = 480;
+		Game.thread.suspend();
 		//thread = new ThreadBattle(this);
 		//thread.start();
 	}

@@ -23,6 +23,7 @@ public class World {
 	}
 
 	public void update(float dt) {
+		
 		Iterator<Object> it = (Iterator<Object>) getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
