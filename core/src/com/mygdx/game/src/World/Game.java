@@ -36,10 +36,12 @@ public class Game {
 		openFile(path);
 		//world.getListObjects().add(man1);
 		world.getListObjects().add(character);
+		thread = new ThreadWorld(this);
+		thread.start();
 	}
 
 	public void play() {
-
+	
 	}
 
 
