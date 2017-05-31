@@ -61,15 +61,7 @@ public class PauseScreen implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 				GameSlagyom.saveGame();
 				game.setScreen(GameSlagyom.playScreen);
-				PlayScreen.drawDialog("SALVATO!");
-
-				long i = System.currentTimeMillis();
-				while (System.currentTimeMillis() < i + 2000);
-				
-				PlayScreen.hud.showDialog = false; 
-
-				//PlayScreen.hud.textTable.clear();
-				//PlayScreen.hud.textTable.setBackground(noDialog);
+				PlayScreen.drawDialog("Game saved!");
 
 			}
 		});
@@ -78,8 +70,10 @@ public class PauseScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				GameSlagyom.loadGame();
-				System.out.println("CARICATO");
+				//System.out.println("CARICATO");
 				game.setScreen(GameSlagyom.playScreen);
+				PlayScreen.drawDialog("Game loaded!");
+
 
 			}
 		});
