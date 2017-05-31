@@ -17,8 +17,9 @@ public class GameSlagyom extends Game {
 	static InitializerScreen initializerScreen;
 	static OptionScreen optionScreen;
 	static BattleScreen battlescreen;
+	static PauseScreen pauseScreen; 
 	static PlayScreen playScreen;
-
+	
 	SpriteBatch batch;
 
 	public GameSlagyom() {
@@ -35,6 +36,7 @@ public class GameSlagyom extends Game {
 		initializerScreen = new InitializerScreen(this);
 		optionScreen = new OptionScreen(this);
 		currentState = State.MENU;
+		pauseScreen = new PauseScreen(this);
 		setScreen(menuScreen);
 		
 		//setScreen(new MenuScreen(this));
@@ -77,8 +79,8 @@ public class GameSlagyom extends Game {
 			setScreen(battlescreen);
 		}
 		else if(currentState == State.PAUSE){
-			setScreen(menuScreen);
-			Gdx.input.setInputProcessor(menuScreen.stage);
+			setScreen(pauseScreen);
+			Gdx.input.setInputProcessor(pauseScreen.stage);
 		}
 		else if(currentState == State.CONTINUEGAME){
 			playScreen = new PlayScreen(this, "");

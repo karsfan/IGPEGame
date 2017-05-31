@@ -133,7 +133,7 @@ public class PlayScreen implements Screen {
 			hud.showDialog = !hud.showDialog;
 			drawDialog("CIAO");
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			game.setScreen(new MenuScreen(game));
+			game.swapScreen(GameSlagyom.State.PAUSE);
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
 			game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
 			//GameScreen.swapScreen(GameScreen.State.FIGHTING);
