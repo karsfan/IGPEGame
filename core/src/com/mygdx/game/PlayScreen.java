@@ -29,7 +29,6 @@ public class PlayScreen implements Screen {
 	public static Hud hud;
 
 	public PlayScreen(GameSlagyom game, String name) {
-		//new LoadingImage();
 		this.game = game;
 		new Game(name);
 		gamecam = new OrthographicCamera();
@@ -41,7 +40,6 @@ public class PlayScreen implements Screen {
 	}
 
 	public PlayScreen(GameSlagyom game, String path, String name) {
-		//new LoadingImage();
 		new Game(path, name);
 
 		this.game = game;
@@ -101,6 +99,7 @@ public class PlayScreen implements Screen {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	private void moveCharacter(float dt) {
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
 			Game.character.setVelocity(150f);
@@ -129,7 +128,9 @@ public class PlayScreen implements Screen {
 		} else if (Gdx.input.isKeyJustPressed(Keys.K)) {
 			hud.showDialog = !hud.showDialog;
 			drawDialog(Game.character.name);
+			Game.thread.resume();
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			Game.thread.suspend();
 			game.swapScreen(GameSlagyom.State.PAUSE);
 
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {

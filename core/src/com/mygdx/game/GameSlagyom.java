@@ -25,7 +25,6 @@ public class GameSlagyom extends Game {
 	SpriteBatch batch;
 
 	public GameSlagyom() {
-
 	}
 
 	@Override
@@ -44,7 +43,7 @@ public class GameSlagyom extends Game {
 	}
 
 	public static void saveGame() {
-
+		prefs.putString("map", com.mygdx.game.src.World.Game.mapPath);
 		prefs.putString("name", com.mygdx.game.src.World.Game.character.name);
 		prefs.putFloat("xCharPosition", com.mygdx.game.src.World.Game.character.x);
 		prefs.putFloat("yCharPosition", com.mygdx.game.src.World.Game.character.y);
@@ -63,7 +62,7 @@ public class GameSlagyom extends Game {
 		if (currentState == State.PAUSE)
 			com.mygdx.game.src.World.Game.thread.stop();
 
-		playScreen = new PlayScreen(this, prefs.getString("name"));
+		playScreen = new PlayScreen(this, prefs.getString("map"), prefs.getString("name"));
 
 		com.mygdx.game.src.World.Game.character.x = prefs.getFloat("xCharPosition");
 		com.mygdx.game.src.World.Game.character.y = prefs.getFloat("yCharPosition");
@@ -73,9 +72,12 @@ public class GameSlagyom extends Game {
 
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void render() {
 		super.render();
+		//com.mygdx.game.src.World.Game.thread.a
+		//System.out.println(com.mygdx.game.src.World.Game.thread.activeCount());
 	}
 
 	public static void setState(State newState) {
@@ -83,7 +85,9 @@ public class GameSlagyom extends Game {
 	}
 
 	public void swapScreen(State newState) {
+
 		setState(newState);
+
 		if (currentState == State.MENU) {
 			setScreen(menuScreen);
 			Gdx.input.setInputProcessor(menuScreen.stage);
