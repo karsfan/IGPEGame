@@ -149,7 +149,11 @@ public class PlayScreen implements Screen {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> 4542a822da65d18aa0f1ff687aab26e4ff4f3895
 =======
 
 >>>>>>> 4542a822da65d18aa0f1ff687aab26e4ff4f3895
