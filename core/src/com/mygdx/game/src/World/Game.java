@@ -15,7 +15,8 @@ public class Game {
 	public static  Character character;
 	public static Man man1;
 	public static ThreadWorld thread;
-	
+	public static String mapPath;
+	@SuppressWarnings("static-access")
 	public Game(String name) {
 		man1 = new Man();
 		character = new Character(name);
@@ -26,18 +27,21 @@ public class Game {
 		world.getListObjects().add(character);
 		thread = new ThreadWorld(this);
 		thread.start();
+//		System.out.println(thread.activeCount());
 	}
 	
+	@SuppressWarnings("static-access")
 	public Game(String path, String name) {
 		man1 = new Man();
 		character = new Character(name);
 		fc = new JFileChooser();
 		initialize();
 		openFile(path);
-		//world.getListObjects().add(man1);
+		world.getListObjects().add(man1);
 		world.getListObjects().add(character);
 		thread = new ThreadWorld(this);
 		thread.start();
+		//System.out.println(thread.activeCount());
 	}
 
 	public void play() {
@@ -68,6 +72,7 @@ public class Game {
 
 	@SuppressWarnings("resource")
 	public static void openFile(String fileName) {
+		mapPath = fileName;
 		FileReader fr = null;
 		try {
 			fr = new FileReader(fileName);

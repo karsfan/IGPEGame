@@ -11,7 +11,7 @@ public class Battle {
 	public static int WIDTH;
 	public static int HEIGHT;
 	public static int gravity;
-	ThreadBattle thread;
+	//ThreadBattle thread;
 
 	public Battle() {
 		character = null;

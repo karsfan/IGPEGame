@@ -14,7 +14,7 @@ public class ThreadWorld extends Thread {
 			float dt = (attuale - start);
 			Game.world.update(dt/1000);
 			start = attuale;
-			
+			//System.out.println(this.getId());
 		}
 	}
 }

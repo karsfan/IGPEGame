@@ -27,9 +27,12 @@ public class PlayScreen implements Screen {
 	public Viewport gamePort;
 	public GameSlagyom game;
 	public static Hud hud;
+	private float timerText;
 
 	public PlayScreen(GameSlagyom game, String name) {
-		//new LoadingImage();
+
+		// new LoadingImage();
+
 		this.game = game;
 		new Game(name);
 		gamecam = new OrthographicCamera();
@@ -37,11 +40,12 @@ public class PlayScreen implements Screen {
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
 		hud = new Hud(game.batch);
-
 	}
 
 	public PlayScreen(GameSlagyom game, String path, String name) {
-		//new LoadingImage();
+
+		// new LoadingImage();
+
 		new Game(path, name);
 
 		this.game = game;
@@ -55,10 +59,15 @@ public class PlayScreen implements Screen {
 
 	}
 
+	/*public String provaString = "CIAO COME VA LA VITA CIAO COME VA LA VITA CIAO COME VA LA VITA"
+			+ "CIAO COME VA LA VITA CIAO COME VA LA VITA CIAO COME VA LA VITA"
+			+ "CIAO COME VA LA VITA CIAO COME VA LA VITA CIAO COME VA LA VITA";*/
+	public int i = 0;
+
 	@Override
 	public void render(float delta) {
 		update(delta);
-
+		timerText += delta;
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -68,6 +77,19 @@ public class PlayScreen implements Screen {
 		draw();
 		game.batch.end();
 		hud.stage.draw();
+
+		if (hud.showDialog)
+			if (timerText > 0.08f) {
+				timerText = 0;
+				if (i < hud.textDialog.length()) {
+					if (i % 25 == 0)
+						hud.textTable.row();
+					if (i % 75 == 0)
+						hud.textTable.clear();
+					drawDialog(String.valueOf(hud.textDialog.charAt(i)));
+					i++;
+				}
+			} 
 	}
 
 	public static void drawDialog(final String text) {
@@ -80,15 +102,16 @@ public class PlayScreen implements Screen {
 			hud.textTable.setSize(236 * 3, 47 * 4);
 			hud.textTable.setBackground(dialog);
 
-			hud.textTable.add(dialogLabel).fillX().top();
+			hud.textTable.add(dialogLabel).top();
 		} else {
 			hud.textTable.clear();
+			System.out.println("IOA");
 			hud.textTable.setBackground(noDialog);
 		}
 	}
 
 	public void update(float dt) {
-		// Game.world.update(dt);
+		// Game.world.update(dt);;
 		moveCharacter(dt);
 		if ((Game.character.getX() - Gdx.graphics.getWidth() / 2 > 0
 				&& Game.character.getX() + Gdx.graphics.getWidth() / 2 < 1440))
@@ -101,6 +124,7 @@ public class PlayScreen implements Screen {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	private void moveCharacter(float dt) {
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
 			Game.character.setVelocity(150f);
@@ -127,9 +151,12 @@ public class PlayScreen implements Screen {
 			gamecam.position.x = Game.character.getX();
 			gamecam.position.y = Game.character.getY();
 		} else if (Gdx.input.isKeyJustPressed(Keys.K)) {
-			hud.showDialog = !hud.showDialog;
+
 			drawDialog(Game.character.name);
+			Game.thread.resume();
+
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			Game.thread.suspend();
 			game.swapScreen(GameSlagyom.State.PAUSE);
 
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
@@ -215,7 +242,7 @@ public class PlayScreen implements Screen {
 							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
-				
+
 				if (((Tile) ob).getElement() == Element.TABLE) {
 					game.batch.draw(LoadingImage.getTableImage(), (float) ((Tile) ob).shape.getX() * 32,
 							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),

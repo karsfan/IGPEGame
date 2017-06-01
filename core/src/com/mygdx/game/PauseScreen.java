@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameSlagyom.State;
+import com.mygdx.game.src.World.Game;
 
 public class PauseScreen implements Screen {
 
@@ -51,7 +52,7 @@ public class PauseScreen implements Screen {
 		TextButton loadGame = new TextButton("Load game", MenuScreen.skin);
 		TextButton returnButton = new TextButton("Return", MenuScreen.skin);
 		TextButton exitButton = new TextButton("Exit", MenuScreen.skin);
-
+		TextButton menuButton = new TextButton("Menu", MenuScreen.skin);
 		//final Drawable noDialog = null;
 
 		// Add listeners to buttons
@@ -62,7 +63,7 @@ public class PauseScreen implements Screen {
 				game.setScreen(game.playScreen);
 				game.saveGame();
 				PlayScreen.hud.textTable.clear();
-				PlayScreen.drawDialog("Game saved!");
+				PlayScreen.hud.textDialog = "Game saved!";
 
 			}
 		});
@@ -74,17 +75,24 @@ public class PauseScreen implements Screen {
 				game.loadGame();
 				game.swapScreen(State.CONTINUEGAME);
 				PlayScreen.hud.textTable.clear();
-				PlayScreen.drawDialog("Game loaded!");
-
-
+				PlayScreen.hud.textDialog = "Game loaded!";
 			}
 		});
 
 		returnButton.addListener(new ClickListener() {
-			@SuppressWarnings("static-access")
+			@SuppressWarnings("deprecation")
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.setScreen(game.playScreen);
+				Game.thread.resume();
+				game.swapScreen(State.PLAYING);
+			}
+		});
+		menuButton.addListener(new ClickListener() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Game.thread.stop();
+				game.swapScreen(State.MENU);
 			}
 		});
 
@@ -100,8 +108,11 @@ public class PauseScreen implements Screen {
 		mainTable.add(saveGame).padTop(Gdx.graphics.getHeight() / 3 - Gdx.graphics.getHeight() / 5);
 		mainTable.row();
 		mainTable.add(loadGame).pad(5);
-		mainTable.row();
+		mainTable.row().pad(15);
+		
 		mainTable.add(returnButton).pad(5);
+		mainTable.row();
+		mainTable.add(menuButton).pad(5);
 		mainTable.row();
 		mainTable.add(exitButton).pad(5);
 		mainTable.row();
@@ -114,7 +125,7 @@ public class PauseScreen implements Screen {
 
 	}
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access", "deprecation" })
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
@@ -127,7 +138,8 @@ public class PauseScreen implements Screen {
 		stage.act();
 		stage.draw();
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			game.setScreen(game.playScreen);
+			Game.thread.resume();
+			game.swapScreen(State.PLAYING);
 
 		}
 

@@ -19,6 +19,7 @@ public class Hud {
 	private Label nameLabel;
 	private Label villageLabel;
 	
+	public String textDialog = ""; 
 	public boolean showDialog = true;
 	public Table textTable = new Table();
 	Integer health;
