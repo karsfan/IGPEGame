@@ -181,9 +181,9 @@ public class Character extends DynamicObjects implements ICollidable {
 			if (ob instanceof Tile) {
 				if (((Tile) ob).getElement() != Element.GROUND && ((Tile) ob).getElement() != Element.ROAD)
 					if (((Tile) ob).collide(this))
-						return true;
-					
+						return true;	
 			}
+			
 			if (ob instanceof DynamicObjects && ob != this) {
 				if (!((x > ((DynamicObjects) ob).getX() + ((DynamicObjects) ob).getWidth() / 2 - 1
 						|| ((DynamicObjects) ob).getX() > x + width / 2)

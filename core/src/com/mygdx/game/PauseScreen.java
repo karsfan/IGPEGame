@@ -27,7 +27,8 @@ public class PauseScreen implements Screen {
 
 	private Texture background;
 	private Sprite backgroundSprite;
-
+	
+	
 	public PauseScreen(final GameSlagyom game) {
 		this.game = game;
 
@@ -64,7 +65,7 @@ public class PauseScreen implements Screen {
 				game.saveGame();
 				PlayScreen.hud.textTable.clear();
 				PlayScreen.hud.textDialog = "Game saved!";
-
+				
 			}
 		});
 
@@ -114,7 +115,7 @@ public class PauseScreen implements Screen {
 		mainTable.row();
 		mainTable.add(menuButton).pad(5);
 		mainTable.row();
-		mainTable.add(exitButton).pad(5);
+		mainTable.add(exitButton).pad(30);
 		mainTable.row();
 
 		stage.addActor(mainTable);
@@ -125,7 +126,7 @@ public class PauseScreen implements Screen {
 
 	}
 
-	@SuppressWarnings({ "static-access", "deprecation" })
+	@SuppressWarnings("deprecation")
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
@@ -140,8 +141,8 @@ public class PauseScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Game.thread.resume();
 			game.swapScreen(State.PLAYING);
-
 		}
+		
 
 	}
 
