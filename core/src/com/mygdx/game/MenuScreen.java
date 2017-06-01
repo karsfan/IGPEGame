@@ -43,7 +43,7 @@ public class MenuScreen implements Screen {
 		skin = new Skin(Gdx.files.internal("menu/vhs/vhs-ui.json"), atlas);
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("res/menuMusic.mp3"));
-		music.play();
+	//	music.play();
 
 		musicButton = new TextButton("Music", skin);
 		returnButton = new TextButton("Return", skin);
@@ -87,8 +87,10 @@ public class MenuScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {		
 				game.loadGame();
+				music.stop();
 				game.swapScreen(State.CONTINUEGAME);
-
+				PlayScreen.hud.textTable.clear();
+				PlayScreen.hud.textDialog = "Game loaded!";
 			}
 		});
 		editorButton.addListener(new ClickListener() {

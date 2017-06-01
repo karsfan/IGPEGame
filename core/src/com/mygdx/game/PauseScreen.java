@@ -7,12 +7,16 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameSlagyom.State;
@@ -27,7 +31,8 @@ public class PauseScreen implements Screen {
 
 	private Texture background;
 	private Sprite backgroundSprite;
-
+	
+	
 	public PauseScreen(final GameSlagyom game) {
 		this.game = game;
 
@@ -63,8 +68,8 @@ public class PauseScreen implements Screen {
 				game.setScreen(game.playScreen);
 				game.saveGame();
 				PlayScreen.hud.textTable.clear();
-				PlayScreen.drawDialog("Game saved!");
-
+				PlayScreen.hud.textDialog = "Game saved!";
+				
 			}
 		});
 
@@ -75,9 +80,7 @@ public class PauseScreen implements Screen {
 				game.loadGame();
 				game.swapScreen(State.CONTINUEGAME);
 				PlayScreen.hud.textTable.clear();
-				PlayScreen.drawDialog("Game loaded!");
-
-
+				PlayScreen.hud.textDialog = "Game loaded!";
 			}
 		});
 
@@ -116,10 +119,35 @@ public class PauseScreen implements Screen {
 		mainTable.row();
 		mainTable.add(menuButton).pad(5);
 		mainTable.row();
-		mainTable.add(exitButton).pad(5);
+		mainTable.add(exitButton).pad(20);
 		mainTable.row();
 
 		stage.addActor(mainTable);
+		
+		
+		
+		
+		Table helpTable = new Table(); 
+		helpTable.bottom().padLeft(Gdx.graphics.getWidth()+10);
+
+		
+		Drawable arrowDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/help/arrow.png")));
+		final ImageButton arrow = new ImageButton(arrowDraw);
+		
+		Drawable runDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/help/run.png")));
+		final ImageButton run = new ImageButton(runDraw);
+		
+		Drawable actionDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/help/action.png")));
+		final ImageButton action = new ImageButton(actionDraw);
+		
+		
+		helpTable.add(arrow);//.padLeft(Gdx.graphics.getWidth()/2); 
+		helpTable.add(run);
+		helpTable.add(action);
+
+		
+		
+		stage.addActor(helpTable);
 	}
 
 	@Override
@@ -127,7 +155,7 @@ public class PauseScreen implements Screen {
 
 	}
 
-	@SuppressWarnings({ "static-access", "deprecation" })
+	@SuppressWarnings("deprecation")
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
@@ -142,8 +170,8 @@ public class PauseScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Game.thread.resume();
 			game.swapScreen(State.PLAYING);
-
 		}
+		
 
 	}
 

@@ -144,7 +144,10 @@ public class Tile extends StaticObject implements ICollidable {
 							|| ((Man) e).getY() > shape.y * 32 + shape.height)))
 				return true;
 		}
+		
 		return false;
+		
+
 	}
 
 	public String getInfoHouse() {

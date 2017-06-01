@@ -27,8 +27,12 @@ public class PlayScreen implements Screen {
 	public Viewport gamePort;
 	public GameSlagyom game;
 	public static Hud hud;
+	private static Drawable noDialog = null;
+	private float textTimer;
+	public int i = 0;
 
 	public PlayScreen(GameSlagyom game, String name) {
+
 		this.game = game;
 		new Game(name);
 		gamecam = new OrthographicCamera();
@@ -36,57 +40,71 @@ public class PlayScreen implements Screen {
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
 		hud = new Hud(game.batch);
-
 	}
 
 	public PlayScreen(GameSlagyom game, String path, String name) {
-		new Game(path, name);
 
+		new Game(path, name);
 		this.game = game;
+		hud = new Hud(game.batch);
 
 		gamecam = new OrthographicCamera();
 		gamePort = new ScreenViewport(gamecam);
 
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
-		hud = new Hud(game.batch);
 
 	}
-
+	public float start = System.currentTimeMillis();
 	@Override
 	public void render(float delta) {
 		update(delta);
-
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		game.batch.setProjectionMatrix(gamecam.combined);
 
 		game.batch.begin();
 		draw();
 		game.batch.end();
 		hud.stage.draw();
+
+		textTimer += delta;
+		if (hud.showDialog)
+			if (textTimer > 0.08f) {
+				textTimer = 0;
+				if (i < hud.textDialog.length()) {
+					if (i % 25 == 0)
+						hud.textTable.row();
+					if (i % 75 == 0)
+						hud.textTable.clear();
+					drawDialog(String.valueOf(hud.textDialog.charAt(i)));
+					i++;
+				}
+			}
+
+		if (!hud.showDialog) {
+			hideDialog();
+		}
+
 	}
 
 	public static void drawDialog(final String text) {
 		Drawable dialog = new TextureRegionDrawable(new TextureRegion(new Texture("res/dialogBox.png")));
-		Drawable noDialog = null;
 		if (hud.showDialog) {
 			Label dialogLabel = new Label(text, MenuScreen.skin);
 			hud.textTable.setBounds(Gdx.graphics.getWidth() / 3 + 15, Gdx.graphics.getHeight() / 8 + 20,
 					Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			hud.textTable.setSize(236 * 3, 47 * 4);
 			hud.textTable.setBackground(dialog);
-
-			hud.textTable.add(dialogLabel).fillX().top();
-		} else {
-			hud.textTable.clear();
-			hud.textTable.setBackground(noDialog);
+			hud.textTable.add(dialogLabel).top();
 		}
 	}
-
+	
+	public static void hideDialog () {
+		hud.textTable.clear();
+		hud.textTable.setBackground(noDialog);
+	}
 	public void update(float dt) {
-		// Game.world.update(dt);
 		moveCharacter(dt);
 		if ((Game.character.getX() - Gdx.graphics.getWidth() / 2 > 0
 				&& Game.character.getX() + Gdx.graphics.getWidth() / 2 < 1440))
@@ -125,10 +143,22 @@ public class PlayScreen implements Screen {
 			gamecam.zoom += 0.2;
 			gamecam.position.x = Game.character.getX();
 			gamecam.position.y = Game.character.getY();
-		} else if (Gdx.input.isKeyJustPressed(Keys.K)) {
+		} else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			hud.showDialog = !hud.showDialog;
-			drawDialog(Game.character.name);
 			Game.thread.resume();
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+			
+=======
+
+>>>>>>> 4542a822da65d18aa0f1ff687aab26e4ff4f3895
+=======
+
+>>>>>>> 4542a822da65d18aa0f1ff687aab26e4ff4f3895
+=======
+
+>>>>>>> 4542a822da65d18aa0f1ff687aab26e4ff4f3895
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Game.thread.suspend();
 			game.swapScreen(GameSlagyom.State.PAUSE);
@@ -136,7 +166,6 @@ public class PlayScreen implements Screen {
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
 			Game.world.createBattle();
 			game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
-			// GameScreen.swapScreen(GameScreen.State.FIGHTING);
 		} else
 			Game.character.setState(State.STANDING);
 	}
@@ -216,7 +245,7 @@ public class PlayScreen implements Screen {
 							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
 							(float) ((Tile) ob).shape.getHeight());
 				}
-				
+
 				if (((Tile) ob).getElement() == Element.TABLE) {
 					game.batch.draw(LoadingImage.getTableImage(), (float) ((Tile) ob).shape.getX() * 32,
 							(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),

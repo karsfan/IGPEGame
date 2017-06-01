@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameSlagyom.State;
+import com.mygdx.game.src.World.Game;
 
 public class NewCharacterScreen implements Screen {
 
@@ -69,17 +70,21 @@ public class NewCharacterScreen implements Screen {
 				// }
 			}
 		});
-
 		Drawable maleDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/male.png")));
-		final ImageButton male = new ImageButton(maleDraw);
+		Drawable maleokDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/maleok.png")));
+
+		ImageButton male = new ImageButton(maleDraw);
 		male.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				System.out.println("MALE");
 			}
 		});
+		
+		
+		Drawable femaleDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/female.png")));
+		Drawable femalokDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/femaleok.png")));
 
-		Drawable femaleDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/male.png")));
 		ImageButton female = new ImageButton(femaleDraw);
 		female.addListener(new ClickListener() {
 			@Override
@@ -87,6 +92,7 @@ public class NewCharacterScreen implements Screen {
 				System.out.println("FEMALE");
 			}
 		});
+
 
 		TextButton continueButton = new TextButton("Continue", MenuScreen.skin);
 		continueButton.addListener(new ClickListener() {
@@ -106,13 +112,13 @@ public class NewCharacterScreen implements Screen {
 		});
 
 		// Add buttons to table
-		Table gender = new Table(); 
+		Table gender = new Table();
 		mainTable.add(name).pad(5).padTop(Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 4);
 		mainTable.row();
 		male.setPosition(mainTable.getPadX(), mainTable.getPadY());
 		gender.pad(15);
 		gender.add(male);
-		gender.add(female);
+		gender.add(female).padLeft(20);
 		mainTable.add(gender);
 		mainTable.row();
 		mainTable.add(continueButton).pad(20).center();
