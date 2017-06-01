@@ -31,8 +31,6 @@ public class PlayScreen implements Screen {
 
 	public PlayScreen(GameSlagyom game, String name) {
 
-		// new LoadingImage();
-
 		this.game = game;
 		new Game(name);
 		gamecam = new OrthographicCamera();
@@ -43,8 +41,6 @@ public class PlayScreen implements Screen {
 	}
 
 	public PlayScreen(GameSlagyom game, String path, String name) {
-
-		// new LoadingImage();
 
 		new Game(path, name);
 
@@ -105,7 +101,6 @@ public class PlayScreen implements Screen {
 			hud.textTable.add(dialogLabel).top();
 		} else {
 			hud.textTable.clear();
-			System.out.println("IOA");
 			hud.textTable.setBackground(noDialog);
 		}
 	}
