@@ -4,10 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.src.Character.CharacterBattle.StateBattleCharacter;
-import com.mygdx.game.src.Character.DynamicObjects.State;
+import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
 import com.mygdx.game.src.World.Enemy;
-import com.mygdx.game.src.World.Enemy.StateBattleEnemy;
 import com.mygdx.game.src.World.Game;
 
 public class LoadingImage {
@@ -40,7 +38,7 @@ public class LoadingImage {
 	private static TextureRegion enemyStand;
 	public Animation<TextureRegion>[] enemyAnimation;
 
-	private static TextureRegion man1Stand;
+	public static TextureRegion man1Stand;
 	public static Animation<TextureRegion>[] man1Animation;
 
 	public Texture man2Texture;
@@ -136,7 +134,7 @@ public class LoadingImage {
 		arrayAnimation[1] = left;
 		arrayAnimation[2] = fightingRight;
 		arrayAnimation[3] = fightingLeft;
-		arrayAnimation[2].setFrameDuration(0.025f);
+		arrayAnimation[2].setFrameDuration(0.02f);
 		arrayAnimation[3].setFrameDuration(0.01f);
 
 	}
@@ -230,7 +228,7 @@ public class LoadingImage {
 		return battleBackground;
 	}
 
-	public static TextureRegion getFrameCharacter(State currentState) {
+	public static TextureRegion getFrameCharacter(StateDynamicObject currentState) {
 		TextureRegion region = new TextureRegion();
 
 		switch (currentState) {
@@ -251,13 +249,13 @@ public class LoadingImage {
 			playerStand = region;
 			break;
 		case STANDING:
-			if (Game.character.getPreviousState() == State.RUNNINGRIGHT)
+			if (Game.character.getPreviousState() == StateDynamicObject.RUNNINGRIGHT)
 				playerStand = (TextureRegion) playerAnimation[0].getKeyFrame(0, true);
-			if (Game.character.getPreviousState() == State.RUNNINGLEFT)
+			if (Game.character.getPreviousState() == StateDynamicObject.RUNNINGLEFT)
 				playerStand = (TextureRegion) playerAnimation[1].getKeyFrame(0, true);
-			if (Game.character.getPreviousState() == State.RUNNINGUP)
+			if (Game.character.getPreviousState() == StateDynamicObject.RUNNINGUP)
 				playerStand = (TextureRegion) playerAnimation[2].getKeyFrame(0, true);
-			if (Game.character.getPreviousState() == State.RUNNINGDOWN)
+			if (Game.character.getPreviousState() == StateDynamicObject.RUNNINGDOWN)
 				playerStand = (TextureRegion) playerAnimation[3].getKeyFrame(0, true);
 			region = playerStand;
 			break;
@@ -268,7 +266,7 @@ public class LoadingImage {
 		return region;
 	}
 
-	public static TextureRegion getBattleFrameCharacter(StateBattleCharacter currentState) {
+	public static TextureRegion getBattleFrameCharacter(StateDynamicObject currentState) {
 		TextureRegion region = new TextureRegion();
 
 		switch (currentState) {
@@ -294,13 +292,13 @@ public class LoadingImage {
 			break;
 		case STANDING:
 			
-			if (Game.world.battle.character.getPreviousState() == StateBattleCharacter.RUNNINGRIGHT)
+			if (Game.world.battle.character.getPreviousState() == StateDynamicObject.RUNNINGRIGHT)
 				battleCharacterStand = (TextureRegion) battleCharacterAnimation[0].getKeyFrame(0, true);
-			if (Game.world.battle.character.getPreviousState() == StateBattleCharacter.RUNNINGLEFT)
+			if (Game.world.battle.character.getPreviousState() == StateDynamicObject.RUNNINGLEFT)
 				battleCharacterStand = (TextureRegion) battleCharacterAnimation[1].getKeyFrame(0, true);
-			if (Game.world.battle.character.getPreviousState() == StateBattleCharacter.FIGHTINGRIGHT)
+			if (Game.world.battle.character.getPreviousState() == StateDynamicObject.FIGHTINGRIGHT)
 				battleCharacterStand = (TextureRegion) battleCharacterAnimation[2].getKeyFrame(0, true);
-			if (Game.world.battle.character.getPreviousState() == StateBattleCharacter.FIGHTINGLEFT)
+			if (Game.world.battle.character.getPreviousState() == StateDynamicObject.FIGHTINGLEFT)
 				battleCharacterStand = (TextureRegion) battleCharacterAnimation[3].getKeyFrame(0, true);
 			region = battleCharacterStand;
 			break;
@@ -310,37 +308,37 @@ public class LoadingImage {
 		}
 		return region;
 	}
-
-	public static TextureRegion getFrameMan(com.mygdx.game.src.Character.Man.State state) {
+	
+	public static TextureRegion getFrame(StateDynamicObject state, Animation<TextureRegion>[] animation, TextureRegion stand) {
 		TextureRegion region;
 		switch (state) {
 		case RUNNINGRIGHT:
-			region = (TextureRegion) man1Animation[0].getKeyFrame(Game.man1.getStateTimer(), true);
-			man1Stand = region;
+			region = (TextureRegion) animation[0].getKeyFrame(Game.man1.getStateTimer(), true);
+			stand = region;
 			break;
 		case RUNNINGLEFT:
-			region = (TextureRegion) man1Animation[1].getKeyFrame(Game.man1.getStateTimer(), true);
-			man1Stand = region;
+			region = (TextureRegion) animation[1].getKeyFrame(Game.man1.getStateTimer(), true);
+			stand  = region;
 			break;
 		case RUNNINGUP:
-			region = (TextureRegion) man1Animation[2].getKeyFrame(Game.man1.getStateTimer(), true);
-			man1Stand = region;
+			region = (TextureRegion) animation[2].getKeyFrame(Game.man1.getStateTimer(), true);
+			stand  = region;
 			break;
 		case RUNNINGDOWN:
-			region = (TextureRegion) man1Animation[3].getKeyFrame(Game.man1.getStateTimer(), true);
-			man1Stand = region;
+			region = (TextureRegion) animation[3].getKeyFrame(Game.man1.getStateTimer(), true);
+			stand   = region;
 			break;
 		case STANDING:
-			region = man1Stand;
+			region = stand;
 			break;
 		default:
-			region = man1Stand;
+			region = stand;
 			break;
 		}
 		return region;
 	}
 
-	public TextureRegion getFrameEnemy(StateBattleEnemy currentState, Enemy enemy) {
+	public TextureRegion getFrameEnemy(StateDynamicObject currentState, Enemy enemy) {
 		TextureRegion region;
 		switch (currentState) {
 		case RUNNINGRIGHT:
@@ -366,7 +364,6 @@ public class LoadingImage {
 		playerAnimation[1].setFrameDuration(frameDuration);
 		playerAnimation[2].setFrameDuration(frameDuration);
 		playerAnimation[3].setFrameDuration(frameDuration);
-
 	}
 
 }

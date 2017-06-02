@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.src.Character.Character;
-import com.mygdx.game.src.Character.DynamicObjects.State;
+import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
 import com.mygdx.game.src.Character.Man;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.Tile;
@@ -155,7 +155,7 @@ public class PlayScreen implements Screen {
 			Game.world.createBattle();
 			game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
 		} else
-			Game.character.setState(State.STANDING);
+			Game.character.setState(StateDynamicObject.STANDING);
 	}
 
 	public void draw() {
@@ -167,7 +167,7 @@ public class PlayScreen implements Screen {
 						((Character) ob).getY(), ((Character) ob).getWidth(), ((Character) ob).getHeight());
 			}
 			if (ob instanceof Man) {
-				game.batch.draw(LoadingImage.getFrameMan(((Man) ob).getState()), ((Man) ob).getX(), ((Man) ob).getY(),
+				game.batch.draw(LoadingImage.getFrame(((Man) ob).getState(), LoadingImage.man1Animation, LoadingImage.man1Stand), ((Man) ob).getX(), ((Man) ob).getY(),
 						((Man) ob).getWidth(), ((Man) ob).getHeight());
 			}
 			if (ob instanceof Tile) {

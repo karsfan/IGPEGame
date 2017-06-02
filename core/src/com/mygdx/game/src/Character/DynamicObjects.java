@@ -1,21 +1,22 @@
 package com.mygdx.game.src.Character;
 
 public class DynamicObjects {
-	public enum State {
-		STANDING, RUNNINGRIGHT, RUNNINGLEFT, RUNNINGDOWN, RUNNINGUP
+	public enum StateDynamicObject {
+		STANDING, RUNNINGRIGHT, RUNNINGLEFT, RUNNINGDOWN, RUNNINGUP, JUMPING, FIGHTINGRIGHT, FIGHTINGLEFT, DEFENDING
 	};
 
 	public float x;
 	public float y;
-	public State currentState;
-	public State previousState;
+	public StateDynamicObject currentState;
+	public StateDynamicObject previousState;
 	protected float stateTimer;
 	public float height;
 	public float width;
 	public float velocity;
 
-	public DynamicObjects(float x, float y, State currentState, State previousState, float stateTimer, float height,
-			float width, float velocity) {
+	public DynamicObjects(float x, float y, StateDynamicObject currentState,
+			StateDynamicObject previousState, float stateTimer, float height, float width,
+			float velocity) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -26,8 +27,6 @@ public class DynamicObjects {
 		this.width = width;
 		this.velocity = velocity;
 	}
-
-	
 
 	public DynamicObjects() {
 		// TODO Auto-generated constructor stub
@@ -41,11 +40,11 @@ public class DynamicObjects {
 		return y;
 	}
 
-	public  State getCurrentState() {
+	public StateDynamicObject getCurrentState() {
 		return currentState;
 	}
 
-	public State getPreviousState() {
+	public StateDynamicObject getPreviousState() {
 		return previousState;
 	}
 

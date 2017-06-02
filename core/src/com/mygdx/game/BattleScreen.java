@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameSlagyom.State;
 import com.mygdx.game.src.Character.CharacterBattle;
-import com.mygdx.game.src.Character.CharacterBattle.StateBattleCharacter;
+import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
 import com.mygdx.game.src.World.Game;
 
 public class BattleScreen implements Screen {
@@ -58,7 +58,8 @@ public class BattleScreen implements Screen {
 	}
 
 	public void update(float dt) {
-		Game.world.battle.character.update(dt);
+		
+		//Game.world.battle.character.update(dt);
 		handleInput(dt);
 		// hud.update(dt);
 	}
@@ -82,7 +83,7 @@ public class BattleScreen implements Screen {
 			Game.world.battle.character.fightRight();
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.S))
-			Game.world.battle.character.setState(StateBattleCharacter.DEFENDING);
+			Game.world.battle.character.setState(StateDynamicObject.DEFENDING);
 		else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
 			Game.world.battle.character.movesLeft(dt);
 		} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {

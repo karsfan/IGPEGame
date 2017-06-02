@@ -2,17 +2,15 @@ package com.mygdx.game.src.World;
 
 import com.mygdx.game.src.Character.Character;
 import com.mygdx.game.src.Character.CharacterBattle;
-import com.mygdx.game.src.Character.CharacterBattle.StateBattleCharacter;
+import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
 
-public class Battle {
+public class Battle implements Runnable{
 
 	public CharacterBattle character;
 	public static Enemy enemy;
 	public static int WIDTH;
 	public static int HEIGHT;
 	public static int gravity;
-	//ThreadBattle thread;
-
 	public Battle() {
 		character = null;
 		enemy = null;
@@ -22,11 +20,11 @@ public class Battle {
 	public Battle(Character character, Enemy enemy) {
 		this.character = new CharacterBattle(character);
 		this.enemy = enemy;
+		gravity = 7;
 		WIDTH = 720;
 		HEIGHT = 480;
 		Game.thread.suspend();
-		//thread = new ThreadBattle(this);
-		//thread.start();
+	
 	}
 
 	public void moveEnemy(float dt) {
@@ -39,10 +37,15 @@ public class Battle {
 
 	public void update(float dt) {
 		moveEnemy(dt);
-		if (character.collide() && (character.currentState == StateBattleCharacter.FIGHTINGRIGHT
-				|| character.currentState == StateBattleCharacter.FIGHTINGLEFT))
-			enemy.decreaseHealth(character.getWeapon());
+		if (character.collide() && (character.currentState == StateDynamicObject.FIGHTINGRIGHT
+				|| character.currentState == StateDynamicObject.FIGHTINGLEFT))
+			enemy.decreaseHealth(character.getWeapon());		 
+	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

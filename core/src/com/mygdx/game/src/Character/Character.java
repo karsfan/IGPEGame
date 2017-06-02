@@ -32,8 +32,8 @@ public class Character extends DynamicObjects implements ICollidable {
 		x = 1000;
 		y = 600;
 		velocity = 100;
-		currentState = State.STANDING;
-		previousState = State.STANDING;
+		currentState = StateDynamicObject.STANDING;
+		previousState = StateDynamicObject.STANDING;
 		stateTimer = 0;
 		height = 30;
 		width = 30;
@@ -105,7 +105,7 @@ public class Character extends DynamicObjects implements ICollidable {
 			if (collide(this))
 				x -= (velocity * dt);
 		}
-		setState(State.RUNNINGRIGHT);
+		setState(StateDynamicObject.RUNNINGRIGHT);
 	}
 
 	public void movesLeft(float dt) {
@@ -116,7 +116,7 @@ public class Character extends DynamicObjects implements ICollidable {
 			if (collide(this))
 				x += (velocity * dt);
 		}
-		setState(State.RUNNINGLEFT);
+		setState(StateDynamicObject.RUNNINGLEFT);
 	}
 
 	public void movesUp(float dt) {
@@ -128,7 +128,7 @@ public class Character extends DynamicObjects implements ICollidable {
 				y -= (velocity * dt);
 			}
 		}
-		setState(State.RUNNINGUP);
+		setState(StateDynamicObject.RUNNINGUP);
 	}
 
 	public void movesDown(float dt) {
@@ -139,7 +139,7 @@ public class Character extends DynamicObjects implements ICollidable {
 			if (collide(this))
 				y += (velocity * dt);
 		}
-		setState(State.RUNNINGDOWN);
+		setState(StateDynamicObject.RUNNINGDOWN);
 	}
 
 	private void setStateTimer(float f) {
@@ -150,7 +150,7 @@ public class Character extends DynamicObjects implements ICollidable {
 		return stateTimer;
 	}
 
-	public void setState(State state) {
+	public void setState(StateDynamicObject state) {
 		previousState = currentState;
 		currentState = state;
 		
@@ -161,7 +161,7 @@ public class Character extends DynamicObjects implements ICollidable {
 			
 	}
 
-	public State getState() {
+	public StateDynamicObject getState() {
 		return currentState;
 	}
 
