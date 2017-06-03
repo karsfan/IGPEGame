@@ -20,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameSlagyom.State;
-import com.mygdx.game.src.World.Game;
 
 public class NewCharacterScreen implements Screen {
 
@@ -71,7 +70,7 @@ public class NewCharacterScreen implements Screen {
 			}
 		});
 		Drawable maleDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/male.png")));
-		Drawable maleokDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/maleok.png")));
+		//Drawable maleokDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/maleok.png")));
 
 		ImageButton male = new ImageButton(maleDraw);
 		male.addListener(new ClickListener() {
@@ -83,7 +82,7 @@ public class NewCharacterScreen implements Screen {
 		
 		
 		Drawable femaleDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/female.png")));
-		Drawable femalokDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/femaleok.png")));
+		//Drawable femalokDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/femaleok.png")));
 
 		ImageButton female = new ImageButton(femaleDraw);
 		female.addListener(new ClickListener() {

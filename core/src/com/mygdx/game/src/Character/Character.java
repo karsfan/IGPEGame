@@ -145,7 +145,7 @@ public class Character extends DynamicObjects implements ICollidable {
 	private void setStateTimer(float f) {
 		stateTimer = f;
 	}
-
+	@Override
 	public float getStateTimer() {
 		return stateTimer;
 	}

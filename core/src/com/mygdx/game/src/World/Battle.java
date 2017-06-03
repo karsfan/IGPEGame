@@ -11,19 +11,24 @@ public class Battle implements Runnable{
 	public static int WIDTH;
 	public static int HEIGHT;
 	public static int gravity;
+	ThreadCharacterBattle threadCharacter;
+
 	public Battle() {
 		character = null;
 		enemy = null;
 	}
 
-	@SuppressWarnings({ "static-access", "deprecation" })
+	@SuppressWarnings({ "deprecation", "static-access" })
 	public Battle(Character character, Enemy enemy) {
 		this.character = new CharacterBattle(character);
-		this.enemy = enemy;
-		gravity = 7;
+		//this.enemy = enemy;
+		this.enemy = new Enemy(null, 100, 100, null, null, null);
+		gravity = 17;
 		WIDTH = 720;
 		HEIGHT = 480;
 		Game.thread.suspend();
+		threadCharacter = new ThreadCharacterBattle(this.character, this.enemy);
+		threadCharacter.start();
 	
 	}
 
@@ -37,8 +42,8 @@ public class Battle implements Runnable{
 
 	public void update(float dt) {
 		moveEnemy(dt);
-		if (character.collide() && (character.currentState == StateDynamicObject.FIGHTINGRIGHT
-				|| character.currentState == StateDynamicObject.FIGHTINGLEFT))
+		if (character.collide() && (character.character.currentState == StateDynamicObject.FIGHTINGRIGHT
+				|| character.character.currentState == StateDynamicObject.FIGHTINGLEFT))
 			enemy.decreaseHealth(character.getWeapon());		 
 	}
 

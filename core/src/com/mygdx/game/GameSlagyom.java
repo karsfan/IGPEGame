@@ -72,12 +72,9 @@ public class GameSlagyom extends Game {
 
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public void render() {
 		super.render();
-		//com.mygdx.game.src.World.Game.thread.a
-		//System.out.println(com.mygdx.game.src.World.Game.thread.activeCount());
 	}
 
 	public static void setState(State newState) {

@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameSlagyom.State;
 import com.mygdx.game.src.Character.CharacterBattle;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
+import com.mygdx.game.src.World.Enemy;
 import com.mygdx.game.src.World.Game;
 
 public class BattleScreen implements Screen {
@@ -50,16 +51,21 @@ public class BattleScreen implements Screen {
 	}
 
 	private void draw() {
-		
+
 		game.batch.draw(LoadingImage.getBattleBgImage(), 0, 0);
 		CharacterBattle tmp = Game.world.battle.character;
-		game.batch.draw(LoadingImage.getBattleFrameCharacter(tmp.getCurrentState()), tmp.getX(), tmp.getY(),
+		game.batch.draw(LoadingImage.getBattleFrame(tmp.getCurrentState(), tmp.getStateTimer(), LoadingImage.battleCharacterAnimation, LoadingImage.battleCharacterStand), tmp.getX(), tmp.getY(),
 				tmp.getWidth(), tmp.getHeight());
+		@SuppressWarnings("static-access")
+		Enemy tmp1 = Game.world.battle.enemy;
+		game.batch.draw(LoadingImage.getBattleFrame(tmp1.getCurrentState(),tmp1.getStateTimer(), LoadingImage.enemyAnimation, LoadingImage.enemyStand ), tmp1.getX(), tmp1.getY(),
+				tmp1.getWidth(), tmp1.getHeight());
+		
 	}
 
 	public void update(float dt) {
-		
-		//Game.world.battle.character.update(dt);
+
+		// Game.world.battle.character.update(dt);
 		handleInput(dt);
 		// hud.update(dt);
 	}
@@ -84,16 +90,17 @@ public class BattleScreen implements Screen {
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.S))
 			Game.world.battle.character.setState(StateDynamicObject.DEFENDING);
-		else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+			Game.world.battle.character.jump(dt);
+		} else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
 			Game.world.battle.character.movesLeft(dt);
 		} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			if (Gdx.input.isKeyJustPressed(Keys.A)) {
 				Game.world.battle.character.fightRight();
 			} else
 				Game.world.battle.character.movesRight(dt);
-		} else if (Gdx.input.isKeyPressed(Keys.UP)) {
-			Game.world.battle.character.jump(dt);
-		} else {
+		}
+		else{
 			Game.world.battle.character.stand();
 		}
 	}

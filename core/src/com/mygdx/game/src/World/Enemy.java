@@ -26,13 +26,14 @@ public class Enemy extends DynamicObjects{
 		this.weapon = weapon;
 		this.win_bonus = win_bonus;
 		this.level = level;
-		currentState = StateDynamicObject.STANDING;
-		previousState = null;
+		
 		stateTimer = 0;
 		x = 700;
-		y = 100;
-		height = 60;
-		width = 60;
+		y = 250;
+		height = 120;
+		width = 120;
+		currentState = StateDynamicObject.STANDING;
+		previousState = null;
 	}
 
 	public void movesRight(float dt) {
@@ -73,7 +74,7 @@ public class Enemy extends DynamicObjects{
 	}
 
 	public void update(float dt) {
-		
+		System.out.println("ciao");
 	}
 
 }

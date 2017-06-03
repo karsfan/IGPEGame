@@ -4,12 +4,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.src.Character.CharacterBattle;
+import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
-import com.mygdx.game.src.World.Enemy;
-import com.mygdx.game.src.World.Game;
+import com.mygdx.game.src.Map.StaticObject.Element;
+import com.mygdx.game.src.World.Tile;
 
 public class LoadingImage {
 
+	public Texture texture;
 	private static Texture homeImage;
 	private static Texture bigHomeImage;
 	private static Texture threeImage;
@@ -25,45 +28,35 @@ public class LoadingImage {
 
 	private static Texture battleBackground;
 
-
-	private static Texture battleCharacter;
-	private static TextureRegion battleCharacterStand;
+	public static TextureRegion battleCharacterStand;
 	public static Animation<TextureRegion>[] battleCharacterAnimation;
 
-	public Texture texture;
-	private static TextureRegion playerStand;
+	public static TextureRegion playerStand;
 	public static Animation<TextureRegion>[] playerAnimation;
 
-	public Texture enemyTexture;
-	private static TextureRegion enemyStand;
-	public Animation<TextureRegion>[] enemyAnimation;
+	public static TextureRegion enemyStand;
+	public static Animation<TextureRegion>[] enemyAnimation;
 
 	public static TextureRegion man1Stand;
 	public static Animation<TextureRegion>[] man1Animation;
 
-	public Texture man2Texture;
-	//private static TextureRegion man2Stand;
+	// private static TextureRegion man2Stand;
 	public Animation<TextureRegion>[] man2Animation;
 
-	public Texture man3Texture;
-	//private static TextureRegion man3Stand;
+	// private static TextureRegion man3Stand;
 	public Animation<TextureRegion>[] man3Animation;
 
-	public Texture woman1Texture;
-	//private static TextureRegion woman1Stand;
+	// private static TextureRegion woman1Stand;
 	public Animation<TextureRegion>[] woman1Animation;
 
-	public Texture woman2Texture;
-	//private static TextureRegion woman2Stand;
+	// private static TextureRegion woman2Stand;
 	public Animation<TextureRegion>[] woman2Animation;
 
-	public Texture woman3Texture;
-	//private static TextureRegion woman3Stand;
+	// private static TextureRegion woman3Stand;
 	public Animation<TextureRegion>[] woman3Animation;
 
 	@SuppressWarnings("unchecked")
 	public LoadingImage() {
-
 		homeImage = new Texture("res/home.png");
 		bigHomeImage = new Texture("res/bigHome.png");
 		threeImage = new Texture("res/three.png");
@@ -79,7 +72,6 @@ public class LoadingImage {
 
 		battleBackground = new Texture("res/battleBg.png");
 
-
 		playerAnimation = new Animation[4];
 		enemyAnimation = new Animation[4];
 		man1Animation = new Animation[4];
@@ -88,20 +80,27 @@ public class LoadingImage {
 		woman1Animation = new Animation[4];
 		woman2Animation = new Animation[4];
 		woman3Animation = new Animation[4];
-		battleCharacterAnimation = new Animation[4];
-		texture = new Texture("assets/bpj.png");
-		createFrame(texture, playerAnimation);
-		playerStand = playerAnimation[0].getKeyFrame(0, true);
-		texture = new Texture("assets/notPlaying.png");
-		createFrame(texture, man1Animation);
-		man1Stand = man1Animation[0].getKeyFrame(0, true);
 
-		battleCharacter = new Texture("assets/lancia.png");
-		createBattleFrame(battleCharacter, battleCharacterAnimation);
-		battleCharacterStand = battleCharacterAnimation[0].getKeyFrame(0, true);
+		playerStand = new TextureRegion();
+		man1Stand = new TextureRegion();
+		battleCharacterStand = new TextureRegion();
+		enemyStand = new TextureRegion();
+		battleCharacterAnimation = new Animation[4];
+
+		texture = new Texture("assets/bpj.png");
+		createFrame(texture, playerAnimation, playerStand);
+
+		texture = new Texture("assets/notPlaying.png");
+		createFrame(texture, man1Animation, man1Stand);
+
+		texture = new Texture("assets/lancia.png");
+		createBattleFrame(texture, battleCharacterAnimation, battleCharacterStand);
+
+		texture = new Texture("assets/lancia.png");
+		createBattleFrame(texture, enemyAnimation, enemyStand);
 	}
 
-	private void createBattleFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation) {
+	private void createBattleFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation, TextureRegion stand) {
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		Animation<TextureRegion> right;
 		Animation<TextureRegion> left;
@@ -136,10 +135,11 @@ public class LoadingImage {
 		arrayAnimation[3] = fightingLeft;
 		arrayAnimation[2].setFrameDuration(0.02f);
 		arrayAnimation[3].setFrameDuration(0.01f);
+		stand.setRegion(arrayAnimation[0].getKeyFrame(0, true));
 
 	}
-	
-	public void createFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation) {
+
+	public void createFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation, TextureRegion stand) {
 
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		Animation<TextureRegion> right;
@@ -173,7 +173,7 @@ public class LoadingImage {
 		arrayAnimation[1] = left;
 		arrayAnimation[2] = up;
 		arrayAnimation[3] = down;
-
+		stand.setRegion(arrayAnimation[0].getKeyFrame(0, true));
 	}
 
 	public static Texture getHomeImage() {
@@ -228,105 +228,26 @@ public class LoadingImage {
 		return battleBackground;
 	}
 
-	public static TextureRegion getFrameCharacter(StateDynamicObject currentState) {
+	public static TextureRegion getBattleFrame(StateDynamicObject state, float stateTimer,
+			Animation<TextureRegion>[] animation, TextureRegion stand) {
 		TextureRegion region = new TextureRegion();
 
-		switch (currentState) {
-		case RUNNINGRIGHT:
-			region = (TextureRegion) playerAnimation[0].getKeyFrame(Game.character.getStateTimer(), true);
-			playerStand = region;
-			break;
-		case RUNNINGLEFT:
-			region = (TextureRegion) playerAnimation[1].getKeyFrame(Game.character.getStateTimer(), true);
-			playerStand = region;
-			break;
-		case RUNNINGUP:
-			region = (TextureRegion) playerAnimation[2].getKeyFrame(Game.character.getStateTimer(), true);
-			playerStand = region;
-			break;
-		case RUNNINGDOWN:
-			region = (TextureRegion) playerAnimation[3].getKeyFrame(Game.character.getStateTimer(), true);
-			playerStand = region;
-			break;
-		case STANDING:
-			if (Game.character.getPreviousState() == StateDynamicObject.RUNNINGRIGHT)
-				playerStand = (TextureRegion) playerAnimation[0].getKeyFrame(0, true);
-			if (Game.character.getPreviousState() == StateDynamicObject.RUNNINGLEFT)
-				playerStand = (TextureRegion) playerAnimation[1].getKeyFrame(0, true);
-			if (Game.character.getPreviousState() == StateDynamicObject.RUNNINGUP)
-				playerStand = (TextureRegion) playerAnimation[2].getKeyFrame(0, true);
-			if (Game.character.getPreviousState() == StateDynamicObject.RUNNINGDOWN)
-				playerStand = (TextureRegion) playerAnimation[3].getKeyFrame(0, true);
-			region = playerStand;
-			break;
-		default:
-			region = playerStand;
-			break;
-		}
-		return region;
-	}
-
-	public static TextureRegion getBattleFrameCharacter(StateDynamicObject currentState) {
-		TextureRegion region = new TextureRegion();
-
-		switch (currentState) {
-		case RUNNINGRIGHT:
-			region = (TextureRegion) battleCharacterAnimation[0]
-					.getKeyFrame(Game.world.battle.character.getStateTimer(), true);
-			battleCharacterStand = (TextureRegion) battleCharacterAnimation[0].getKeyFrame(0, true);;
-			break;
-		case RUNNINGLEFT:
-			region = (TextureRegion) battleCharacterAnimation[1]
-					.getKeyFrame(Game.world.battle.character.getStateTimer(), true);
-			battleCharacterStand = region;
-			break;
-		case FIGHTINGRIGHT:
-			region = (TextureRegion) battleCharacterAnimation[2]
-					.getKeyFrame(Game.world.battle.character.getStateTimer(),true);
-			battleCharacterStand = region;
-			break;
-		case FIGHTINGLEFT:
-			region = (TextureRegion) battleCharacterAnimation[3]
-					.getKeyFrame(Game.world.battle.character.getStateTimer(), true);
-			battleCharacterStand = region;
-			break;
-		case STANDING:
-			
-			if (Game.world.battle.character.getPreviousState() == StateDynamicObject.RUNNINGRIGHT)
-				battleCharacterStand = (TextureRegion) battleCharacterAnimation[0].getKeyFrame(0, true);
-			if (Game.world.battle.character.getPreviousState() == StateDynamicObject.RUNNINGLEFT)
-				battleCharacterStand = (TextureRegion) battleCharacterAnimation[1].getKeyFrame(0, true);
-			if (Game.world.battle.character.getPreviousState() == StateDynamicObject.FIGHTINGRIGHT)
-				battleCharacterStand = (TextureRegion) battleCharacterAnimation[2].getKeyFrame(0, true);
-			if (Game.world.battle.character.getPreviousState() == StateDynamicObject.FIGHTINGLEFT)
-				battleCharacterStand = (TextureRegion) battleCharacterAnimation[3].getKeyFrame(0, true);
-			region = battleCharacterStand;
-			break;
-		default:
-			region = battleCharacterStand;
-			break;
-		}
-		return region;
-	}
-	
-	public static TextureRegion getFrame(StateDynamicObject state, Animation<TextureRegion>[] animation, TextureRegion stand) {
-		TextureRegion region;
 		switch (state) {
 		case RUNNINGRIGHT:
-			region = (TextureRegion) animation[0].getKeyFrame(Game.man1.getStateTimer(), true);
-			stand = region;
+			region = (TextureRegion) animation[0].getKeyFrame(stateTimer, true);
+			stand = (TextureRegion) animation[0].getKeyFrame(0, true);
 			break;
 		case RUNNINGLEFT:
-			region = (TextureRegion) animation[1].getKeyFrame(Game.man1.getStateTimer(), true);
-			stand  = region;
+			region = (TextureRegion) animation[1].getKeyFrame(stateTimer, true);
+			stand = (TextureRegion) animation[1].getKeyFrame(0, true);
 			break;
-		case RUNNINGUP:
-			region = (TextureRegion) animation[2].getKeyFrame(Game.man1.getStateTimer(), true);
-			stand  = region;
+		case FIGHTINGRIGHT:
+			region = (TextureRegion) animation[2].getKeyFrame(stateTimer, true);
+			stand = (TextureRegion) animation[2].getKeyFrame(0, true);
 			break;
-		case RUNNINGDOWN:
-			region = (TextureRegion) animation[3].getKeyFrame(Game.man1.getStateTimer(), true);
-			stand   = region;
+		case FIGHTINGLEFT:
+			region = (TextureRegion) animation[3].getKeyFrame(stateTimer, true);
+			stand = (TextureRegion) animation[3].getKeyFrame(0, true);
 			break;
 		case STANDING:
 			region = stand;
@@ -338,22 +259,68 @@ public class LoadingImage {
 		return region;
 	}
 
-	public TextureRegion getFrameEnemy(StateDynamicObject currentState, Enemy enemy) {
-		TextureRegion region;
-		switch (currentState) {
+	public static TextureRegion getBattleFrame1(Object ob) {
+		TextureRegion region = new TextureRegion();
+		StateDynamicObject state = null;
+		float stateTimer = 0;
+		if (ob instanceof CharacterBattle) {
+			stateTimer = ((CharacterBattle) ob).getStateTimer();
+			state = ((CharacterBattle) ob).getCurrentState();
+		} else if (ob instanceof DynamicObjects) {
+			stateTimer = ((DynamicObjects) ob).getStateTimer();
+			state = ((DynamicObjects) ob).getCurrentState();
+		}
+		switch (state) {
 		case RUNNINGRIGHT:
-			region = (TextureRegion) enemyAnimation[0].getKeyFrame(enemy.getStateTimer(), true);
-			enemyStand = region;
+			region = (TextureRegion) getAnimation(ob)[0].getKeyFrame(stateTimer, true);
+			getFrameStand(ob).setRegion(getAnimation(ob)[0].getKeyFrame(0, true));
 			break;
 		case RUNNINGLEFT:
-			region = (TextureRegion) enemyAnimation[1].getKeyFrame(enemy.getStateTimer(), true);
-			enemyStand = region;
+			region = (TextureRegion) getAnimation(ob)[1].getKeyFrame(stateTimer, true);
+			getFrameStand(ob).setRegion(getAnimation(ob)[1].getKeyFrame(0, true));
+			break;
+		case FIGHTINGRIGHT:
+			region = (TextureRegion) getAnimation(ob)[2].getKeyFrame(stateTimer, true);
+			getFrameStand(ob).setRegion(getAnimation(ob)[2].getKeyFrame(0, true));
+			break;
+		case FIGHTINGLEFT:
+			region = (TextureRegion) getAnimation(ob)[3].getKeyFrame(stateTimer, true);
+			getFrameStand(ob).setRegion(getAnimation(ob)[3].getKeyFrame(0, true));
 			break;
 		case STANDING:
-			region = enemyStand;
+			region = getFrameStand(ob);
 			break;
 		default:
-			region = enemyStand;
+			region = getFrameStand(ob);
+			break;
+		}
+		return region;
+	}
+
+	public static TextureRegion getFrame1(Object ob) {
+		TextureRegion region;
+		switch (((DynamicObjects) ob).getCurrentState()) {
+		case RUNNINGRIGHT:
+			region = (TextureRegion) getAnimation(ob)[0].getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
+			getFrameStand(ob).setRegion(getAnimation(ob)[0].getKeyFrame(0, true));
+			break;
+		case RUNNINGLEFT:
+			region = (TextureRegion) getAnimation(ob)[1].getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
+			getFrameStand(ob).setRegion(getAnimation(ob)[1].getKeyFrame(0, true));
+			break;
+		case RUNNINGUP:
+			region = (TextureRegion) getAnimation(ob)[2].getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
+			getFrameStand(ob).setRegion(getAnimation(ob)[2].getKeyFrame(0, true));
+			break;
+		case RUNNINGDOWN:
+			region = (TextureRegion) getAnimation(ob)[3].getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
+			getFrameStand(ob).setRegion(getAnimation(ob)[3].getKeyFrame(0, true));
+			break;
+		case STANDING:
+			region = getFrameStand(ob);
+			break;
+		default:
+			region = getFrameStand(ob);
 			break;
 		}
 		return region;
@@ -364,6 +331,101 @@ public class LoadingImage {
 		playerAnimation[1].setFrameDuration(frameDuration);
 		playerAnimation[2].setFrameDuration(frameDuration);
 		playerAnimation[3].setFrameDuration(frameDuration);
+	}
+
+	public static Animation<TextureRegion>[] getAnimation(Object ob) {
+		Class<? extends Object> a = ob.getClass();
+		Animation<TextureRegion>[] animation = null;
+		switch (a.getSimpleName()) {
+		case "Character":
+			animation = playerAnimation;
+			break;
+		case "Man":
+			animation = man1Animation;
+			break;
+		case "CharacterBattle":
+			animation = battleCharacterAnimation;
+			break;
+		case "Enemy":
+			animation = enemyAnimation;
+			break;
+		default:
+			System.out.println("Errore in getAnimation");
+			break;
+		}
+		return animation;
+	}
+
+	public static TextureRegion getFrameStand(Object ob) {
+		Class<? extends Object> a = ob.getClass();
+		TextureRegion textureRegion = null;
+		switch (a.getSimpleName()) {
+		case "Character":
+			textureRegion = playerStand;
+			break;
+		case "Man":
+			textureRegion = man1Stand;
+			break;
+		case "CharacterBattle":
+			textureRegion = battleCharacterStand;
+			break;
+		case "Enemy":
+			textureRegion = enemyStand;
+			break;
+		default:
+			System.out.println("Errore in getFrameStand");
+			break;
+		}
+		return textureRegion;
+	}
+
+	public static Texture getTileImage(Object ob) {
+		Element element = ((Tile) ob).getElement();
+		Texture texture = null;
+		switch (element) {
+		case HOME:
+			texture = homeImage;
+			break;
+		case THREE:
+			texture = threeImage;
+			break;
+		case FOREST1:
+			texture = forest1Image;
+			break;
+		case FOREST2:
+			texture = forest2Image;
+			break;
+		case GROUND:
+			texture = groundImage;
+			break;
+		case BUILDING:
+			texture = buildingImage;
+			break;
+		case WATER:
+			texture = waterImage;
+			break;
+		case ROCK:
+			texture = rockImage;
+			break;
+		case FLOOR:
+			texture = floorImage;
+			break;
+		case BIGHOME:
+			texture = bigHomeImage;
+			break;
+		case SHOP:
+			texture = null;
+			break;
+		case TABLE:
+			texture = tableImage;
+			break;
+		case ROAD:
+			texture = roadImage;
+			break;
+		default:
+			break;
+		}
+		return texture;
 	}
 
 }

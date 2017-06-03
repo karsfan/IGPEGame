@@ -9,7 +9,7 @@ public class DynamicObjects {
 	public float y;
 	public StateDynamicObject currentState;
 	public StateDynamicObject previousState;
-	protected float stateTimer;
+	public float stateTimer;
 	public float height;
 	public float width;
 	public float velocity;
