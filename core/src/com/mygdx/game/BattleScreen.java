@@ -54,20 +54,18 @@ public class BattleScreen implements Screen {
 
 		game.batch.draw(LoadingImage.getBattleBgImage(), 0, 0);
 		CharacterBattle tmp = Game.world.battle.character;
-		game.batch.draw(LoadingImage.getBattleFrame(tmp.getCurrentState(), tmp.getStateTimer(), LoadingImage.battleCharacterAnimation, LoadingImage.battleCharacterStand), tmp.getX(), tmp.getY(),
-				tmp.getWidth(), tmp.getHeight());
+		game.batch.draw(LoadingImage.getBattleFrame(tmp), tmp.getX(), tmp.getY(), tmp.getWidth(), tmp.getHeight());
 		@SuppressWarnings("static-access")
 		Enemy tmp1 = Game.world.battle.enemy;
-		game.batch.draw(LoadingImage.getBattleFrame(tmp1.getCurrentState(),tmp1.getStateTimer(), LoadingImage.enemyAnimation, LoadingImage.enemyStand ), tmp1.getX(), tmp1.getY(),
-				tmp1.getWidth(), tmp1.getHeight());
-		
+		game.batch.draw(LoadingImage.getBattleFrame(tmp1), tmp1.getX(), tmp1.getY(), tmp1.getWidth(), tmp1.getHeight());
+
 	}
 
 	public void update(float dt) {
 
 		// Game.world.battle.character.update(dt);
 		handleInput(dt);
-		// hud.update(dt);
+		hud.update(dt);
 	}
 
 	@SuppressWarnings({ "deprecation" })
@@ -85,22 +83,21 @@ public class BattleScreen implements Screen {
 
 	private void moveCharacter(float dt) {
 
-		if (Gdx.input.isKeyJustPressed(Keys.A)) {
-			Game.world.battle.character.fightRight();
-		}
 		if (Gdx.input.isKeyJustPressed(Keys.S))
 			Game.world.battle.character.setState(StateDynamicObject.DEFENDING);
 		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
 			Game.world.battle.character.jump(dt);
 		} else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-			Game.world.battle.character.movesLeft(dt);
+			if (Gdx.input.isKeyJustPressed(Keys.A))
+				Game.world.battle.character.fightLeft();
+			else
+				Game.world.battle.character.movesLeft(dt);
 		} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			if (Gdx.input.isKeyJustPressed(Keys.A)) {
+			if (Gdx.input.isKeyJustPressed(Keys.A))
 				Game.world.battle.character.fightRight();
-			} else
+			else
 				Game.world.battle.character.movesRight(dt);
-		}
-		else{
+		} else {
 			Game.world.battle.character.stand();
 		}
 	}

@@ -9,8 +9,8 @@ public class Enemy extends DynamicObjects{
 		EASY, MEDIUM, HARD
 	};
 
-	String name;
-	float life;
+	private String name;
+	float health;
 	float power;
 	Weapon weapon;
 	Pack win_bonus;
@@ -20,8 +20,8 @@ public class Enemy extends DynamicObjects{
 	public Enemy(String name, float life, float power, Weapon weapon, Pack win_bonus, Level level) {
 
 		velocity = 80;
-		this.name = name;
-		this.life = life;
+		this.setName(name);
+		this.health = life;
 		this.power = power;
 		this.weapon = weapon;
 		this.win_bonus = win_bonus;
@@ -34,6 +34,9 @@ public class Enemy extends DynamicObjects{
 		width = 120;
 		currentState = StateDynamicObject.STANDING;
 		previousState = null;
+	}
+	public float getHealth(){
+		return health;
 	}
 
 	public void movesRight(float dt) {
@@ -70,11 +73,17 @@ public class Enemy extends DynamicObjects{
 
 
 	public void decreaseHealth(Weapon weaponCharacter) {
-		life -= weaponCharacter.getDamage();
+		health -= weaponCharacter.getDamage();
 	}
 
 	public void update(float dt) {
-		System.out.println("ciao");
+		System.out.println("UpdateEnemy");
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

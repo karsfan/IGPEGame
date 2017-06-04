@@ -16,7 +16,7 @@ public class ThreadCharacterBattle extends Thread {
 		super.run();
 
 		while (true) {
-			character.update(0.25f);
+			character.update(0.35f);
 			//enemy.update(0.02f);
 			try {
 				sleep(25);

@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 
 import com.mygdx.game.src.Character.Character;
 import com.mygdx.game.src.Character.Man;
+import com.mygdx.game.src.Character.Woman;
 
 public class Game {
 	public static JFileChooser fc;
@@ -16,13 +17,16 @@ public class Game {
 	public static Man man1;
 	public static ThreadWorld thread;
 	public static String mapPath;
+	public static Woman woman1;
 	public Game(String name) {
 		man1 = new Man();
+		woman1 = new Woman();
 		character = new Character(name);
 		fc = new JFileChooser();
 		world = new World();
 		readMap();
 		world.getListObjects().add(man1);
+		//world.getListObjects().add(woman1);
 		world.getListObjects().add(character);
 		thread = new ThreadWorld(this);
 		thread.start();
@@ -30,11 +34,13 @@ public class Game {
 	
 	public Game(String path, String name) {
 		man1 = new Man();
+		woman1 = new Woman();
 		character = new Character(name);
 		fc = new JFileChooser();
 		initialize();
 		openFile(path);
 		world.getListObjects().add(man1);
+		//world.getListObjects().add(woman1);
 		world.getListObjects().add(character);
 		thread = new ThreadWorld(this);
 		thread.start();

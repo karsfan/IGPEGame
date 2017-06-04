@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
+import com.mygdx.game.src.Character.Woman;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.Tile;
 
@@ -163,9 +164,12 @@ public class PlayScreen implements Screen {
 		Iterator<Object> it = Game.world.getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
-			if (ob instanceof DynamicObjects)
-				game.batch.draw(LoadingImage.getFrame1(ob), ((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
+			if (ob instanceof DynamicObjects && !(ob instanceof Woman))
+				game.batch.draw(LoadingImage.getFrame(ob), ((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
 						((DynamicObjects) ob).getWidth(), ((DynamicObjects) ob).getHeight());
+			if(ob instanceof Woman)
+				game.batch.draw(LoadingImage.frameWoman(ob),((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
+						((DynamicObjects) ob).getWidth()/2, ((DynamicObjects) ob).getHeight());
 			if (ob instanceof Tile)
 				game.batch.draw(LoadingImage.getTileImage(ob), (float) ((Tile) ob).shape.getX() * 32,
 						(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),

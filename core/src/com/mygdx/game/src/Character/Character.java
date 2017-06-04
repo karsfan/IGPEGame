@@ -9,11 +9,12 @@ import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.ICollidable;
 import com.mygdx.game.src.World.Tile;
 import com.mygdx.game.src.World.Weapon;
+import com.mygdx.game.src.World.Weapon.Level;
+import com.mygdx.game.src.World.Weapon.Type;
 import com.mygdx.game.src.Map.StaticObject.Element;
 
-
 public class Character extends DynamicObjects implements ICollidable {
-	
+
 	public String name;
 	public Bag bag;
 	public Weapon primary_weapon;
@@ -25,23 +26,24 @@ public class Character extends DynamicObjects implements ICollidable {
 		super();
 		this.name = name;
 		bag = new Bag();
-		primary_weapon = null;
+		primary_weapon = new Weapon("Lancia", Level.BASIC, Type.LANCIA);
 		health = 100;
 		power = 100;
 		coins = 10;
 		x = 1000;
 		y = 600;
 		velocity = 100;
+
 		currentState = StateDynamicObject.STANDING;
 		previousState = StateDynamicObject.STANDING;
 		stateTimer = 0;
 		height = 30;
 		width = 30;
 	}
-	
+
 	public Character(Character character) {
-		super(character.x, character.y, character.currentState, character.previousState, character.stateTimer, character.width,
-				character.height, character.velocity);
+		super(character.x, character.y, character.currentState, character.previousState, character.stateTimer,
+				character.width, character.height, character.velocity);
 		this.bag = character.bag;
 		this.primary_weapon = character.primary_weapon;
 		this.health = character.health;
@@ -49,9 +51,10 @@ public class Character extends DynamicObjects implements ICollidable {
 		this.coins = character.coins;
 	}
 
-	public float getHealth(){
+	public float getHealth() {
 		return health;
 	}
+
 	public float getX() {
 		return x;
 	}
@@ -88,9 +91,8 @@ public class Character extends DynamicObjects implements ICollidable {
 	}
 
 	public void upgradeWeapon(Weapon weapon) {
-		//weapon.upgrade(bag);
+		// weapon.upgrade(bag);
 	}
-
 
 	public void usePotionHealth(Potion potion) {
 		health += potion.getLevel() * 10;
@@ -124,7 +126,7 @@ public class Character extends DynamicObjects implements ICollidable {
 			dt = (float) 0.0165;
 		if (y < 960 - height - 5) {
 			y += (velocity * dt);
-			if (collide(this)){
+			if (collide(this)) {
 				y -= (velocity * dt);
 			}
 		}
@@ -145,6 +147,7 @@ public class Character extends DynamicObjects implements ICollidable {
 	private void setStateTimer(float f) {
 		stateTimer = f;
 	}
+
 	@Override
 	public float getStateTimer() {
 		return stateTimer;
@@ -153,12 +156,12 @@ public class Character extends DynamicObjects implements ICollidable {
 	public void setState(StateDynamicObject state) {
 		previousState = currentState;
 		currentState = state;
-		
+
 		if (previousState == currentState)
 			setStateTimer(getStateTimer() + Gdx.graphics.getDeltaTime());
 		else
 			setStateTimer(0);
-			
+
 	}
 
 	public StateDynamicObject getState() {
@@ -181,9 +184,9 @@ public class Character extends DynamicObjects implements ICollidable {
 			if (ob instanceof Tile) {
 				if (((Tile) ob).getElement() != Element.GROUND && ((Tile) ob).getElement() != Element.ROAD)
 					if (((Tile) ob).collide(this))
-						return true;	
+						return true;
 			}
-			
+
 			if (ob instanceof DynamicObjects && ob != this) {
 				if (!((x > ((DynamicObjects) ob).getX() + ((DynamicObjects) ob).getWidth() / 2 - 1
 						|| ((DynamicObjects) ob).getX() > x + width / 2)

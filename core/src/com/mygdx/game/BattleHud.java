@@ -14,35 +14,48 @@ public class BattleHud {
 	public SpriteBatch spriteBatch;
 	public Stage stage;
 	private Viewport viewport;
-	private Label healthLabel;
-	private Label nameLabel;
+	private Label healthCharacterLabel;
+	private Label nameCharacterLabel;
+	private Label healthEnemyLabel;
+	private Label nameEnemyLabel;
 	
-	Integer health;
+	Integer healthCharacter;
+	Integer healthEnemy;
+	@SuppressWarnings("static-access")
 	public BattleHud(SpriteBatch batch) {
 		spriteBatch = batch;
 		
 		viewport = new FitViewport(1200,1200, new OrthographicCamera());
 		stage = new Stage(viewport, spriteBatch);
 		
-		health = 100;
+		healthCharacter = (int) Game.world.battle.character.getHealth();
+		healthEnemy = (int) Game.world.battle.enemy.getHealth();
 		Table table = new Table();
 		table.top(); // la allinea sopra al centro
 		table.setFillParent(true);
 
 
-		nameLabel = new Label(Game.character.name, MenuScreen.skin);
-		healthLabel = new Label(String.format("%03d", health), MenuScreen.skin);
+		nameCharacterLabel = new Label(Game.character.name, MenuScreen.skin);
+		healthCharacterLabel = new Label(String.format("%03d", healthCharacter), MenuScreen.skin);
 	
-		table.add(nameLabel).expandX().pad(20);
-		table.add(healthLabel).expandX().pad(20);
+		table.add(nameCharacterLabel).expandX().pad(20);
+		table.add(healthCharacterLabel).expandX().pad(20);
+		nameEnemyLabel = new Label(Game.world.battle.enemy.getName(), MenuScreen.skin);
+		healthEnemyLabel = new Label(String.format("%03d", healthEnemy), MenuScreen.skin);
+	
+		table.add(nameEnemyLabel).expandX().pad(20);
+		table.add(healthEnemyLabel).expandX().pad(20);
 		table.row(); // nuova colonna
 
 		stage.addActor(table);
 
 	}
+	@SuppressWarnings("static-access")
 	public void update(float dt){
 		
-		//health ++;
-		healthLabel.setText(String.format("%03d",health));
+		healthCharacter = (int) Game.world.battle.character.getHealth();
+		healthEnemy = (int) Game.world.battle.enemy.getHealth();
+		healthCharacterLabel.setText(String.format("%03d",healthCharacter));
+		healthEnemyLabel.setText(String.format("%03d",healthEnemy));
 	}
 }

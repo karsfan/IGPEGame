@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.src.Character.CharacterBattle;
@@ -46,8 +47,9 @@ public class LoadingImage {
 	// private static TextureRegion man3Stand;
 	public Animation<TextureRegion>[] man3Animation;
 
-	// private static TextureRegion woman1Stand;
-	public Animation<TextureRegion>[] woman1Animation;
+	public static TextureAtlas atlasWoman;
+	//private static TextureRegion woman1Stand;
+	public static Animation<TextureRegion> woman1Animation;
 
 	// private static TextureRegion woman2Stand;
 	public Animation<TextureRegion>[] woman2Animation;
@@ -77,7 +79,7 @@ public class LoadingImage {
 		man1Animation = new Animation[4];
 		man2Animation = new Animation[4];
 		man3Animation = new Animation[4];
-		woman1Animation = new Animation[4];
+		// woman1Animation = new Animation[4];
 		woman2Animation = new Animation[4];
 		woman3Animation = new Animation[4];
 
@@ -98,6 +100,32 @@ public class LoadingImage {
 
 		texture = new Texture("assets/lancia.png");
 		createBattleFrame(texture, enemyAnimation, enemyStand);
+		//atlasWoman = new TextureAtlas("C:/Users/Nicholas/Desktop/gdx/female.pack");
+		//atlasWoman.findRegion("LEFT");
+		//woman1Animation = new Animation<TextureRegion>(0.2f, atlasWoman.findRegions("LEFT"), PlayMode.LOOP);
+	}
+
+	public static TextureRegion frameWoman(Object ob) {
+		StateDynamicObject state = ((DynamicObjects) ob).getCurrentState();
+		TextureRegion region = null;
+		switch (state) {
+		case RUNNINGRIGHT:
+			atlasWoman.findRegion("RIGHT");
+			region = woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
+		case RUNNINGLEFT:
+			System.out.println(atlasWoman.findRegion("LEFT"));
+			region = (TextureRegion)woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
+		case RUNNINGDOWN:
+			atlasWoman.findRegion("DOWN");
+			region = woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
+		case RUNNINGUP:
+			atlasWoman.findRegion("UP");
+			region = woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
+		default:
+			region = woman1Animation.getKeyFrame(0, true);
+			break;
+		}
+		return region;
 	}
 
 	private void createBattleFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation, TextureRegion stand) {
@@ -134,7 +162,7 @@ public class LoadingImage {
 		arrayAnimation[2] = fightingRight;
 		arrayAnimation[3] = fightingLeft;
 		arrayAnimation[2].setFrameDuration(0.02f);
-		arrayAnimation[3].setFrameDuration(0.01f);
+		arrayAnimation[3].setFrameDuration(0.02f);
 		stand.setRegion(arrayAnimation[0].getKeyFrame(0, true));
 
 	}
@@ -228,38 +256,7 @@ public class LoadingImage {
 		return battleBackground;
 	}
 
-	public static TextureRegion getBattleFrame(StateDynamicObject state, float stateTimer,
-			Animation<TextureRegion>[] animation, TextureRegion stand) {
-		TextureRegion region = new TextureRegion();
-
-		switch (state) {
-		case RUNNINGRIGHT:
-			region = (TextureRegion) animation[0].getKeyFrame(stateTimer, true);
-			stand = (TextureRegion) animation[0].getKeyFrame(0, true);
-			break;
-		case RUNNINGLEFT:
-			region = (TextureRegion) animation[1].getKeyFrame(stateTimer, true);
-			stand = (TextureRegion) animation[1].getKeyFrame(0, true);
-			break;
-		case FIGHTINGRIGHT:
-			region = (TextureRegion) animation[2].getKeyFrame(stateTimer, true);
-			stand = (TextureRegion) animation[2].getKeyFrame(0, true);
-			break;
-		case FIGHTINGLEFT:
-			region = (TextureRegion) animation[3].getKeyFrame(stateTimer, true);
-			stand = (TextureRegion) animation[3].getKeyFrame(0, true);
-			break;
-		case STANDING:
-			region = stand;
-			break;
-		default:
-			region = stand;
-			break;
-		}
-		return region;
-	}
-
-	public static TextureRegion getBattleFrame1(Object ob) {
+	public static TextureRegion getBattleFrame(Object ob) {
 		TextureRegion region = new TextureRegion();
 		StateDynamicObject state = null;
 		float stateTimer = 0;
@@ -297,7 +294,7 @@ public class LoadingImage {
 		return region;
 	}
 
-	public static TextureRegion getFrame1(Object ob) {
+	public static TextureRegion getFrame(Object ob) {
 		TextureRegion region;
 		switch (((DynamicObjects) ob).getCurrentState()) {
 		case RUNNINGRIGHT:

@@ -4,11 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
 import com.mygdx.game.src.World.Battle;
 import com.mygdx.game.src.World.Game;
-import com.mygdx.game.src.World.ThreadCharacterBattle;
 import com.mygdx.game.src.World.Weapon;
 
 public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
-
 
 	public Character character;
 
@@ -20,8 +18,6 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 	public boolean doubleJumping;
 	public float velocityY;
 	public float velocityX;
-	
-	ThreadCharacterBattle threadCharacter;
 
 	public CharacterBattle(final Character character1) {
 		stateTimer = 0;
@@ -36,13 +32,15 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		fighting = false;
 		fightingTimeCurrent = 0;
 		fightingTime = 0.2f;
-		//threadCharacter = new ThreadCharacterBattle(this);
-		//threadCharacter.start();
-		
+
 		jumping = false;
 		doubleJumping = false;
 		velocityY = 0;
 		velocityX = 10;
+	}
+
+	public float getHealth() {
+		return character.getHealth();
 	}
 
 	public float getX() {
@@ -60,20 +58,25 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 	public float getWidth() {
 		return character.getWidth();
 	}
-	
+
+	@SuppressWarnings("static-access")
 	public void update(float dt) {
 		if (fighting && fightingTimeCurrent < fightingTime) {
 			fightingTimeCurrent += 0.02;
-			setState(StateDynamicObject.FIGHTINGRIGHT);
+			setState(getCurrentState());
 		} else if (fighting && fightingTimeCurrent > fightingTime) {
 			fighting = false;
 			fightingTimeCurrent = 0;
 		}
-		
+
 		if ((jumping || doubleJumping) && character.y + velocityY * dt > 250) {
 			character.y += velocityY * dt;
 			updateVelocityY(dt);
 			setState(StateDynamicObject.JUMPING);
+			if (collide() && character.x < Game.world.battle.enemy.getX())
+				character.x = Game.world.battle.enemy.getX() - character.getWidth() / 2;
+			else if (collide() && character.x > Game.world.battle.enemy.getX())
+				character.x = Game.world.battle.enemy.getX() + Game.world.battle.enemy.getWidth() / 2;
 		} else {
 			jumping = false;
 			doubleJumping = false;
@@ -84,12 +87,23 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 	}
 
 	public void fightRight() {
-		// character.width += character.primary_weapon.width;
-		// if (collide())
-		// Battle.enemy.decreaseHealth(character.primary_weapon);
-		// character.width -= character.primary_weapon.width;
-		// threadCharacter.start();
+		character.width += character.primary_weapon.getWidth();
+		if (collide())
+			Battle.enemy.decreaseHealth(character.primary_weapon);
+		character.width -= character.primary_weapon.getWidth();
+
 		setState(StateDynamicObject.FIGHTINGRIGHT);
+		fighting = true;
+
+	}
+
+	public void fightLeft() {
+		character.x -= character.primary_weapon.getWidth();
+		if (collide())
+			Battle.enemy.decreaseHealth(character.primary_weapon);
+		character.x += character.primary_weapon.getWidth();
+
+		setState(StateDynamicObject.FIGHTINGLEFT);
 		fighting = true;
 
 	}
@@ -107,8 +121,11 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 	}
 
 	public void movesRight(float dt) {
+
 		if (character.x + character.velocity * dt + character.getWidth() < 1100)
 			character.x += character.velocity * dt;
+		if (collide())
+			character.x -= character.velocity * dt;
 		if (!fighting)
 			setState(StateDynamicObject.RUNNINGRIGHT);
 	}
@@ -117,8 +134,10 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 
 		if (character.x - character.width / 2 > 0)
 			character.x -= character.velocity * dt;
-
-		setState(StateDynamicObject.RUNNINGLEFT);
+		if (collide())
+			character.x += character.velocity * dt;
+		if (!fighting)
+			setState(StateDynamicObject.RUNNINGLEFT);
 	}
 
 	public void jump(float dt) {
@@ -142,7 +161,6 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 			setStateTimer(getStateTimer() + Gdx.graphics.getDeltaTime());
 		else
 			setStateTimer(0);
-
 	}
 
 	private void setStateTimer(float f) {
@@ -154,12 +172,14 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		return false;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public boolean collide() {
-		if (!((character.x > Battle.enemy.getX() + Battle.enemy.getWidth() / 2 - 1
-				|| Battle.enemy.getX() > character.x * 32 + character.width)
-				|| (character.y * 32 > Battle.enemy.getY() + Battle.enemy.getHeight() / 2
-						|| Battle.enemy.getY() > character.y * 32 + character.height)))
+
+		if (!((character.x > Game.world.battle.enemy.getX() + Game.world.battle.enemy.getWidth() / 2
+				|| Game.world.battle.enemy.getX() > character.x + character.width / 2)
+				|| (character.y > Game.world.battle.enemy.getY() + Game.world.battle.enemy.getHeight() / 2
+						|| Game.world.battle.enemy.getY() > character.y + character.height / 2)))
 			return true;
 		return false;
 	}
@@ -178,11 +198,6 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 
 	public StateDynamicObject getCurrentState() {
 		return character.currentState;
-	}
-
-	public void fightLeft() {
-		setState(StateDynamicObject.FIGHTINGLEFT);
-		fighting = true;
 	}
 
 }

@@ -13,7 +13,7 @@ public class Weapon {
 	float damage;
 	Level level;
 	Type type;
-	float width;
+	private float width;
 
 	public Weapon(String name, Level level, Type type) {
 
@@ -23,19 +23,19 @@ public class Weapon {
 		switch (this.type) {
 		case SPADA:
 			damage = 10;
-			width = 10;
+			setWidth(10);
 			break;
 		case ARCO:
 			damage = 8;
-			width = 0;
+			setWidth(0);
 			break;
 		case LANCIA:
 			damage = 8;
-			width = 20;
+			setWidth(35);
 			break;
 		case FRECCIA:
 			damage = 8;
-			width = 0;
+			setWidth(0);
 		default:
 			break;
 		}
@@ -61,5 +61,13 @@ public class Weapon {
 
 	public float getDamage() {
 		return damage;
+	}
+
+	public float getWidth() {
+		return width;
+	}
+
+	public void setWidth(float width) {
+		this.width = width;
 	}
 }
