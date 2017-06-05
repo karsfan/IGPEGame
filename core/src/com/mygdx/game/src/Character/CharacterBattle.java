@@ -200,4 +200,8 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		return character.currentState;
 	}
 
+	public void decreaseHealth(Weapon weapon) {
+		character.health -= weapon.getDamage();
+	}
+
 }

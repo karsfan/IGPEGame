@@ -9,6 +9,7 @@ import com.mygdx.game.src.Character.CharacterBattle;
 import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
 import com.mygdx.game.src.Map.StaticObject.Element;
+import com.mygdx.game.src.World.Enemy;
 import com.mygdx.game.src.World.Tile;
 
 public class LoadingImage {
@@ -263,9 +264,9 @@ public class LoadingImage {
 		if (ob instanceof CharacterBattle) {
 			stateTimer = ((CharacterBattle) ob).getStateTimer();
 			state = ((CharacterBattle) ob).getCurrentState();
-		} else if (ob instanceof DynamicObjects) {
-			stateTimer = ((DynamicObjects) ob).getStateTimer();
-			state = ((DynamicObjects) ob).getCurrentState();
+		} else if (ob instanceof Enemy) {
+			stateTimer = ((Enemy) ob).getStateTimer();
+			state = ((Enemy) ob).getCurrentState();
 		}
 		switch (state) {
 		case RUNNINGRIGHT:

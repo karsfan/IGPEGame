@@ -6,8 +6,8 @@ import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
 
 public class Battle implements Runnable{
 
-	public CharacterBattle character;
-	public static Enemy enemy;
+	public static CharacterBattle character;
+	public static  Enemy enemy;
 	public static int WIDTH;
 	public static int HEIGHT;
 	public static int gravity;

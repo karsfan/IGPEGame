@@ -81,6 +81,7 @@ public class BattleScreen implements Screen {
 
 	}
 
+	@SuppressWarnings("static-access")
 	private void moveCharacter(float dt) {
 
 		if (Gdx.input.isKeyJustPressed(Keys.S))
