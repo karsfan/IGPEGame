@@ -27,7 +27,7 @@ public class PlayScreen implements Screen {
 	public GameSlagyom game;
 	public static Hud hud;
 	private static Drawable noDialog = null;
-	private float textTimer;
+	private static float textTimer;
 	public int i = 0;
 
 	public PlayScreen(GameSlagyom game, String name) {
@@ -85,6 +85,8 @@ public class PlayScreen implements Screen {
 
 		if (!hud.showDialog) {
 			hideDialog();
+			//textTimer = 0;
+			i = 0;
 		}
 
 	}
@@ -104,6 +106,7 @@ public class PlayScreen implements Screen {
 	public static void hideDialog() {
 		hud.textTable.clear();
 		hud.textTable.setBackground(noDialog);
+		
 	}
 
 	public void update(float dt) {
@@ -156,6 +159,7 @@ public class PlayScreen implements Screen {
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
 			Game.world.createBattle();
 			game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
+		
 		} else
 			Game.character.setState(StateDynamicObject.STANDING);
 	}

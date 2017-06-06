@@ -65,11 +65,10 @@ public class PauseScreen implements Screen {
 			@SuppressWarnings("static-access")
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.setScreen(game.playScreen);
+				//game.setScreen(game.playScreen);
 				game.saveGame();
-				PlayScreen.hud.textTable.clear();
-				PlayScreen.hud.textDialog = "Game saved!";
-				
+				game.swapScreen(State.PLAYING);
+				PlayScreen.hud.setDialogText("Game saved!");
 			}
 		});
 
@@ -79,8 +78,8 @@ public class PauseScreen implements Screen {
 				//System.out.println("CARICATO");
 				game.loadGame();
 				game.swapScreen(State.CONTINUEGAME);
-				PlayScreen.hud.textTable.clear();
-				PlayScreen.hud.textDialog = "Game loaded!";
+				PlayScreen.hud.setDialogText("Game loaded!");
+
 			}
 		});
 
