@@ -205,54 +205,6 @@ public class LoadingImage {
 		stand.setRegion(arrayAnimation[0].getKeyFrame(0, true));
 	}
 
-	public static Texture getHomeImage() {
-		return homeImage;
-	}
-
-	public static Texture getThreeImage() {
-		return threeImage;
-	}
-
-	public static Texture getGroundImage() {
-		return groundImage;
-	}
-
-	public static Texture getBuildingImage() {
-		return buildingImage;
-	}
-
-	public static Texture getWaterImage() {
-		return waterImage;
-	}
-
-	public static Texture getRockImage() {
-		return rockImage;
-	}
-
-	public static Texture getForest1Image() {
-		return forest1Image;
-	}
-
-	public static Texture getForest2Image() {
-		return forest2Image;
-	}
-
-	public static Texture getFloorImage() {
-		return floorImage;
-	}
-
-	public static Texture getRoadImage() {
-		return roadImage;
-	}
-
-	public static Texture getBigHomeImage() {
-		return bigHomeImage;
-	}
-
-	public static Texture getTableImage() {
-		return tableImage;
-	}
-
 	public static Texture getBattleBgImage() {
 		return battleBackground;
 	}

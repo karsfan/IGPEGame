@@ -64,7 +64,7 @@ public class Man extends DynamicObjects implements ICollidable {
 				x -= velocity * dt;
 			}
 		}
-		if (passi < 50000) {
+		if (passi < 500000) {
 			passi++;
 			setState(StateDynamicObject.RUNNINGRIGHT, dt);
 		} else {
@@ -73,16 +73,13 @@ public class Man extends DynamicObjects implements ICollidable {
 			if (rand == 1) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGLEFT, dt);
-			}
-			else if (rand == 2) {
+			} else if (rand == 2) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGUP, dt);
-			}
-			else if (rand == 3) {
+			} else if (rand == 3) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGDOWN, dt);
-			}
-			else if (rand == 4) {
+			} else if (rand == 4) {
 				passi = 0;
 				setState(StateDynamicObject.STANDING, dt);
 			} else {
@@ -103,7 +100,7 @@ public class Man extends DynamicObjects implements ICollidable {
 				x += velocity * dt;
 			}
 		}
-		if (passi < 50000) {
+		if (passi < 500000) {
 			passi++;
 			setState(StateDynamicObject.RUNNINGLEFT, dt);
 		} else {
@@ -112,21 +109,18 @@ public class Man extends DynamicObjects implements ICollidable {
 			if (rand == 1) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGRIGHT, dt);
-			}
-			else if (rand == 2) {
+			} else if (rand == 2) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGUP, dt);
-			}
-			else if (rand == 3) {
+			} else if (rand == 3) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGDOWN, dt);
-			}
-			else if (rand == 4) {
-				passi = 0;
-				setState(StateDynamicObject.STANDING, dt);
-			} else {
+			} else if (rand == 4) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGLEFT, dt);
+			} else {
+				passi = 0;
+				setState(StateDynamicObject.STANDING, dt);
 			}
 		}
 	}
@@ -142,7 +136,7 @@ public class Man extends DynamicObjects implements ICollidable {
 			}
 		}
 
-		if (passi < 50000) {
+		if (passi < 500000) {
 			passi++;
 			setState(StateDynamicObject.RUNNINGUP, dt);
 		} else {
@@ -151,21 +145,18 @@ public class Man extends DynamicObjects implements ICollidable {
 			if (rand == 1) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGLEFT, dt);
-			}
-			else if (rand == 2) {
+			} else if (rand == 2) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGRIGHT, dt);
-			}
-			else if (rand == 3) {
+			} else if (rand == 3) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGDOWN, dt);
-			}
-			else if (rand == 4) {
-				passi = 0;
-				setState(StateDynamicObject.STANDING, dt);
-			} else {
+			} else if (rand == 4) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGUP, dt);
+			} else {
+				passi = 0;
+				setState(StateDynamicObject.STANDING, dt);
 			}
 		}
 	}
@@ -180,7 +171,7 @@ public class Man extends DynamicObjects implements ICollidable {
 				collision = true;
 			}
 		}
-		if (passi < 50000) {
+		if (passi < 500000) {
 			passi++;
 			setState(StateDynamicObject.RUNNINGDOWN, dt);
 		} else {
@@ -189,21 +180,18 @@ public class Man extends DynamicObjects implements ICollidable {
 			if (rand == 1) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGLEFT, dt);
-			}
-			else if (rand == 2) {
+			} else if (rand == 2) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGUP, dt);
-			}
-			else if (rand == 3) {
+			} else if (rand == 3) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGRIGHT, dt);
-			}
-			else if (rand == 4) {
-				passi = 0;
-				setState(StateDynamicObject.STANDING, dt);
-			} else {
+			} else if (rand == 4) {
 				passi = 0;
 				setState(StateDynamicObject.RUNNINGDOWN, dt);
+			} else {
+				passi = 0;
+				setState(StateDynamicObject.STANDING, dt);
 			}
 		}
 	}
@@ -268,22 +256,29 @@ public class Man extends DynamicObjects implements ICollidable {
 
 		if (currentState == StateDynamicObject.RUNNINGLEFT)
 			movesLeft(dt);
-		else if (currentState == StateDynamicObject.RUNNINGRIGHT)
+		else if (currentState == StateDynamicObject.RUNNINGRIGHT && !collide(this))
 			movesRight(dt);
-		else if (currentState == StateDynamicObject.RUNNINGUP)
+		else if (currentState == StateDynamicObject.RUNNINGUP && !collide(this))
 			movesUp(dt);
-		else if (currentState == StateDynamicObject.RUNNINGDOWN)
+		else if (currentState == StateDynamicObject.RUNNINGDOWN && !collide(this))
 			movesDown(dt);
-		else if(currentState == StateDynamicObject.STANDING){
-			int rand = (int) (Math.random()*10);
-			if(rand==1)
-				setState(StateDynamicObject.RUNNINGLEFT, dt);
-			else if(rand==2)
-				setState(StateDynamicObject.RUNNINGDOWN, dt);
-			else if(rand==3)
-				setState(StateDynamicObject.RUNNINGUP, dt);
-			else if(rand==4)
-				setState(StateDynamicObject.RUNNINGRIGHT, dt);
+		else if (currentState == StateDynamicObject.STANDING) {
+			if (passi < 500000) {
+				passi++;
+				setState(StateDynamicObject.STANDING, dt);
+			} else {
+				passi=0;
+				int rand = (int) (Math.random() * 10);
+				if (rand == 1)
+					setState(StateDynamicObject.RUNNINGLEFT, dt);
+				else if (rand == 2)
+					setState(StateDynamicObject.RUNNINGDOWN, dt);
+				else if (rand == 3)
+					setState(StateDynamicObject.RUNNINGUP, dt);
+				else if (rand == 4)
+					setState(StateDynamicObject.RUNNINGRIGHT, dt);
+				//System.out.println(getCurrentState());
+			}
 		}
 
 	}
