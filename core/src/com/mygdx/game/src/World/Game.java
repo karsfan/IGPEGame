@@ -9,7 +9,8 @@ import javax.swing.JFileChooser;
 import com.mygdx.game.src.Character.Character;
 import com.mygdx.game.src.Character.Man;
 import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Map.Item.Type;
+import com.mygdx.game.src.Map.Item.Level;
+import com.mygdx.game.src.Map.StaticObject.Element;
 
 public class Game {
 	public static JFileChooser fc;
@@ -21,10 +22,11 @@ public class Game {
 	public static Item coin;
 
 	public static String mapPath;
-
+	public static Item potion;
 
 	public Game(String name) {
-		coin = new Item(100, 700, 11, 11, false, Type.COIN);
+		potion = new Item (100, 600, Element.POTION, Level.FIRST);
+		coin = new Item(100, 700, Element.COIN, Level.FIRST);
 		man1 = new Man();
 		character = new Character(name);
 		fc = new JFileChooser();
@@ -32,6 +34,7 @@ public class Game {
 		readMap();
 		world.getListObjects().add(man1);
 		world.getListObjects().add(coin);
+		world.getListObjects().add(potion);
 		
 		world.getListObjects().add(character);
 		thread = new ThreadWorld(this);
@@ -39,7 +42,8 @@ public class Game {
 	}
 	
 	public Game(String path, String name) {
-		coin = new Item(500, 700, 11, 11, false, Type.COIN);
+		potion = new Item (100, 600, Element.POTION, Level.FIRST);
+		coin = new Item(100, 700, Element.COIN, Level.FIRST);
 		man1 = new Man();
 		character = new Character(name);
 		fc = new JFileChooser();
@@ -47,6 +51,7 @@ public class Game {
 		openFile(path);
 		world.getListObjects().add(man1);
 		world.getListObjects().add(coin);
+		world.getListObjects().add(potion);
 		
 		world.getListObjects().add(character);
 		thread = new ThreadWorld(this);

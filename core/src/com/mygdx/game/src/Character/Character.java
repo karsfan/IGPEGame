@@ -189,8 +189,10 @@ public class Character extends DynamicObjects implements ICollidable {
 			}
 			if (ob instanceof Item) {
 				if (((Item) ob).collide(this)) {
-					requestToPick(ob);
+					//requestToPick(ob);
+					//((Item) ob).setPicked(true);
 					return true;
+					
 				}
 			}
 

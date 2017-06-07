@@ -1,30 +1,56 @@
 package com.mygdx.game.src.Map;
 
+import java.awt.Rectangle;
+
 import com.mygdx.game.src.Character.Character;
-import com.mygdx.game.src.World.ICollidable;
 
-public class Item implements ICollidable {
-	public enum Type {
-		COIN, POTION, PARCHMENT
-	};
+public class Item extends StaticObject {
 
-	public float x;
-	public float y;
-	public int width;
-	public int height;
+	public enum Level {
+		FIRST, SECOND, THIRD
+	}
+
 	public boolean picked;
-	public Type type;
+
 	public String info;
 	public static float stateTimer;
+	public Level level;
 
-	public Item(float x, float y, int width, int height, boolean picked, Type type) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.picked = picked;
-		this.type = type;
+	public Item(float x, float y, Element element, Level level) {
+
+		switch (element) {
+		case COIN:
+			shape = new Rectangle((int) x, (int) y, 11, 11);
+			break;
+		case POTION:
+			shape = new Rectangle((int) x, (int) y, 15, 15);
+			break;
+		case PARCHMENT:
+			shape = new Rectangle((int) x, (int) y, 10, 10);
+			break;
+		default:
+			break;
+		}
+
+		this.element = element;
+		this.level = level;
 		stateTimer = 0;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 	public float getStateTimer() {
@@ -32,35 +58,35 @@ public class Item implements ICollidable {
 	}
 
 	public float getX() {
-		return x;
+		return shape.x;
 	}
 
-	public void setX(float x) {
-		this.x = x;
+	public void setX(int x) {
+		this.shape.x = (int) x;
 	}
 
-	public float getY() {
-		return y;
+	public int getY() {
+		return shape.y;
 	}
 
-	public void setY(float y) {
-		this.y = y;
+	public void setY(int y) {
+		this.shape.y = y;
 	}
 
 	public int getWidth() {
-		return width;
+		return shape.width;
 	}
 
 	public void setWidth(int width) {
-		this.width = width;
+		this.shape.width = width;
 	}
 
 	public int getHeight() {
-		return height;
+		return shape.height;
 	}
 
 	public void setHeight(int height) {
-		this.height = height;
+		this.shape.height = height;
 	}
 
 	public boolean isPicked() {
@@ -71,21 +97,22 @@ public class Item implements ICollidable {
 		this.picked = picked;
 	}
 
-	public Type getType() {
-		return type;
+	public Element getElement() {
+		return element;
 	}
 
-	public void setType(Type type) {
-		this.type = type;
+	public void setElement(Element element) {
+		this.element = element;
 	}
 
 	@Override
 	public boolean collide(Object e) {
 		if (e instanceof Character) {
-			if (!((x > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 1
-					|| ((Character) e).getX() > x + width)
-					|| (y > ((Character) e).getY() + ((Character) e).getHeight() / 2
-							|| ((Character) e).getY() > y + height))) {
+			if (!((shape.x > ((Character) e).getX() + ((Character) e).getWidth() / 2 
+					|| ((Character) e).getX() > shape.x + shape.width)
+					|| (shape.y > ((Character) e).getY() + ((Character) e).getHeight() / 2
+							|| ((Character) e).getY() > shape.y + shape.height))) {
+				picked = true;
 				return true;
 			}
 		}
@@ -94,6 +121,11 @@ public class Item implements ICollidable {
 
 	@Override
 	public boolean collide() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean getPick() {
 		// TODO Auto-generated method stub
 		return false;
 	}

@@ -1,7 +1,5 @@
 package com.mygdx.game;
 
-import javax.xml.soap.Text;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -10,11 +8,9 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.src.Character.CharacterBattle;
 import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
-import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Map.Item.Type;
+import com.mygdx.game.src.Map.StaticObject;
 import com.mygdx.game.src.Map.StaticObject.Element;
 import com.mygdx.game.src.World.Enemy;
-import com.mygdx.game.src.World.Tile;
 
 public class LoadingImage {
 
@@ -33,6 +29,7 @@ public class LoadingImage {
 	private static Texture tableImage;
 	private static Texture coinImage;
 	private static Texture battleBackground;
+	private static Texture potionImage;
 
 	public static TextureRegion battleCharacterStand;
 	public static Animation<TextureRegion>[] battleCharacterAnimation;
@@ -64,6 +61,7 @@ public class LoadingImage {
 
 	@SuppressWarnings("unchecked")
 	public LoadingImage() {
+		// TILEIMAGE
 		homeImage = new Texture("res/home.png");
 		bigHomeImage = new Texture("res/bigHome.png");
 		threeImage = new Texture("res/three.png");
@@ -76,8 +74,11 @@ public class LoadingImage {
 		forest1Image = new Texture("res/forest1.png");
 		forest2Image = new Texture("res/forest2.png");
 		tableImage = new Texture("res/table.png");
-		coinImage = new Texture("res/coin.png");
+
 		battleBackground = new Texture("res/battleBg.png");
+		// ITEM-IMAGE
+		coinImage = new Texture("res/coin.png");
+		potionImage = new Texture("res/bluePotion.png");
 
 		playerAnimation = new Animation[4];
 		enemyAnimation = new Animation[4];
@@ -336,7 +337,7 @@ public class LoadingImage {
 	}
 
 	public static Texture getTileImage(Object ob) {
-		Element element = ((Tile) ob).getElement();
+		Element element = ((StaticObject) ob).getElement();
 		Texture texture = null;
 		switch (element) {
 		case HOME:
@@ -378,22 +379,13 @@ public class LoadingImage {
 		case ROAD:
 			texture = roadImage;
 			break;
-		default:
-			break;
-		}
-		return texture;
-	}
-
-	public static Texture getItemImage(Object ob) {
-		Type type = ((Item) ob).getType();
-		Texture texture = null;
-		switch (type) {
 		case COIN:
-			texture = getCoinImage();
+			texture = coinImage;
 			break;
 		case PARCHMENT:
 			break;
 		case POTION:
+			texture = potionImage;
 			break;
 		default:
 			break;
@@ -401,7 +393,4 @@ public class LoadingImage {
 		return texture;
 	}
 
-	private static Texture getCoinImage() {
-		return coinImage;
-	}
 }

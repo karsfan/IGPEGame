@@ -105,20 +105,20 @@ public class Tile extends StaticObject implements ICollidable {
 	}
 
 	public void setPoint(Point point) {
-		shape.x = point.x;
-		shape.y = point.y;
+		shape.x = point.x * 32;
+		shape.y = point.y * 32;
 		if (element == Element.HOME) {
-			door = new Rectangle((int) point.getX(), (int) point.getY(), 8, 5);
+			door = new Rectangle((int) point.getX() * 32, (int) point.getY() * 32, 8, 5);
 			info = "In questa casa c'è sto cazzo";
 		}
 	}
 
 	public boolean collideDoor(Object e) {
 		if (this.getElement() == Element.HOME && e instanceof Character) {
-			if (!((door.x * 32 + shape.getWidth() / 4 > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 5
-					|| ((Character) e).getX() > door.x * 32 + door.width + shape.getWidth() / 4)
-					|| (door.y * 32 > ((Character) e).getY() + ((Character) e).getHeight() / 2
-							|| ((Character) e).getY() > door.y * 32 + door.height))){
+			if (!((door.x  + shape.getWidth() / 4 > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 5
+					|| ((Character) e).getX() > door.x  + door.width + shape.getWidth() / 4)
+					|| (door.y  > ((Character) e).getY() + ((Character) e).getHeight() / 2
+							|| ((Character) e).getY() > door.y + door.height))) {
 				System.out.println("porta");
 				return true;
 			}
@@ -129,23 +129,22 @@ public class Tile extends StaticObject implements ICollidable {
 	@Override
 	public boolean collide(Object e) {
 		if (e instanceof Character) {
-			if (!((shape.x * 32 > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 1
-					|| ((Character) e).getX() > shape.x * 32 + shape.width)
-					|| (shape.y * 32 > ((Character) e).getY() + ((Character) e).getHeight() / 2
-							|| ((Character) e).getY() > shape.y * 32 + shape.height))) {
+			if (!((shape.x  > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 1
+					|| ((Character) e).getX() > shape.x  + shape.width)
+					|| (shape.y > ((Character) e).getY() + ((Character) e).getHeight() / 2
+							|| ((Character) e).getY() > shape.y + shape.height))) {
 				return true;
 			}
 		}
 		if (e instanceof Man) {
-			if (!((shape.x * 32 > ((Man) e).getX() + ((Man) e).getWidth() / 2 - 1
-					|| ((Man) e).getX() > shape.x * 32 + shape.width)
-					|| (shape.y * 32 > ((Man) e).getY() + ((Man) e).getHeight() / 2
-							|| ((Man) e).getY() > shape.y * 32 + shape.height)))
+			if (!((shape.x > ((Man) e).getX() + ((Man) e).getWidth() / 2 - 1
+					|| ((Man) e).getX() > shape.x + shape.width)
+					|| (shape.y > ((Man) e).getY() + ((Man) e).getHeight() / 2
+							|| ((Man) e).getY() > shape.y + shape.height)))
 				return true;
 		}
-		
+
 		return false;
-		
 
 	}
 

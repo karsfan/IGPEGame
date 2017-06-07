@@ -4,11 +4,15 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.Man;
+import com.mygdx.game.src.Map.Item;
 
 public class World {
 	
 	private static ArrayList<Object> listObjects;
+	private static ArrayList<DynamicObjects> people;
+	
 	public Battle battle;
 	
 	public World() {
@@ -23,6 +27,11 @@ public class World {
 			if (ob instanceof Man) {
 				((Man) ob).update(dt);
 			}
+			if(ob instanceof Item)
+				if(((Item) ob).isPicked()){
+					it.remove();
+					continue;
+				}
 		}
 	}
 

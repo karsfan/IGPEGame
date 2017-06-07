@@ -16,11 +16,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
-import com.mygdx.game.src.Character.Man;
 import com.mygdx.game.src.Character.Woman;
-import com.mygdx.game.src.Map.Item;
+import com.mygdx.game.src.Map.StaticObject;
 import com.mygdx.game.src.World.Game;
-import com.mygdx.game.src.World.Tile;
 
 public class PlayScreen implements Screen {
 
@@ -62,11 +60,13 @@ public class PlayScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		update(delta);
+		Game.thread.resume();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.batch.setProjectionMatrix(gamecam.combined);
 
 		game.batch.begin();
+		Game.thread.suspend();
 		draw();
 		game.batch.end();
 		hud.stage.draw();
@@ -175,16 +175,11 @@ public class PlayScreen implements Screen {
 			if (ob instanceof DynamicObjects && !(ob instanceof Woman))
 				game.batch.draw(LoadingImage.getFrame(ob), ((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
 						((DynamicObjects) ob).getWidth(), ((DynamicObjects) ob).getHeight());
-			if(ob instanceof Item)
-				game.batch.draw(LoadingImage.getItemImage(ob), ((Item) ob).getX(), ((Item) ob).getY(),
-						((Item) ob).getWidth(), ((Item) ob).getHeight());
-			if (ob instanceof Woman)
-				game.batch.draw(LoadingImage.frameWoman(ob), ((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
-						((DynamicObjects) ob).getWidth() / 2, ((DynamicObjects) ob).getHeight());
-			if (ob instanceof Tile)
-				game.batch.draw(LoadingImage.getTileImage(ob), (float) ((Tile) ob).shape.getX() * 32,
-						(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
-						(float) ((Tile) ob).shape.getHeight());
+			
+			if (ob instanceof StaticObject)
+				game.batch.draw(LoadingImage.getTileImage(ob), (float) ((StaticObject) ob).shape.getX(),
+						(float) ((StaticObject) ob).shape.getY(), (float) ((StaticObject) ob).shape.getWidth(),
+						(float) ((StaticObject) ob).shape.getHeight());
 		}
 
 	}
