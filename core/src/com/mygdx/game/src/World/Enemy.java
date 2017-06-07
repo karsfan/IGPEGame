@@ -2,7 +2,6 @@ package com.mygdx.game.src.World;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.src.Character.DynamicObjects;
-import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
 import com.mygdx.game.src.World.Weapon.Type;
 
 public class Enemy extends DynamicObjects {
@@ -34,7 +33,7 @@ public class Enemy extends DynamicObjects {
 		this.health = life;
 		this.power = power;
 		// this.weapon = weapon;
-		this.weapon = new Weapon("LAncia", com.mygdx.game.src.World.Weapon.Level.BASIC, Type.LANCIA);
+		this.weapon = new Weapon("Lancia", com.mygdx.game.src.World.Weapon.Level.BASIC, Type.LANCIA);
 		this.win_bonus = win_bonus;
 		this.level = level;
 
@@ -77,8 +76,8 @@ public class Enemy extends DynamicObjects {
 	public void update(float dt) {
 		if (!fighting && !jumping && !doubleJumping) {
 			int rand = (int) (Math.random() * 10);
-			if(rand == 1)
-				stand();
+			if (rand == 1)
+				;//jump(dt);
 			else if (x - Battle.character.getX() < 100 && x - Battle.character.getX() > 0)
 				fightLeft();
 			else if (Battle.character.getX() - x < 100 && Battle.character.getX() - x > 0)
@@ -87,7 +86,6 @@ public class Enemy extends DynamicObjects {
 				movesRight(dt);
 			else if (x > Battle.character.getX())
 				movesLeft(dt);
-
 		}
 		if (fighting && fightingTimeCurrent < fightingTime) {
 			fightingTimeCurrent += 0.02;
@@ -97,8 +95,8 @@ public class Enemy extends DynamicObjects {
 			fighting = false;
 			fightingTimeCurrent = 0;
 		}
-
-		else if ((jumping || doubleJumping) && y + velocityY * dt > 250) {
+		dt = 0.35f;
+		if ((jumping || doubleJumping) && y + velocityY * dt > 250) {
 			y += velocityY * dt;
 			updateVelocityY(dt);
 			setState(StateDynamicObject.JUMPING);

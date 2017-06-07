@@ -4,26 +4,24 @@ import com.mygdx.game.src.Character.CharacterBattle;
 
 public class ThreadCharacterBattle extends Thread {
 	CharacterBattle character;
-	Enemy enemy;
 
-	public ThreadCharacterBattle(CharacterBattle character2, Enemy enemy) {
-		this.character = character2;
-		this.enemy = enemy;
+
+	public ThreadCharacterBattle(CharacterBattle character2) {
+		this.character = character2;		
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
 		super.run();
 
+		long start = System.currentTimeMillis();
 		while (true) {
-			character.update(0.35f);
-			try {
-				sleep(25);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			enemy.update(0.35f);
+			long attuale = System.currentTimeMillis();
+			float dt = (attuale - start);
+			character.update((float)(dt/1000));
+			start = attuale;
+			suspend();
 		}
 	}
 }

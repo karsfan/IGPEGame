@@ -8,39 +8,46 @@ import javax.swing.JFileChooser;
 
 import com.mygdx.game.src.Character.Character;
 import com.mygdx.game.src.Character.Man;
-import com.mygdx.game.src.Character.Woman;
+import com.mygdx.game.src.Map.Item;
+import com.mygdx.game.src.Map.Item.Type;
 
 public class Game {
 	public static JFileChooser fc;
+	
 	public static World world;
 	public static  Character character;
 	public static Man man1;
 	public static ThreadWorld thread;
+	public static Item coin;
+
 	public static String mapPath;
-	public static Woman woman1;
+
+
 	public Game(String name) {
+		coin = new Item(100, 700, 11, 11, false, Type.COIN);
 		man1 = new Man();
-		woman1 = new Woman();
 		character = new Character(name);
 		fc = new JFileChooser();
 		world = new World();
 		readMap();
 		world.getListObjects().add(man1);
-		//world.getListObjects().add(woman1);
+		world.getListObjects().add(coin);
+		
 		world.getListObjects().add(character);
 		thread = new ThreadWorld(this);
 		thread.start();
 	}
 	
 	public Game(String path, String name) {
+		coin = new Item(500, 700, 11, 11, false, Type.COIN);
 		man1 = new Man();
-		woman1 = new Woman();
 		character = new Character(name);
 		fc = new JFileChooser();
 		initialize();
 		openFile(path);
 		world.getListObjects().add(man1);
-		//world.getListObjects().add(woman1);
+		world.getListObjects().add(coin);
+		
 		world.getListObjects().add(character);
 		thread = new ThreadWorld(this);
 		thread.start();

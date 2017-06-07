@@ -2,10 +2,10 @@ package com.mygdx.game.src.World;
 
 public class ThreadBattle extends Thread {
 
-	Battle battle;
+	Enemy enemy;
 
-	public ThreadBattle(Battle battle) {
-		this.battle = battle;
+	public ThreadBattle(Enemy enemy) {
+		this.enemy = enemy;
 	}
 	
 	@Override
@@ -15,7 +15,7 @@ public class ThreadBattle extends Thread {
 		while (true) {
 			long attuale = System.currentTimeMillis();
 			float dt = (attuale - start);
-			Game.world.battle.update(dt/1000);
+			enemy.update((float)dt/1000);
 			start = attuale;
 		}
 	}

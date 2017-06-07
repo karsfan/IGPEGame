@@ -12,6 +12,7 @@ import com.mygdx.game.src.World.Weapon;
 import com.mygdx.game.src.World.Weapon.Level;
 import com.mygdx.game.src.World.Weapon.Type;
 import com.mygdx.game.PlayScreen;
+import com.mygdx.game.src.Map.Item;
 import com.mygdx.game.src.Map.StaticObject.Element;
 
 public class Character extends DynamicObjects implements ICollidable {
@@ -101,8 +102,7 @@ public class Character extends DynamicObjects implements ICollidable {
 	}
 
 	public void movesRight(float dt) {
-		if (dt > 0.017)
-			dt = (float) 0.0165;
+
 		if (x < 1440 - width / 2) {
 			x += (velocity * dt);
 			if (collide(this))
@@ -112,8 +112,7 @@ public class Character extends DynamicObjects implements ICollidable {
 	}
 
 	public void movesLeft(float dt) {
-		if (dt > 0.017)
-			dt = (float) 0.0165;
+
 		if (x > 5) {
 			x -= (velocity * dt);
 			if (collide(this))
@@ -123,8 +122,7 @@ public class Character extends DynamicObjects implements ICollidable {
 	}
 
 	public void movesUp(float dt) {
-		if (dt > 0.017)
-			dt = (float) 0.0165;
+
 		if (y < 960 - height - 5) {
 			y += (velocity * dt);
 			if (collide(this)) {
@@ -135,8 +133,7 @@ public class Character extends DynamicObjects implements ICollidable {
 	}
 
 	public void movesDown(float dt) {
-		if (dt > 0.017)
-			dt = (float) 0.0165;
+
 		if (y > 0) {
 			y -= (velocity * dt);
 			if (collide(this))
@@ -190,6 +187,12 @@ public class Character extends DynamicObjects implements ICollidable {
 						return true;
 					}
 			}
+			if (ob instanceof Item) {
+				if (((Item) ob).collide(this)) {
+					requestToPick(ob);
+					return true;
+				}
+			}
 
 			if (ob instanceof DynamicObjects && ob != this) {
 				if (!((x > ((DynamicObjects) ob).getX() + ((DynamicObjects) ob).getWidth() / 2 - 1
@@ -201,6 +204,10 @@ public class Character extends DynamicObjects implements ICollidable {
 
 		}
 		return false;
+	}
+
+	private void requestToPick(Object ob) {
+		PlayScreen.hud.setDialogText("Vuoi raccogliere?");
 	}
 
 	public void setVelocity(float velocity) {

@@ -5,18 +5,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.mygdx.game.src.Character.Man;
-import com.mygdx.game.src.Map.Map;
-import com.mygdx.game.src.Tool.Tool;
 
 public class World {
 	
-	ArrayList<Tool> tools;
-	Map[] map;
-	
-	public Tool potionWeaponLevel1;
 	private static ArrayList<Object> listObjects;
 	public Battle battle;
-
+	
 	public World() {
 		setListObjects(new ArrayList<Object>());
 	}
