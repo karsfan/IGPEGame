@@ -1,6 +1,5 @@
 package com.mygdx.game.src.Character;
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
 import com.mygdx.game.src.World.Battle;
 import com.mygdx.game.src.World.Game;
@@ -30,13 +29,13 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		character.currentState = StateDynamicObject.STANDING;
 		character.previousState = null;
 		fighting = false;
-		fightingTimeCurrent = 0;
+		fightingTimeCurrent = 0.0f;
 		fightingTime = 0.2f;
 
 		jumping = false;
 		doubleJumping = false;
 		velocityY = 0;
-		velocityX = 10;
+		velocityX = 2;
 	}
 
 	public float getHealth() {
@@ -62,21 +61,25 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 	@SuppressWarnings("static-access")
 	public void update(float dt) {
 		if (fighting && fightingTimeCurrent < fightingTime) {
-			fightingTimeCurrent += 0.02;
-			setState(getCurrentState());
+			fightingTimeCurrent += dt;
+			setState(getCurrentState(), dt);
 		} else if (fighting && fightingTimeCurrent > fightingTime) {
 			fighting = false;
 			fightingTimeCurrent = 0;
 		}
-
+		dt = 0.35f;
 		if ((jumping || doubleJumping) && character.y + velocityY * dt > 250) {
 			character.y += velocityY * dt;
+			//character.x += velocityX * dt;
+			// System.out.println(character.y+" "+(dt));
 			updateVelocityY(dt);
-			setState(StateDynamicObject.JUMPING);
+			setState(StateDynamicObject.JUMPING, dt);
+
 			if (collide() && character.x < Game.world.battle.enemy.getX())
 				character.x = Game.world.battle.enemy.getX() - character.getWidth() / 2;
 			else if (collide() && character.x > Game.world.battle.enemy.getX())
 				character.x = Game.world.battle.enemy.getX() + Game.world.battle.enemy.getWidth() / 2;
+
 		} else {
 			jumping = false;
 			doubleJumping = false;
@@ -86,24 +89,24 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 
 	}
 
-	public void fightRight() {
+	public void fightRight(float dt) {
 		character.width += character.primary_weapon.getWidth();
 		if (collide())
 			Battle.enemy.decreaseHealth(character.primary_weapon);
 		character.width -= character.primary_weapon.getWidth();
 
-		setState(StateDynamicObject.FIGHTINGRIGHT);
+		setState(StateDynamicObject.FIGHTINGRIGHT, dt);
 		fighting = true;
 
 	}
 
-	public void fightLeft() {
+	public void fightLeft(float dt) {
 		character.x -= character.primary_weapon.getWidth();
 		if (collide())
 			Battle.enemy.decreaseHealth(character.primary_weapon);
 		character.x += character.primary_weapon.getWidth();
 
-		setState(StateDynamicObject.FIGHTINGLEFT);
+		setState(StateDynamicObject.FIGHTINGLEFT, dt);
 		fighting = true;
 
 	}
@@ -115,7 +118,7 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 
 	public void stand() {
 		if (!fighting) {
-			setState(StateDynamicObject.STANDING);
+			setState(StateDynamicObject.STANDING, 0);
 			stateTimer = 0;
 		}
 	}
@@ -127,7 +130,7 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		if (collide())
 			character.x -= character.velocity * dt;
 		if (!fighting)
-			setState(StateDynamicObject.RUNNINGRIGHT);
+			setState(StateDynamicObject.RUNNINGRIGHT, dt);
 	}
 
 	public void movesLeft(float dt) {
@@ -137,7 +140,7 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		if (collide())
 			character.x += character.velocity * dt;
 		if (!fighting)
-			setState(StateDynamicObject.RUNNINGLEFT);
+			setState(StateDynamicObject.RUNNINGLEFT, dt);
 	}
 
 	public void jump(float dt) {
@@ -145,7 +148,7 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 			jumping = true;
 			velocityY = 100;
 			velocityX = 10;
-			setState(StateDynamicObject.JUMPING);
+			setState(StateDynamicObject.JUMPING, dt);
 		} else if (jumping && !doubleJumping) {
 			jumping = false;
 			doubleJumping = true;
@@ -154,11 +157,11 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		}
 	}
 
-	public void setState(StateDynamicObject state) {
+	public void setState(StateDynamicObject state, float dt) {
 		character.previousState = character.currentState;
 		character.currentState = state;
 		if (character.previousState == character.currentState && character.currentState != StateDynamicObject.STANDING)
-			setStateTimer(getStateTimer() + Gdx.graphics.getDeltaTime());
+			setStateTimer(getStateTimer() + dt);
 		else
 			setStateTimer(0);
 	}

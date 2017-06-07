@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import javax.xml.soap.Text;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -8,6 +10,8 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.src.Character.CharacterBattle;
 import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
+import com.mygdx.game.src.Map.Item;
+import com.mygdx.game.src.Map.Item.Type;
 import com.mygdx.game.src.Map.StaticObject.Element;
 import com.mygdx.game.src.World.Enemy;
 import com.mygdx.game.src.World.Tile;
@@ -27,7 +31,7 @@ public class LoadingImage {
 	private static Texture forest1Image;
 	private static Texture forest2Image;
 	private static Texture tableImage;
-
+	private static Texture coinImage;
 	private static Texture battleBackground;
 
 	public static TextureRegion battleCharacterStand;
@@ -49,7 +53,7 @@ public class LoadingImage {
 	public Animation<TextureRegion>[] man3Animation;
 
 	public static TextureAtlas atlasWoman;
-	//private static TextureRegion woman1Stand;
+	// private static TextureRegion woman1Stand;
 	public static Animation<TextureRegion> woman1Animation;
 
 	// private static TextureRegion woman2Stand;
@@ -72,7 +76,7 @@ public class LoadingImage {
 		forest1Image = new Texture("res/forest1.png");
 		forest2Image = new Texture("res/forest2.png");
 		tableImage = new Texture("res/table.png");
-
+		coinImage = new Texture("res/coin.png");
 		battleBackground = new Texture("res/battleBg.png");
 
 		playerAnimation = new Animation[4];
@@ -101,9 +105,11 @@ public class LoadingImage {
 
 		texture = new Texture("assets/lancia.png");
 		createBattleFrame(texture, enemyAnimation, enemyStand);
-		//atlasWoman = new TextureAtlas("C:/Users/Nicholas/Desktop/gdx/female.pack");
-		//atlasWoman.findRegion("LEFT");
-		//woman1Animation = new Animation<TextureRegion>(0.2f, atlasWoman.findRegions("LEFT"), PlayMode.LOOP);
+		// atlasWoman = new
+		// TextureAtlas("C:/Users/Nicholas/Desktop/gdx/female.pack");
+		// atlasWoman.findRegion("LEFT");
+		// woman1Animation = new Animation<TextureRegion>(0.2f,
+		// atlasWoman.findRegions("LEFT"), PlayMode.LOOP);
 	}
 
 	public static TextureRegion frameWoman(Object ob) {
@@ -115,7 +121,7 @@ public class LoadingImage {
 			region = woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
 		case RUNNINGLEFT:
 			System.out.println(atlasWoman.findRegion("LEFT"));
-			region = (TextureRegion)woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
+			region = (TextureRegion) woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
 		case RUNNINGDOWN:
 			atlasWoman.findRegion("DOWN");
 			region = woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
@@ -378,4 +384,24 @@ public class LoadingImage {
 		return texture;
 	}
 
+	public static Texture getItemImage(Object ob) {
+		Type type = ((Item) ob).getType();
+		Texture texture = null;
+		switch (type) {
+		case COIN:
+			texture = getCoinImage();
+			break;
+		case PARCHMENT:
+			break;
+		case POTION:
+			break;
+		default:
+			break;
+		}
+		return texture;
+	}
+
+	private static Texture getCoinImage() {
+		return coinImage;
+	}
 }

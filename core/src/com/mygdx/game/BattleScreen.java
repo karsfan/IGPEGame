@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameSlagyom.State;
 import com.mygdx.game.src.Character.CharacterBattle;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
+import com.mygdx.game.src.World.Battle;
 import com.mygdx.game.src.World.Enemy;
 import com.mygdx.game.src.World.Game;
 
@@ -23,7 +24,7 @@ public class BattleScreen implements Screen {
 	public BattleScreen(GameSlagyom game) {
 		this.game = game;
 		gamecam = new OrthographicCamera();
-		// gamePort = new ScreenViewport();
+	
 		gamePort = new ExtendViewport(500, 500, gamecam);
 		gamePort.apply();
 		gamecam.position.x = Game.character.getX();
@@ -42,7 +43,7 @@ public class BattleScreen implements Screen {
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		// game.batch.setProjectionMatrix(gamecam.combined);
+		
 		game.batch.begin();
 		draw();
 		game.batch.end();
@@ -53,6 +54,7 @@ public class BattleScreen implements Screen {
 	private void draw() {
 
 		game.batch.draw(LoadingImage.getBattleBgImage(), 0, 0);
+		@SuppressWarnings("static-access")
 		CharacterBattle tmp = Game.world.battle.character;
 		game.batch.draw(LoadingImage.getBattleFrame(tmp), tmp.getX(), tmp.getY(), tmp.getWidth(), tmp.getHeight());
 		@SuppressWarnings("static-access")
@@ -63,9 +65,10 @@ public class BattleScreen implements Screen {
 
 	public void update(float dt) {
 
-		// Game.world.battle.character.update(dt);
 		handleInput(dt);
 		hud.update(dt);
+		Battle.update(dt);
+
 	}
 
 	@SuppressWarnings({ "deprecation" })
@@ -76,26 +79,24 @@ public class BattleScreen implements Screen {
 			Game.thread.resume();
 			game.swapScreen(State.PLAYING);
 		}
-
 		moveCharacter(dt);
-
 	}
 
 	@SuppressWarnings("static-access")
 	private void moveCharacter(float dt) {
 
 		if (Gdx.input.isKeyJustPressed(Keys.S))
-			Game.world.battle.character.setState(StateDynamicObject.DEFENDING);
+			Game.world.battle.character.setState(StateDynamicObject.DEFENDING, dt);
 		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
 			Game.world.battle.character.jump(dt);
 		} else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
 			if (Gdx.input.isKeyJustPressed(Keys.A))
-				Game.world.battle.character.fightLeft();
+				Game.world.battle.character.fightLeft(dt);
 			else
 				Game.world.battle.character.movesLeft(dt);
 		} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			if (Gdx.input.isKeyJustPressed(Keys.A))
-				Game.world.battle.character.fightRight();
+				Game.world.battle.character.fightRight(dt);
 			else
 				Game.world.battle.character.movesRight(dt);
 		} else {
