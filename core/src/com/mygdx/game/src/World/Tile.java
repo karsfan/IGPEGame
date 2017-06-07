@@ -11,14 +11,12 @@ import com.mygdx.game.src.Map.StaticObject;
 public class Tile extends StaticObject implements ICollidable {
 
 	private Rectangle door;
-	private String infoHouse;
+	private String info;
 
 	public Tile(Point point, Element element, Dimension size) {
 		shape = new Rectangle((int) point.getX(), (int) point.getY(), (int) size.getWidth(), (int) size.getHeight());
 		this.element = element;
 		door = new Rectangle();
-		if (element == Element.HOME)
-			infoHouse = "In questa casa c'è sto cazzo";
 	}
 
 	public Tile(String element, Point point) {
@@ -26,7 +24,7 @@ public class Tile extends StaticObject implements ICollidable {
 		case "HOME":
 			this.element = Element.HOME;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 64, 64);
-			infoHouse = "In questa casa c'è sto cazzo";
+			info = "CASA";
 			break;
 		case "BUILDING":
 			this.element = Element.BUILDING;
@@ -71,6 +69,7 @@ public class Tile extends StaticObject implements ICollidable {
 		case "TABLE":
 			this.element = Element.TABLE;
 			shape = new Rectangle((int) point.getX(), (int) point.getY(), 16, 16);
+			info = "ABC";
 			break;
 		default:
 			break;
@@ -110,7 +109,7 @@ public class Tile extends StaticObject implements ICollidable {
 		shape.y = point.y;
 		if (element == Element.HOME) {
 			door = new Rectangle((int) point.getX(), (int) point.getY(), 8, 5);
-			infoHouse = "In questa casa c'è sto cazzo";
+			info = "In questa casa c'è sto cazzo";
 		}
 	}
 
@@ -150,12 +149,12 @@ public class Tile extends StaticObject implements ICollidable {
 
 	}
 
-	public String getInfoHouse() {
-		return infoHouse;
+	public String getInfo() {
+		return info;
 	}
 
-	public void setInfoHouse(String infoHouse) {
-		this.infoHouse = infoHouse;
+	public void setInfoHouse(String info) {
+		this.info = info;
 	}
 
 	@Override

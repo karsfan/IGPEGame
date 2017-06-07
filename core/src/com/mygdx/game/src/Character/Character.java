@@ -11,6 +11,7 @@ import com.mygdx.game.src.World.Tile;
 import com.mygdx.game.src.World.Weapon;
 import com.mygdx.game.src.World.Weapon.Level;
 import com.mygdx.game.src.World.Weapon.Type;
+import com.mygdx.game.PlayScreen;
 import com.mygdx.game.src.Map.StaticObject.Element;
 
 public class Character extends DynamicObjects implements ICollidable {
@@ -183,8 +184,11 @@ public class Character extends DynamicObjects implements ICollidable {
 			Object ob = (Object) it.next();
 			if (ob instanceof Tile) {
 				if (((Tile) ob).getElement() != Element.GROUND && ((Tile) ob).getElement() != Element.ROAD)
-					if (((Tile) ob).collide(this))
+					if (((Tile) ob).collide(this)) {
+						if (((Tile) ob).getElement() == Element.TABLE)
+							PlayScreen.hud.setDialogText(((Tile) ob).getInfo());
 						return true;
+					}
 			}
 
 			if (ob instanceof DynamicObjects && ob != this) {

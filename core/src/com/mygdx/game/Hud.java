@@ -47,9 +47,8 @@ public class Hud {
 		stage.addActor(textTable);
 	}
 	
-	void setDialogText (String text) { 
+	public void setDialogText (String text) { 
 		showDialog = true;
-		textTable.clear();
 		textDialog = text;
 	}
 

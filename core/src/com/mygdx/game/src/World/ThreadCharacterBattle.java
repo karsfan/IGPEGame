@@ -17,13 +17,13 @@ public class ThreadCharacterBattle extends Thread {
 
 		while (true) {
 			character.update(0.35f);
-			enemy.update(0.35f);
 			try {
 				sleep(25);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			enemy.update(0.35f);
 		}
 	}
 }

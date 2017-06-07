@@ -18,7 +18,7 @@ public class Man extends DynamicObjects implements ICollidable {
 	public int mainX;
 	public int mainY;
 	private String info;
-	public boolean collision;
+	public static boolean collision;
 	int passi;
 
 	public Man() {

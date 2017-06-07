@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
+import com.mygdx.game.src.Character.Man;
 import com.mygdx.game.src.Character.Woman;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.Tile;
@@ -85,7 +86,7 @@ public class PlayScreen implements Screen {
 
 		if (!hud.showDialog) {
 			hideDialog();
-			//textTimer = 0;
+			// textTimer = 0;
 			i = 0;
 		}
 
@@ -106,7 +107,7 @@ public class PlayScreen implements Screen {
 	public static void hideDialog() {
 		hud.textTable.clear();
 		hud.textTable.setBackground(noDialog);
-		
+
 	}
 
 	public void update(float dt) {
@@ -119,7 +120,7 @@ public class PlayScreen implements Screen {
 				&& Game.character.getY() + Gdx.graphics.getHeight() / 2 < 960)
 			gamecam.position.y = Game.character.getY();
 		gamecam.update();
-
+		
 	}
 
 	@SuppressWarnings("deprecation")
@@ -144,10 +145,12 @@ public class PlayScreen implements Screen {
 			gamecam.zoom -= 0.2;
 			gamecam.position.x = Game.character.getX();
 			gamecam.position.y = Game.character.getY();
+
 		} else if (Gdx.input.isKeyJustPressed(Keys.V)) {
 			gamecam.zoom += 0.2;
 			gamecam.position.x = Game.character.getX();
 			gamecam.position.y = Game.character.getY();
+
 		} else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			hud.showDialog = !hud.showDialog;
 			Game.thread.resume();
@@ -159,7 +162,7 @@ public class PlayScreen implements Screen {
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
 			Game.world.createBattle();
 			game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
-		
+
 		} else
 			Game.character.setState(StateDynamicObject.STANDING);
 	}
@@ -171,9 +174,9 @@ public class PlayScreen implements Screen {
 			if (ob instanceof DynamicObjects && !(ob instanceof Woman))
 				game.batch.draw(LoadingImage.getFrame(ob), ((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
 						((DynamicObjects) ob).getWidth(), ((DynamicObjects) ob).getHeight());
-			if(ob instanceof Woman)
-				game.batch.draw(LoadingImage.frameWoman(ob),((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
-						((DynamicObjects) ob).getWidth()/2, ((DynamicObjects) ob).getHeight());
+			if (ob instanceof Woman)
+				game.batch.draw(LoadingImage.frameWoman(ob), ((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
+						((DynamicObjects) ob).getWidth() / 2, ((DynamicObjects) ob).getHeight());
 			if (ob instanceof Tile)
 				game.batch.draw(LoadingImage.getTileImage(ob), (float) ((Tile) ob).shape.getX() * 32,
 						(float) ((Tile) ob).shape.getY() * 32, (float) ((Tile) ob).shape.getWidth(),
