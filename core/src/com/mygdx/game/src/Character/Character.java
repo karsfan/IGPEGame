@@ -80,29 +80,46 @@ public class Character extends DynamicObjects implements ICollidable {
 		bag.secondary_weapon = temporary;
 	}
 
-	public void pickParchment(Parchment parchment) {
+	public void pickParchment(Item parchment) {
 		bag.addTool(parchment);
 		// eliminata dalla mappa
-		parchment.raccolta = true;
+		parchment.picked = true;
 	}
 
-	public void pickPotion(Potion potion) {
+	public void pickPotion(Item potion) {
 		bag.addTool(potion);
 		// eliminata dalla mappa
-		potion.raccolta = true;
+		potion.picked = true;
 	}
 
 	public void upgradeWeapon(Weapon weapon) {
 		// weapon.upgrade(bag);
 	}
 
-	public void usePotionHealth(Potion potion) {
-		health += potion.getLevel() * 10;
+	public void usePotionHealth(Item potion) {
+		switch(potion.getLevel())
+		{
+		case FIRST:
+			health += 20;
+			break;
+		case SECOND:
+			health += 30;
+			break;
+		case THIRD:
+			health += 50;
+			break;
+		default:
+			break;
+		}
 		bag.deletePotion(potion);
 	}
 
 	public void movesRight(float dt) {
-
+		Iterator<Item> it = bag.bagItems.iterator();
+		while (it.hasNext()) {
+			Object ob = (Object) it.next();
+			System.out.println(((Item) ob).getElement());
+		}
 		if (x < 1440 - width / 2) {
 			x += (velocity * dt);
 			if (collide(this))
@@ -173,6 +190,13 @@ public class Character extends DynamicObjects implements ICollidable {
 	public float getWidth() {
 		return width;
 	}
+	void pickItem(Item item){
+		if(item.getElement()!=Element.COIN)
+			bag.addTool(item);
+		else
+			coins++;
+		item.setPicked(true);
+	}
 
 	@Override
 	public boolean collide(Object e) {
@@ -189,8 +213,8 @@ public class Character extends DynamicObjects implements ICollidable {
 			}
 			if (ob instanceof Item) {
 				if (((Item) ob).collide(this)) {
+					pickItem((Item)ob);
 					// requestToPick(ob);
-					// ((Item) ob).setPicked(true);
 					return true;
 
 				}

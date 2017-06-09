@@ -34,13 +34,14 @@ public class Item extends StaticObject {
 
 		this.element = element;
 		this.level = level;
+		picked = false;
 		stateTimer = 0;
 	}
 
 	public String getInfo() {
 		return info;
 	}
-
+	
 	public void setInfo(String info) {
 		this.info = info;
 	}
@@ -94,6 +95,7 @@ public class Item extends StaticObject {
 	}
 
 	public void setPicked(boolean picked) {
+		System.out.println("racc");
 		this.picked = picked;
 	}
 
@@ -112,7 +114,6 @@ public class Item extends StaticObject {
 					|| ((Character) e).getX() > shape.x + shape.width)
 					|| (shape.y > ((Character) e).getY() + ((Character) e).getHeight() / 2
 							|| ((Character) e).getY() > shape.y + shape.height))) {
-				picked = true;
 				return true;
 			}
 		}
