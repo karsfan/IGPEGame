@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Tool.*;
-//import Tool.Tool;
 import com.mygdx.game.src.World.Weapon;
 
 public class Bag {

@@ -171,8 +171,9 @@ public class PlayScreen implements Screen {
 			Game.character.setState(StateDynamicObject.STANDING);
 	}
 
+	@SuppressWarnings("static-access")
 	public void draw() {
-		Iterator<Object> it = Game.world.getListObjects().iterator();
+		Iterator<StaticObject> it = Game.world.getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
 			

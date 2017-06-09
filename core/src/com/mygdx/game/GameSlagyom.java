@@ -43,8 +43,9 @@ public class GameSlagyom extends Game {
 
 	}
 
+	@SuppressWarnings("static-access")
 	public static void saveGame() {
-		prefs.putString("map", com.mygdx.game.src.World.Game.mapPath);
+		prefs.putString("map", com.mygdx.game.src.World.Game.world.getMap().getMapPath());
 		prefs.putString("name", com.mygdx.game.src.World.Game.character.name);
 		prefs.putFloat("xCharPosition", com.mygdx.game.src.World.Game.character.x);
 		prefs.putFloat("yCharPosition", com.mygdx.game.src.World.Game.character.y);
