@@ -53,9 +53,10 @@ public class PauseScreen implements Screen {
 		mainTable.top();
 		Label pauseLabel = new Label("PAUSE", MenuScreen.skin);
 		// Create buttons
+		TextButton bagButton = new TextButton("Bag", MenuScreen.skin);
+		TextButton returnButton = new TextButton("Return", MenuScreen.skin);
 		TextButton saveGame = new TextButton("Save game", MenuScreen.skin);
 		TextButton loadGame = new TextButton("Load game", MenuScreen.skin);
-		TextButton returnButton = new TextButton("Return", MenuScreen.skin);
 		TextButton exitButton = new TextButton("Exit", MenuScreen.skin);
 		TextButton menuButton = new TextButton("Menu", MenuScreen.skin);
 		//final Drawable noDialog = null;
@@ -99,6 +100,13 @@ public class PauseScreen implements Screen {
 				game.swapScreen(State.MENU);
 			}
 		});
+		
+		bagButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				game.swapScreen(State.BAG);
+			}
+		});
 
 		exitButton.addListener(new ClickListener() {
 			@Override
@@ -115,6 +123,8 @@ public class PauseScreen implements Screen {
 		mainTable.row().pad(15);
 		
 		mainTable.add(returnButton).pad(5);
+		mainTable.row();
+		mainTable.add(bagButton).pad(5);
 		mainTable.row();
 		mainTable.add(menuButton).pad(5);
 		mainTable.row();

@@ -41,7 +41,6 @@ public class MenuScreen implements Screen {
 		this.game = game;
 		atlas = new TextureAtlas("menu/vhs/vhs-ui.atlas");
 		skin = new Skin(Gdx.files.internal("menu/vhs/vhs-ui.json"), atlas);
-
 		music = Gdx.audio.newMusic(Gdx.files.internal("res/menuMusic.mp3"));
 	//	music.play();
 
