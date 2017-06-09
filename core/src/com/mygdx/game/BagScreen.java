@@ -141,7 +141,6 @@ public class BagScreen implements Screen {
 			use.setVisible(false);
 			exit.setVisible(false);
 			toolIcon.setVisible(false);
-
 		}
 
 		stage.addActor(mainTable);

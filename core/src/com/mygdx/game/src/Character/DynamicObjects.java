@@ -4,7 +4,7 @@ public class DynamicObjects {
 	public enum StateDynamicObject {
 		STANDING, RUNNINGRIGHT, RUNNINGLEFT, RUNNINGDOWN, RUNNINGUP, JUMPING, FIGHTINGRIGHT, FIGHTINGLEFT, DEFENDING
 	};
-
+	String name;
 	public float x;
 	public float y;
 	public StateDynamicObject currentState;
@@ -81,6 +81,10 @@ public class DynamicObjects {
 	}
 
 	public void movesDown(float dt) {
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }

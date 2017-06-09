@@ -16,22 +16,38 @@ public class World {
 	public Battle battle;
 	
 	public World() {
+		
 		setListObjects(new ArrayList<Object>());
+		people = new ArrayList<DynamicObjects>();
+		//addDynamicObject();
 	}
-
+	public void addDynamicObject()
+	{
+		for(int i=0; i<4; i++)
+		{
+			Man man = new Man();
+			people.add(man);
+		}
+	}
 	public void update(float dt) {
 		
 		Iterator<Object> it = (Iterator<Object>) getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
-			if (ob instanceof Man) {
-				((Man) ob).update(dt);
-			}
+		
 			if(ob instanceof Item)
 				if(((Item) ob).isPicked()){
 					it.remove();
 					continue;
 				}
+		}
+		
+		Iterator<DynamicObjects> it1 = people.iterator();
+		while (it1.hasNext()) {
+			Object ob = (Object) it1.next();
+			if (ob instanceof Man) {
+				((Man) ob).update(dt);
+			}
 		}
 	}
 
@@ -58,6 +74,9 @@ public class World {
 
 	public void createBattle() {
 		battle = new Battle(Game.character, null);
+	}
+	public ArrayList<DynamicObjects> getListDynamicObjects() {
+		return people;
 	}
 
 }

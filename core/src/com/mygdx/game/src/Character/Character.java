@@ -189,21 +189,25 @@ public class Character extends DynamicObjects implements ICollidable {
 			}
 			if (ob instanceof Item) {
 				if (((Item) ob).collide(this)) {
-					//requestToPick(ob);
-					//((Item) ob).setPicked(true);
+					// requestToPick(ob);
+					// ((Item) ob).setPicked(true);
 					return true;
-					
+
 				}
 			}
 
+		}
+		Iterator<DynamicObjects> it1 = Game.world.getListDynamicObjects().iterator();
+		while (it1.hasNext()) {
+			Object ob = (Object) it1.next();
 			if (ob instanceof DynamicObjects && ob != this) {
-				if (!((x > ((DynamicObjects) ob).getX() + ((DynamicObjects) ob).getWidth() / 2 - 1
+				if (!((x > ((DynamicObjects) ob).getX() + ((DynamicObjects) ob).getWidth() / 2
 						|| ((DynamicObjects) ob).getX() > x + width / 2)
 						|| (y > ((DynamicObjects) ob).getY() + ((DynamicObjects) ob).getHeight() / 2
-								|| ((DynamicObjects) ob).getY() > y + height / 2)))
+								|| ((DynamicObjects) ob).getY() > y + height / 2))) {
 					return true;
+				}
 			}
-
 		}
 		return false;
 	}

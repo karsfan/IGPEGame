@@ -16,9 +16,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
-import com.mygdx.game.src.Character.Woman;
 import com.mygdx.game.src.Map.StaticObject;
 import com.mygdx.game.src.World.Game;
+
 
 public class PlayScreen implements Screen {
 
@@ -57,10 +57,12 @@ public class PlayScreen implements Screen {
 
 	public float start = System.currentTimeMillis();
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void render(float delta) {
+		//Game.thread.suspend();
 		update(delta);
-		Game.thread.resume();
+		//Game.thread.resume();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.batch.setProjectionMatrix(gamecam.combined);
@@ -68,6 +70,7 @@ public class PlayScreen implements Screen {
 		game.batch.begin();
 		Game.thread.suspend();
 		draw();
+		Game.thread.resume();
 		game.batch.end();
 		hud.stage.draw();
 
@@ -172,16 +175,19 @@ public class PlayScreen implements Screen {
 		Iterator<Object> it = Game.world.getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
-			if (ob instanceof DynamicObjects && !(ob instanceof Woman))
-				game.batch.draw(LoadingImage.getFrame(ob), ((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
-						((DynamicObjects) ob).getWidth(), ((DynamicObjects) ob).getHeight());
 			
 			if (ob instanceof StaticObject)
 				game.batch.draw(LoadingImage.getTileImage(ob), (float) ((StaticObject) ob).shape.getX(),
 						(float) ((StaticObject) ob).shape.getY(), (float) ((StaticObject) ob).shape.getWidth(),
 						(float) ((StaticObject) ob).shape.getHeight());
 		}
-
+		Iterator<DynamicObjects> it1 = Game.world.getListDynamicObjects().iterator();
+		while (it1.hasNext()) {
+			Object ob = (Object) it1.next();
+			if (ob instanceof DynamicObjects)
+				game.batch.draw(LoadingImage.getFrame(ob), ((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
+						((DynamicObjects) ob).getWidth(), ((DynamicObjects) ob).getHeight());
+		}
 	}
 
 	@Override
