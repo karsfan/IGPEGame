@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.src.Character.CharacterBattle;
 import com.mygdx.game.src.Character.DynamicObjects;
@@ -59,6 +62,22 @@ public class LoadingImage {
 	// private static TextureRegion woman3Stand;
 	public Animation<TextureRegion>[] woman3Animation;
 
+	
+	// MODIFICHE RISCHIOSE
+	
+	public static Drawable bluePotionDrawable; 
+	public static ImageButton bluePotion;
+	
+	public static Drawable redPotionDrawable; 
+	public static ImageButton redPotion;
+	
+	public static Drawable greenPotionDrawable; 
+	public static ImageButton greenPotion;
+	
+	public static Drawable emptyIconDrawable; 
+	public static ImageButton emptyIcon;
+	
+	
 	@SuppressWarnings("unchecked")
 	public LoadingImage() {
 		// TILEIMAGE
@@ -111,6 +130,19 @@ public class LoadingImage {
 		// atlasWoman.findRegion("LEFT");
 		// woman1Animation = new Animation<TextureRegion>(0.2f,
 		// atlasWoman.findRegions("LEFT"), PlayMode.LOOP);
+		
+	
+		bluePotionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/bluePotion.png")));
+		bluePotion = new ImageButton(bluePotionDrawable);
+		
+		redPotionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/redPotion.png")));
+		redPotion = new ImageButton(redPotionDrawable);
+		
+		greenPotionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/greenPotion.png")));
+		greenPotion = new ImageButton(greenPotionDrawable);
+		
+		emptyIconDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/emptyIcon.png")));
+		emptyIcon = new ImageButton(emptyIconDrawable);
 	}
 
 	public static TextureRegion frameWoman(Object ob) {
@@ -165,6 +197,7 @@ public class LoadingImage {
 		}
 		fightingLeft = new Animation<TextureRegion>(0.2f, frames);
 		frames.clear();
+		
 		arrayAnimation[0] = right;
 		arrayAnimation[1] = left;
 		arrayAnimation[2] = fightingRight;
