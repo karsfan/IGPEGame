@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import java.util.Iterator;
+import java.util.ListIterator;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -16,9 +18,10 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
+import com.mygdx.game.src.Map.Item;
 import com.mygdx.game.src.Map.StaticObject;
 import com.mygdx.game.src.World.Game;
-
+import com.mygdx.game.src.World.Tile;
 
 public class PlayScreen implements Screen {
 
@@ -34,18 +37,21 @@ public class PlayScreen implements Screen {
 
 		this.game = game;
 		new Game(name);
+		new LoadingImage();
 		gamecam = new OrthographicCamera();
 		gamePort = new ScreenViewport(gamecam);
+
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
 		hud = new Hud(game.batch);
 	}
 
 	public PlayScreen(GameSlagyom game, String path, String name) {
-
+		new LoadingImage();
 		new Game(path, name);
 		this.game = game;
 		hud = new Hud(game.batch);
+		
 
 		gamecam = new OrthographicCamera();
 		gamePort = new ScreenViewport(gamecam);
@@ -57,22 +63,19 @@ public class PlayScreen implements Screen {
 
 	public float start = System.currentTimeMillis();
 
-	@SuppressWarnings({ "deprecation", "static-access" })
+	@SuppressWarnings({ })
 	@Override
 	public void render(float delta) {
-		System.out.println("qui");
-		//Game.thread.suspend();
+
 		update(delta);
-		//Game.thread.resume();
+
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.batch.setProjectionMatrix(gamecam.combined);
 
 		game.batch.begin();
-		Game.world.thread.suspend();
 		draw();
-		
-		Game.world.thread.resume();
+
 		game.batch.end();
 		hud.stage.draw();
 
@@ -125,7 +128,7 @@ public class PlayScreen implements Screen {
 				&& Game.character.getY() + Gdx.graphics.getHeight() / 2 < 960)
 			gamecam.position.y = Game.character.getY();
 		gamecam.update();
-		
+
 	}
 
 	@SuppressWarnings({ "deprecation", "static-access" })
@@ -160,7 +163,6 @@ public class PlayScreen implements Screen {
 			hud.showDialog = !hud.showDialog;
 			hideDialog();
 			Game.world.thread.resume();
-
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			Game.world.thread.suspend();
 			game.swapScreen(GameSlagyom.State.PAUSE);
@@ -174,11 +176,19 @@ public class PlayScreen implements Screen {
 	}
 
 	@SuppressWarnings("static-access")
-	public void draw() {
-		Iterator<StaticObject> it = Game.world.getListObjects().iterator();
+	public synchronized void draw() {
+		ListIterator<Tile> it = (ListIterator<Tile>) Game.world.getListTile().listIterator();
+
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
-			
+			if (ob instanceof StaticObject)
+				game.batch.draw(LoadingImage.getTileImage(ob), (float) ((StaticObject) ob).shape.getX(),
+						(float) ((StaticObject) ob).shape.getY(), (float) ((StaticObject) ob).shape.getWidth(),
+						(float) ((StaticObject) ob).shape.getHeight());
+		}
+		ListIterator<Item> it2 = Game.world.getListItems().listIterator();
+		while (it2.hasNext()) {
+			Object ob = (Object) it2.next();
 			if (ob instanceof StaticObject)
 				game.batch.draw(LoadingImage.getTileImage(ob), (float) ((StaticObject) ob).shape.getX(),
 						(float) ((StaticObject) ob).shape.getY(), (float) ((StaticObject) ob).shape.getWidth(),

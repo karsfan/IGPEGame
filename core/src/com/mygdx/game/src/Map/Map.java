@@ -3,19 +3,25 @@ package com.mygdx.game.src.Map;
 import java.awt.Point;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import com.mygdx.game.src.World.Tile;
 
 public class Map {
-	private static ArrayList<StaticObject> staticObjects;
+	private static LinkedList<Tile> listTile;
+	private static LinkedList<Item> listItems;
 	private String mapPath;
 
 	public Map(String path) {
-		staticObjects = new ArrayList<StaticObject>();
+		listTile = new LinkedList<Tile>();
+		listItems = new LinkedList<Item>();
 		readMap(path);
 		setMapPath(path);
+	}
+
+	public static LinkedList<Item> getListItems() {
+		return listItems;
 	}
 
 	public void readMap(String path) {
@@ -24,7 +30,6 @@ public class Map {
 
 	@SuppressWarnings("resource")
 	public void openFile(String fileName) {
-		// mapPath = fileName;
 		FileReader fr = null;
 		try {
 			fr = new FileReader(fileName);
@@ -70,11 +75,11 @@ public class Map {
 		Tile tile = new Tile(element, point);
 		tile.setPoint(
 				new Point((int) tile.shape.getX(), (int) (tile.shape.getY() - (tile.shape.getHeight() / 32) + 1)));
-		staticObjects.add(tile);
+		listTile.add(tile);
 	}
 
-	public ArrayList<StaticObject> getStaticObjects() {
-		return staticObjects;
+	public LinkedList<Tile> getListTile() {
+		return listTile;
 	}
 
 	public String getMapPath() {

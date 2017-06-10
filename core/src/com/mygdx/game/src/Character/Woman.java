@@ -2,7 +2,6 @@ package com.mygdx.game.src.Character;
 
 import java.util.Iterator;
 
-import com.mygdx.game.src.Map.StaticObject;
 import com.mygdx.game.src.Map.StaticObject.Element;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.ICollidable;
@@ -240,7 +239,7 @@ public class Woman extends DynamicObjects implements ICollidable{
 	@Override
 	public boolean collide(Object e) {
 		@SuppressWarnings("static-access")
-		Iterator<StaticObject> it = Game.world.getListObjects().iterator();
+		Iterator<Tile> it = Game.world.getListTile().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
 			if (ob instanceof Tile) {

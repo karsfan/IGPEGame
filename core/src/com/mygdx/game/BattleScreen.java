@@ -71,7 +71,7 @@ public class BattleScreen implements Screen {
 
 	}
 
-	@SuppressWarnings({ "deprecation" })
+	@SuppressWarnings({ "deprecation", "static-access" })
 	private void handleInput(float dt) {
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {

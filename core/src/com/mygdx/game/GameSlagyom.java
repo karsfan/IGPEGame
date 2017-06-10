@@ -32,7 +32,7 @@ public class GameSlagyom extends Game {
 	public void create() {
 
 		batch = new SpriteBatch();
-		new LoadingImage();
+		//new LoadingImage();
 		menuScreen = new MenuScreen(this);
 		optionScreen = new OptionScreen(this);
 		currentState = State.MENU;

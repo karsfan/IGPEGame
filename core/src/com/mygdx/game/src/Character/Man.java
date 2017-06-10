@@ -5,8 +5,6 @@ import java.util.Iterator;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.ICollidable;
 import com.mygdx.game.src.World.Tile;
-import com.mygdx.game.src.Map.StaticObject;
-//import com.mygdx.game.src.World.World.Element;
 import com.mygdx.game.src.Map.StaticObject.Element;
 
 public class Man extends DynamicObjects implements ICollidable {
@@ -243,7 +241,7 @@ public class Man extends DynamicObjects implements ICollidable {
 	@Override
 	public boolean collide(Object e) {
 		
-		Iterator<StaticObject> it =  Game.world.getListObjects().iterator();
+		Iterator<Tile> it =  Game.world.getListTile().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
 			if (ob instanceof Tile) {
