@@ -76,7 +76,7 @@ public class BattleScreen implements Screen {
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			// va messo in pausa e poi in caso bisogna ritornare nel playscreen
-			Game.thread.resume();
+			Game.world.thread.resume();
 			game.swapScreen(State.PLAYING);
 		}
 		moveCharacter(dt);

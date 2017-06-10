@@ -1,11 +1,12 @@
 package com.mygdx.game.src.World;
 
+
 public class ThreadWorld extends Thread {
-	Game game;
-	public ThreadWorld(Game game) {
-		this.game = game;
+	World world;
+	public ThreadWorld(World world) {
+		this.world = world;
 	}
-	@SuppressWarnings("static-access")
+
 	@Override
 	public void run() {
 		super.run();
@@ -14,9 +15,8 @@ public class ThreadWorld extends Thread {
 			long attuale = System.currentTimeMillis();
 			float dt = (float)(attuale - start);
 			
-			game.world.update((float) dt/1000);
+			world.update((float) dt/1000);
 			start = attuale;
-			
 		}
 	}
 }

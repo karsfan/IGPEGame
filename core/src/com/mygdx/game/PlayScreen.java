@@ -57,9 +57,10 @@ public class PlayScreen implements Screen {
 
 	public float start = System.currentTimeMillis();
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "static-access" })
 	@Override
 	public void render(float delta) {
+		System.out.println("qui");
 		//Game.thread.suspend();
 		update(delta);
 		//Game.thread.resume();
@@ -68,9 +69,10 @@ public class PlayScreen implements Screen {
 		game.batch.setProjectionMatrix(gamecam.combined);
 
 		game.batch.begin();
-		Game.thread.suspend();
+		Game.world.thread.suspend();
 		draw();
-		Game.thread.resume();
+		
+		Game.world.thread.resume();
 		game.batch.end();
 		hud.stage.draw();
 
@@ -126,7 +128,7 @@ public class PlayScreen implements Screen {
 		
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "static-access" })
 	private void moveCharacter(float dt) {
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
 			Game.character.setVelocity(150f);
@@ -157,10 +159,10 @@ public class PlayScreen implements Screen {
 		} else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			hud.showDialog = !hud.showDialog;
 			hideDialog();
-			Game.thread.resume();
+			Game.world.thread.resume();
 
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			Game.thread.suspend();
+			Game.world.thread.suspend();
 			game.swapScreen(GameSlagyom.State.PAUSE);
 
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {

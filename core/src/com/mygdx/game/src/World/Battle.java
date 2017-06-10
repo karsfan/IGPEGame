@@ -24,7 +24,7 @@ public class Battle implements Runnable{
 		gravity = 17f;
 		WIDTH = 720;
 		HEIGHT = 480;
-		Game.thread.suspend();
+		Game.world.thread.suspend();
 			
 	}
 

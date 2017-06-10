@@ -1,9 +1,12 @@
 package com.mygdx.game.src.Map;
 
 import java.awt.Rectangle;
+import java.util.Iterator;
 import java.util.Random;
 
 import com.mygdx.game.src.Character.Character;
+import com.mygdx.game.src.World.Game;
+import com.mygdx.game.src.World.Tile;
 
 public class Item extends StaticObject {
 
@@ -148,8 +151,23 @@ public class Item extends StaticObject {
 		this.element = element;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public boolean collide(Object e) {
+		Iterator<StaticObject> it = Game.world.getListObjects().iterator();
+		while (it.hasNext()) {
+			Object ob = (Object) it.next();
+			if (ob instanceof Tile) {
+				if (((Tile) ob).getElement() != Element.GROUND && ((Tile) ob).getElement() != Element.ROAD)
+					if (!((shape.x > ((Tile) ob).getX() + ((Tile) ob).getWidth() 
+							|| ((Tile) ob).getX() > shape.x + shape.width)
+							|| (shape.y > ((Tile) ob).getY() + ((Tile) ob).getHeight() 
+									|| ((Tile) ob).getY() > shape.y + shape.height))) {
+						return true;
+					}
+			}
+		}
+
 		if (e instanceof Character) {
 			if (!((shape.x > ((Character) e).getX() + ((Character) e).getWidth() / 2
 					|| ((Character) e).getX() > shape.x + shape.width)

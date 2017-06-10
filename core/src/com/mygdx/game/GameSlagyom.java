@@ -57,12 +57,12 @@ public class GameSlagyom extends Game {
 
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "static-access" })
 	public void loadGame() {
 		prefs = Gdx.app.getPreferences("My saved game");
 
 		if (currentState == State.PAUSE)
-			com.mygdx.game.src.World.Game.thread.stop();
+			com.mygdx.game.src.World.Game.world.thread.stop();
 
 		playScreen = new PlayScreen(this, prefs.getString("map"), prefs.getString("name"));
 

@@ -10,7 +10,7 @@ public class Game {
 	public static World world;
 	public static Character character;
 
-	public static ThreadWorld thread;
+	//public static ThreadWorld thread;
 	public static Item coin;
 
 	public static Item potion;
@@ -26,8 +26,8 @@ public class Game {
 		world.getListObjects().add(potion);
 		
 		world.getListDynamicObjects().add(character);
-		thread = new ThreadWorld(this);
-		thread.start();
+		//thread = new ThreadWorld(this);
+		//thread.start();
 	}
 	
 	@SuppressWarnings("static-access")
@@ -42,8 +42,8 @@ public class Game {
 		world.getListObjects().add(potion);
 		
 		world.getListDynamicObjects().add(character);
-		thread = new ThreadWorld(this);
-		thread.start();
+		//thread = new ThreadWorld(this);
+		//thread.start();
 	}
 
 	public void play() {

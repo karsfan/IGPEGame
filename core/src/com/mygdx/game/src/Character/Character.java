@@ -185,13 +185,19 @@ public class Character extends DynamicObjects implements ICollidable {
 		return width;
 	}
 
-	void pickItem(Item item) {
-		if (item.getElement() != Element.COIN)
-			bag.addTool(item);
-		else
+	boolean pickItem(Item item) {
+		if (item.getElement() != Element.COIN) {
+			if (bag.addTool(item)) {
+				item.setPicked(true);
+				return true;
+			}
+		} else {
 			coins++;
+			item.setPicked(true);
+			return true;
+		}
+		return false;
 
-		item.setPicked(true);
 	}
 
 	@SuppressWarnings("static-access")
@@ -210,10 +216,13 @@ public class Character extends DynamicObjects implements ICollidable {
 			}
 			if (ob instanceof Item) {
 				if (((Item) ob).collide(this)) {
-					pickItem((Item) ob);
-					// requestToPick(ob);
-					return true;
-
+					if (pickItem((Item) ob))
+						return false;
+					else{
+						PlayScreen.hud.setDialogText("Zaino pieno! "     
+								+ "Per raccogliere abbandona qualcosa.");
+						return true;
+					}
 				}
 			}
 
@@ -233,10 +242,6 @@ public class Character extends DynamicObjects implements ICollidable {
 		return false;
 	}
 
-	/*
-	 * private void requestToPick(Object ob) {
-	 * PlayScreen.hud.setDialogText("Vuoi raccogliere?"); }
-	 */
 
 	public void setVelocity(float velocity) {
 		this.velocity = velocity;

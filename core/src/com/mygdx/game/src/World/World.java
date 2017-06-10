@@ -13,7 +13,7 @@ public class World {
 	private static ArrayList<DynamicObjects> people;
 	public static Map map;
 	public Battle battle;
-	//public static ThreadWorld thread;
+	public static ThreadWorld thread;
 
 	public World() {
 		
@@ -22,6 +22,8 @@ public class World {
 		
 		addDynamicObject();
 		addItems();
+		thread = new ThreadWorld(this);
+		thread.start();
 	}
 	public World(String path) {
 		
@@ -30,20 +32,22 @@ public class World {
 		
 		addDynamicObject();
 		addItems();
+		thread = new ThreadWorld(this);
+		thread.start();
 	}
 
 	public static Map getMap() {
 		return map;
 	}
 	public void addDynamicObject() {
-		for (int i = 0; i < 54; i++) {
+		for (int i = 0; i < 4; i++) {
 			Man man = new Man();
 			people.add(man);
 		}
 	}
 
 	public void addItems() {
-		for(int i = 0; i< 54; i++)
+		for(int i = 0; i< 1254; i++)
 		{
 			Item item = new Item();
 			getListObjects().add(item);
@@ -52,7 +56,7 @@ public class World {
 
 	public void update(float dt) {
 
-		Iterator<StaticObject> it = getListObjects().iterator();
+		/*Iterator<StaticObject> it = getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
 
@@ -61,7 +65,7 @@ public class World {
 					it.remove();
 					continue;
 				}
-		}
+		}*/
 
 		Iterator<DynamicObjects> it1 = people.iterator();
 		while (it1.hasNext()) {

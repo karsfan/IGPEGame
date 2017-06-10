@@ -85,18 +85,18 @@ public class PauseScreen implements Screen {
 		});
 
 		returnButton.addListener(new ClickListener() {
-			@SuppressWarnings("deprecation")
+			@SuppressWarnings({ "deprecation", "static-access" })
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Game.thread.resume();
+				Game.world.thread.resume();
 				game.swapScreen(State.PLAYING);
 			}
 		});
 		menuButton.addListener(new ClickListener() {
-			@SuppressWarnings("deprecation")
+			@SuppressWarnings({ "deprecation", "static-access" })
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Game.thread.stop();
+				Game.world.thread.stop();
 				game.swapScreen(State.MENU);
 			}
 		});
@@ -164,7 +164,7 @@ public class PauseScreen implements Screen {
 
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "static-access" })
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
@@ -177,7 +177,7 @@ public class PauseScreen implements Screen {
 		stage.act();
 		stage.draw();
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			Game.thread.resume();
+			Game.world.thread.resume();
 			game.swapScreen(State.PLAYING);
 		}
 		
