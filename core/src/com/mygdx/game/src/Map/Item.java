@@ -1,6 +1,7 @@
 package com.mygdx.game.src.Map;
 
 import java.awt.Rectangle;
+import java.util.Random;
 
 import com.mygdx.game.src.Character.Character;
 
@@ -34,7 +35,49 @@ public class Item extends StaticObject {
 
 		this.element = element;
 		this.level = level;
+		picked = false;
 		stateTimer = 0;
+	}
+
+	public Item() {
+		Random rand = new Random();
+		int r = rand.nextInt(2);
+		switch (r) {
+		case 0:
+			element = Element.COIN;
+			shape = new Rectangle();
+			shape.width = 11;
+			shape.height = 11;
+			positionItem();
+			break;
+		case 1:
+			element = Element.POTION;
+			shape = new Rectangle();
+			shape.width = 14;
+			shape.height = 14;
+			positionItem();
+			break;
+		case 2:
+			element = Element.PARCHMENT;
+			shape = new Rectangle();
+			shape.width = 10;
+			shape.height = 10;
+			positionItem();
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	private void positionItem() {
+		Random rand = new Random();
+		int r = rand.nextInt(1440);
+		shape.x = r;
+		r = rand.nextInt(960);
+		shape.y = r;
+		if (collide(this))
+			positionItem();
 	}
 
 	public String getInfo() {
@@ -108,11 +151,10 @@ public class Item extends StaticObject {
 	@Override
 	public boolean collide(Object e) {
 		if (e instanceof Character) {
-			if (!((shape.x > ((Character) e).getX() + ((Character) e).getWidth() / 2 
+			if (!((shape.x > ((Character) e).getX() + ((Character) e).getWidth() / 2
 					|| ((Character) e).getX() > shape.x + shape.width)
 					|| (shape.y > ((Character) e).getY() + ((Character) e).getHeight() / 2
 							|| ((Character) e).getY() > shape.y + shape.height))) {
-				picked = true;
 				return true;
 			}
 		}

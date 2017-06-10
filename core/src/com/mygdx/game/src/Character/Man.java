@@ -5,6 +5,7 @@ import java.util.Iterator;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.ICollidable;
 import com.mygdx.game.src.World.Tile;
+import com.mygdx.game.src.Map.StaticObject;
 //import com.mygdx.game.src.World.World.Element;
 import com.mygdx.game.src.Map.StaticObject.Element;
 
@@ -238,10 +239,11 @@ public class Man extends DynamicObjects implements ICollidable {
 		return width;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public boolean collide(Object e) {
 		
-		Iterator<Object> it = (Iterator<Object>) Game.world.getListObjects().iterator();
+		Iterator<StaticObject> it =  Game.world.getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
 			if (ob instanceof Tile) {
@@ -276,7 +278,6 @@ public class Man extends DynamicObjects implements ICollidable {
 	public void changeDirection(StateDynamicObject state) {
 		int rand = (int) (Math.random() * 4);
 		if (collisionWithCharacter) {
-			System.out.println("qui");
 			setState(StateDynamicObject.STANDING, 0);
 			collisionWithCharacter = false;
 			return;

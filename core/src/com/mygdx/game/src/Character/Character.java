@@ -3,8 +3,6 @@ package com.mygdx.game.src.Character;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.src.Tool.Potion;
-import com.mygdx.game.src.Tool.Parchment;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.ICollidable;
 import com.mygdx.game.src.World.Tile;
@@ -13,6 +11,7 @@ import com.mygdx.game.src.World.Weapon.Level;
 import com.mygdx.game.src.World.Weapon.Type;
 import com.mygdx.game.PlayScreen;
 import com.mygdx.game.src.Map.Item;
+import com.mygdx.game.src.Map.StaticObject;
 import com.mygdx.game.src.Map.StaticObject.Element;
 
 public class Character extends DynamicObjects implements ICollidable {
@@ -80,24 +79,36 @@ public class Character extends DynamicObjects implements ICollidable {
 		bag.secondary_weapon = temporary;
 	}
 
-	public void pickParchment(Parchment parchment) {
+	public void pickParchment(Item parchment) {
 		bag.addTool(parchment);
 		// eliminata dalla mappa
-		parchment.raccolta = true;
+		parchment.picked = true;
 	}
 
-	public void pickPotion(Potion potion) {
+	public void pickPotion(Item potion) {
 		bag.addTool(potion);
 		// eliminata dalla mappa
-		potion.raccolta = true;
+		potion.picked = true;
 	}
 
 	public void upgradeWeapon(Weapon weapon) {
 		// weapon.upgrade(bag);
 	}
 
-	public void usePotionHealth(Potion potion) {
-		health += potion.getLevel() * 10;
+	public void usePotionHealth(Item potion) {
+		switch (potion.getLevel()) {
+		case FIRST:
+			health += 20;
+			break;
+		case SECOND:
+			health += 30;
+			break;
+		case THIRD:
+			health += 50;
+			break;
+		default:
+			break;
+		}
 		bag.deletePotion(potion);
 	}
 
@@ -174,9 +185,19 @@ public class Character extends DynamicObjects implements ICollidable {
 		return width;
 	}
 
+	void pickItem(Item item) {
+		if (item.getElement() != Element.COIN)
+			bag.addTool(item);
+		else
+			coins++;
+
+		item.setPicked(true);
+	}
+
+	@SuppressWarnings("static-access")
 	@Override
 	public boolean collide(Object e) {
-		Iterator<Object> it = (Iterator<Object>) Game.world.getListObjects().iterator();
+		Iterator<StaticObject> it = Game.world.getListObjects().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
 			if (ob instanceof Tile) {
@@ -189,8 +210,8 @@ public class Character extends DynamicObjects implements ICollidable {
 			}
 			if (ob instanceof Item) {
 				if (((Item) ob).collide(this)) {
+					pickItem((Item) ob);
 					// requestToPick(ob);
-					// ((Item) ob).setPicked(true);
 					return true;
 
 				}
@@ -212,9 +233,10 @@ public class Character extends DynamicObjects implements ICollidable {
 		return false;
 	}
 
-	private void requestToPick(Object ob) {
-		PlayScreen.hud.setDialogText("Vuoi raccogliere?");
-	}
+	/*
+	 * private void requestToPick(Object ob) {
+	 * PlayScreen.hud.setDialogText("Vuoi raccogliere?"); }
+	 */
 
 	public void setVelocity(float velocity) {
 		this.velocity = velocity;
