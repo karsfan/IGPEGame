@@ -45,6 +45,7 @@ public class BagScreen implements Screen {
 	private ImageButton toolIcon;
 	private TextButton[] tools;
 	private TextButton use;
+	private TextButton delete;
 	private TextButton exit;
 	
 	public BagScreen(final GameSlagyom game) {
@@ -84,6 +85,8 @@ public class BagScreen implements Screen {
 		toolIcon = new ImageButton(toolDraw);
 		tools = new TextButton[5];
 		use = new TextButton("Use", MenuScreen.skin);
+		delete = new TextButton("Delete", MenuScreen.skin);
+
 		exit = new TextButton("Return", MenuScreen.skin);
 		tools[0] = new TextButton("Blue potion", MenuScreen.skin);
 		tools[1] = new TextButton("Red potion", MenuScreen.skin);
@@ -128,17 +131,22 @@ public class BagScreen implements Screen {
 		mainTable.add(tools[1]);
 		mainTable.add(toolIcon);
 		
-		use.setPosition(468, 98);
-		exit.setPosition(468, 48);
+		use.setPosition(473, 110);
+		delete.setPosition(473, 70);
+		exit.setPosition(473, 30);
+
 		optionTable.add(use);
+		optionTable.add(delete);
 		optionTable.add(exit);
 		
 		if (selection) {
 			use.setVisible(true);
+			delete.setVisible(true);
 			exit.setVisible(true);
 			toolIcon.setVisible(true);
 		} else if (!selection) {
 			use.setVisible(false);
+			delete.setVisible(false);
 			exit.setVisible(false);
 			toolIcon.setVisible(false);
 		}
@@ -146,13 +154,13 @@ public class BagScreen implements Screen {
 		stage.addActor(mainTable);
 		stage.addActor(optionTable);
 		
-		
 	}
 
 	
 	private void showInfo (){
 		selection = true;
 		use.setVisible(true);
+		delete.setVisible(true);
 		exit.setVisible(true);
 		toolIcon.setVisible(true);
 	}
@@ -160,6 +168,7 @@ public class BagScreen implements Screen {
 	private void hideInfo () {
 		selection = false;
 		use.setVisible(false);
+		delete.setVisible(false);
 		exit.setVisible(false);
 		toolIcon.setVisible(false);
 		
