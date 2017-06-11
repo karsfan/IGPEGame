@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -33,22 +34,19 @@ public class BagScreen implements Screen {
 	private Sprite selectionBackgroundSprite;
 	boolean selection;
 	
-	// POTION TABLE
-	private Label potionsLabel;
-	private TextButton[] potions;
 	
-	// OPTION TABLE
+	private Table weaponsTable;
+	private Table potionsTable;
+	
 	private Table optionsTable;
 	private TextButton use;
 	private TextButton delete;
 	private TextButton exit;
-	
-	
+
 	public BagScreen(final GameSlagyom game) {
 		this.game = game;
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(640, 480);
-		// viewport = new ScreenViewport(camera);
 		selection = false;
 		viewport.apply();
 
@@ -62,7 +60,7 @@ public class BagScreen implements Screen {
 		camera.update();
 
 		stage = new Stage(viewport, game.batch);
-		
+
 		// OPTIONS TABLE
 		optionsTable = new Table();
 		optionsTable.setLayoutEnabled(false);
@@ -78,8 +76,10 @@ public class BagScreen implements Screen {
 				hideInfo();
 			}
 		});
-		
+
 		LoadingImage.emptyIcon.setPosition(41, 43);
+		LoadingImage.arrow.setPosition(27, 214);
+
 		LoadingImage.emptyIcon.setVisible(true);
 		use.setPosition(473, 110);
 		use.setVisible(false);
@@ -87,21 +87,23 @@ public class BagScreen implements Screen {
 		delete.setVisible(false);
 		exit.setPosition(473, 30);
 		exit.setVisible(false);
-		
+
 		optionsTable.add(LoadingImage.emptyIcon);
+		optionsTable.add(LoadingImage.arrow);
 		optionsTable.add(use);
 		optionsTable.add(delete);
 		optionsTable.add(exit);
 		// END OPTIONS TABLE
-		
-		
+
 		// POTIONS TABLE
-		final Table potionsTable = new Table();
+		potionsTable = new Table();
+		Label potionsLabel;
+		TextButton[] potions;
 		potionsTable.setLayoutEnabled(false);
-		potionsTable.setFillParent(true);
-		potionsTable.top();
-		
-		potionsLabel = new Label("Potions", MenuScreen.skin);		
+		//potionsTable.setFillParent(true);
+		//	potionsTable.top();
+
+		potionsLabel = new Label("Potions", MenuScreen.skin);
 		potions = new TextButton[3];
 		potions[0] = new TextButton("Blue potion", MenuScreen.skin);
 		potions[1] = new TextButton("Red potion", MenuScreen.skin);
@@ -120,55 +122,106 @@ public class BagScreen implements Screen {
 				showInfo(LoadingImage.redPotion, "Pozione rossa");
 			}
 		});
-		
+
 		potions[2].addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				showInfo(LoadingImage.greenPotion, "Pozione verde");
 			}
 		});
-		
+
 		potionsLabel.setPosition(49, 425);
 		potionsTable.add(potionsLabel);
-		
+
 		potions[0].setPosition(250, 420);
 		potionsTable.add(potions[0]);
 
 		potions[1].setPosition(250, 370);
 		potionsTable.add(potions[1]);
-		
+
 		potions[2].setPosition(250, 320);
 		potionsTable.add(potions[2]);
-		// END POTIONS TABLE 
+		// END POTIONS TABLE
 
-		stage.addActor(potionsTable);
-		stage.addActor(optionsTable);
 		
+		// WEAPON TABLE
+		weaponsTable = new Table();
+		Label weaponsLabel;
+		TextButton[] weapons;
+		
+		weaponsTable.setVisible(false);
+		weaponsTable.setLayoutEnabled(false);
+	//	weaponsTable.setFillParent(true);
+	//	weaponsTable.top();
+
+		weaponsLabel = new Label("Weapons", MenuScreen.skin);
+		weapons = new TextButton[3];
+		weapons[0] = new TextButton("Ascia", MenuScreen.skin);
+		weapons[1] = new TextButton("Cazzo", MenuScreen.skin);
+		weapons[2] = new TextButton("Mazza", MenuScreen.skin);
+
+		weapons[0].addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				showInfo(LoadingImage.spear, "Spada");
+			}
+		});
+
+		weapons[1].addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				showInfo(LoadingImage.sword, "Pozione rossa");
+			}
+		});
+
+		weapons[2].addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				showInfo(LoadingImage.spear, "Pozione verde");
+			}
+		});
+
+		weaponsLabel.setPosition(40, 425);
+		weaponsTable.add(weaponsLabel);
+
+		weapons[0].setPosition(250, 420);
+		weaponsTable.add(weapons[0]);
+
+		weapons[1].setPosition(250, 370);
+		weaponsTable.add(weapons[1]);
+
+		weapons[2].setPosition(250, 320);
+		weaponsTable.add(weapons[2]);
+		// END WEAPONS TABLE
+		
+		stage.addActor(potionsTable);
+		stage.addActor(weaponsTable);
+		stage.addActor(optionsTable);
+
 	}
 
-	
-	private void showInfo (ImageButton icon, String string){
+	private void showInfo(ImageButton icon, String string) {
 		icon.setPosition(41, 43);
+		optionsTable.add(LoadingImage.emptyIcon);
 		optionsTable.removeActor(icon);
 		optionsTable.add(icon);
-		
+
 		selection = true;
 		use.setVisible(true);
 		delete.setVisible(true);
 		exit.setVisible(true);
 	}
-	
-	private void hideInfo () {
+
+	private void hideInfo() {
 		optionsTable.removeActor(LoadingImage.emptyIcon);
 		optionsTable.add(LoadingImage.emptyIcon);
-			
+
 		selection = false;
 		use.setVisible(false);
 		delete.setVisible(false);
 		exit.setVisible(false);
-		
 	}
-	
+
 	@Override
 	public void show() {
 
@@ -188,9 +241,16 @@ public class BagScreen implements Screen {
 
 		stage.act();
 		stage.draw();
-		
+
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE))
 			game.swapScreen(GameSlagyom.State.PLAYING);
+		else if (Gdx.input.isKeyJustPressed(Keys.K)){
+			hideInfo();
+			potionsTable.setVisible(false);
+			weaponsTable.setVisible(true);
+
+		}
+			
 	}
 
 	@Override

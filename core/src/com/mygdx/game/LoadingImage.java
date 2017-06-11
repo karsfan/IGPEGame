@@ -74,8 +74,17 @@ public class LoadingImage {
 	public static Drawable greenPotionDrawable; 
 	public static ImageButton greenPotion;
 	
+	public static Drawable spearDrawable; 
+	public static ImageButton spear;
+	
+	public static Drawable swordDrawable; 
+	public static ImageButton sword;
+	
 	public static Drawable emptyIconDrawable; 
 	public static ImageButton emptyIcon;
+	
+	public static Drawable arrowDrawable; 
+	public static ImageButton arrow;
 	
 	
 	@SuppressWarnings("unchecked")
@@ -140,6 +149,15 @@ public class LoadingImage {
 		
 		greenPotionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/greenPotion.png")));
 		greenPotion = new ImageButton(greenPotionDrawable);
+		
+		spearDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/spear.png")));
+		spear = new ImageButton(spearDrawable);
+		
+		swordDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/cazzo.png")));
+		sword = new ImageButton(swordDrawable);
+		
+		arrowDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/arrow.png")));
+		arrow= new ImageButton(arrowDrawable);
 		
 		emptyIconDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/emptyIcon.png")));
 		emptyIcon = new ImageButton(emptyIconDrawable);
