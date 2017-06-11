@@ -25,7 +25,6 @@ public class Hud {
 	Integer health;
 	public Hud(SpriteBatch sb) {
 		spriteBatch = sb;
-		health = 90;
 		viewport = new FitViewport(1200, 1200, new OrthographicCamera());
 		
 		stage = new Stage(viewport, sb);
@@ -35,8 +34,8 @@ public class Hud {
 		table.setFillParent(true);
 
 		nameLabel = new Label(Game.character.name, MenuScreen.skin);
-		healthLabel = new Label(String.format("%03d", health), MenuScreen.skin);
-		villageLabel = new Label(String.format(Game.world.getMap().getMapPath()), MenuScreen.skin);
+		healthLabel = new Label(String.format("%03d", Game.character.coins), MenuScreen.skin);
+		villageLabel = new Label(String.format(Game.world.getMap().getNameVillage()), MenuScreen.skin);
 
 		table.add(nameLabel).expandX().pad(20);
 		table.add(villageLabel).expandX().pad(20);
@@ -46,7 +45,10 @@ public class Hud {
 		stage.addActor(table);
 		stage.addActor(textTable);
 	}
-	
+	public void update(){
+		villageLabel.setText(String.format(Game.world.getMap().getNameVillage()));
+		healthLabel.setText(String.format("%03d", Game.character.coins));
+	}
 	public void setDialogText (String text) { 
 		showDialog = true;
 		textDialog = text;

@@ -109,6 +109,12 @@ public class GameSlagyom extends Game {
 			setScreen(battlescreen);
 		} else if (currentState == State.PAUSE) {
 			setScreen(pauseScreen);
+			try {
+				com.mygdx.game.src.World.Game.world.semaphore.acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Gdx.input.setInputProcessor(pauseScreen.stage);
 		} else if (currentState == State.BAG) {
 			bagScreen = new BagScreen(this);

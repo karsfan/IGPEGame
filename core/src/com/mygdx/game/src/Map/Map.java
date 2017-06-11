@@ -11,15 +11,25 @@ import com.mygdx.game.src.World.Tile;
 public class Map {
 	private LinkedList<Tile> listTile;
 	private LinkedList<Item> listItems;
+	private String nameVillage;
 	public String mapPath;
 	public boolean current;
 
-	public Map(String path, boolean bool) {
+	public Map(String path, boolean bool, String nameVillage) {
+		this.nameVillage = nameVillage;
 		current = bool;
 		listTile = new LinkedList<Tile>();
 		listItems = new LinkedList<Item>();
 		readMap(path);
 		setMapPath(path);
+	}
+
+	public String getNameVillage() {
+		return nameVillage;
+	}
+
+	public void setNameVillage(String nameVillage) {
+		this.nameVillage = nameVillage;
 	}
 
 	public Map() {

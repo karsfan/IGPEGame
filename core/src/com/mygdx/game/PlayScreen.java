@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import java.util.Iterator;
 import java.util.ListIterator;
-import java.util.concurrent.Semaphore;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -61,14 +60,13 @@ public class PlayScreen implements Screen {
 
 	}
 
-	public float start = System.currentTimeMillis();
-
+	
 	@SuppressWarnings({})
 	@Override
 	public void render(float delta) {
 
 		update(delta);
-
+		hud.update();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.batch.setProjectionMatrix(gamecam.combined);
@@ -131,60 +129,51 @@ public class PlayScreen implements Screen {
 
 	}
 
-	@SuppressWarnings({ "deprecation" })
+	
 	private void moveCharacter(float dt) {
-		try{
-		if (Gdx.input.isKeyPressed(Keys.Z)) {
-			Game.character.setVelocity(150f);
-			LoadingImage.setFrameDurationCharacter(0.1f);
-		} else {
-			Game.character.setVelocity(100);
-			LoadingImage.setFrameDurationCharacter(0.2f);
-		}
-		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-			Game.character.movesLeft(dt);
-		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			Game.character.movesRight(dt);
-		} else if (Gdx.input.isKeyPressed(Keys.UP)) {
-			Game.character.movesUp(dt);
-		} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-			Game.character.movesDown(dt);
+		try {
+			if (Gdx.input.isKeyPressed(Keys.Z)) {
+				Game.character.setVelocity(150f);
+				LoadingImage.setFrameDurationCharacter(0.1f);
+			} else {
+				Game.character.setVelocity(100);
+				LoadingImage.setFrameDurationCharacter(0.2f);
+			}
+			if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+				Game.character.movesLeft(dt);
+			} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+				Game.character.movesRight(dt);
+			} else if (Gdx.input.isKeyPressed(Keys.UP)) {
+				Game.character.movesUp(dt);
+			} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+				Game.character.movesDown(dt);
 
-		} else if (Gdx.input.isKeyJustPressed(Keys.C)) {
-			gamecam.zoom -= 0.2;
-			gamecam.position.x = Game.character.getX();
-			gamecam.position.y = Game.character.getY();
+			} else if (Gdx.input.isKeyJustPressed(Keys.C)) {
+				gamecam.zoom -= 0.2;
+				gamecam.position.x = Game.character.getX();
+				gamecam.position.y = Game.character.getY();
 
-		} else if (Gdx.input.isKeyJustPressed(Keys.V)) {
-			gamecam.zoom += 0.2;
-			gamecam.position.x = Game.character.getX();
-			gamecam.position.y = Game.character.getY();
+			} else if (Gdx.input.isKeyJustPressed(Keys.V)) {
+				gamecam.zoom += 0.2;
+				gamecam.position.x = Game.character.getX();
+				gamecam.position.y = Game.character.getY();
 
-		} else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-			hud.showDialog = !hud.showDialog;
-			hideDialog();
-			Game.world.semaphore.release();
-		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			
-				Game.world.semaphore.acquire();
-			
-				// TODO Auto-generated catch block
-			
-			game.swapScreen(GameSlagyom.State.PAUSE);
+			} else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+				hud.showDialog = !hud.showDialog;
+				hideDialog();
+				Game.world.semaphore.release();
+			} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+				game.swapScreen(GameSlagyom.State.PAUSE);
+				
+			} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
+				Game.world.createBattle();
+				game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
+			} else if (Gdx.input.isKeyJustPressed(Keys.B)) {
+				Game.world.nextLevel();
+			} else
+				Game.character.setState(StateDynamicObject.STANDING);
+		} catch (InterruptedException e) {
 
-		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
-			Game.world.createBattle();
-			game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
-
-		} else if (Gdx.input.isKeyJustPressed(Keys.B)) {
-			// Game.world.getThread().suspend();
-
-			Game.world.nextLevel();
-			// Game.world.getThread().resume();
-		} else
-			Game.character.setState(StateDynamicObject.STANDING);
-		}catch( InterruptedException e ){
-			
 		}
 	}
 

@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -17,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.src.Character.Bag;
+import com.mygdx.game.src.Map.Item;
 import com.mygdx.game.src.Map.Item.Level;
 import com.mygdx.game.src.Map.StaticObject.Element;
 import com.mygdx.game.src.World.Game;
@@ -49,14 +48,15 @@ public class BagScreen implements Screen {
 	private TextButton use;
 	private TextButton delete;
 	private TextButton exit;
-
+	public Item itemSelected;
+	TextButton[] potions;
 	public BagScreen(final GameSlagyom game) {
 		this.game = game;
+		itemSelected = new Item();
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(640, 480);
 		selection = false;
 		viewport.apply();
-
 		background = new Texture("res/bag/bagBackground.png");
 		backgroundSprite = new Sprite(background);
 
@@ -82,7 +82,10 @@ public class BagScreen implements Screen {
 		delete.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Game.character.bag.removeItem(Element.POTION, Level.FIRST);
+				Game.character.bag.removeItem(itemSelected.getElement(), itemSelected.getLevel());
+				potions[0].setText("Blue potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.FIRST));
+				potions[1].setText("Red potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.SECOND));
+				potions[2].setText("Green potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD)); 
 			}
 		});
 		
@@ -142,7 +145,7 @@ public class BagScreen implements Screen {
 		// POTIONS TABLE
 		potionsTable = new Table();
 		Label potionsLabel;
-		TextButton[] potions;
+		
 		potionsTable.setLayoutEnabled(false);
 
 		potionsLabel = new Label("Potions", MenuScreen.skin);
@@ -155,6 +158,8 @@ public class BagScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				showInfo(LoadingImage.bluePotion, "Pozione blu");
+				itemSelected.setElement(Element.POTION);
+				itemSelected.setLevel(Level.FIRST);
 			}
 		});
 
@@ -162,6 +167,8 @@ public class BagScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				showInfo(LoadingImage.redPotion, "Pozione rossa");
+				itemSelected.setElement(Element.POTION);
+				itemSelected.setLevel(Level.SECOND);
 			}
 		});
 
@@ -169,6 +176,8 @@ public class BagScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				showInfo(LoadingImage.greenPotion, "Pozione verde");
+				itemSelected.setElement(Element.POTION);
+				itemSelected.setLevel(Level.THIRD);
 			}
 		});
 
@@ -347,6 +356,7 @@ public class BagScreen implements Screen {
 			weaponsTable.setVisible(false);
 		}
 		
+	
 	}
 
 	@Override

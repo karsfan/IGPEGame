@@ -29,7 +29,7 @@ public class Character extends DynamicObjects implements ICollidable {
 		primary_weapon = new Weapon("Lancia", Level.BASIC, Type.LANCIA);
 		health = 100;
 		power = 100;
-		coins = 10;
+		coins = 0;
 		x = 1000;
 		y = 600;
 		velocity = 100;

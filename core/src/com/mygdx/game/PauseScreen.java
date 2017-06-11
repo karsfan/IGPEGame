@@ -164,7 +164,7 @@ public class PauseScreen implements Screen {
 
 	}
 
-	@SuppressWarnings({ "deprecation" })
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
@@ -177,7 +177,7 @@ public class PauseScreen implements Screen {
 		stage.act();
 		stage.draw();
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			Game.world.getThread().resume();
+			Game.world.semaphore.release();
 			game.swapScreen(State.PLAYING);
 		}
 		

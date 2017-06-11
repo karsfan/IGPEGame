@@ -19,32 +19,31 @@ public class World {
 	public Semaphore semaphore;
 	int level;
 	public boolean remove = false;
+
 	public World() {
 		semaphore = new Semaphore(1);
 		level = 0;
 		people = new ArrayList<DynamicObjects>();
 		maps = new Map[2];
-		maps[0] = new Map("res/map/newMap", true);
-		maps[1] = new Map("res/map/map", false);
+		maps[0] = new Map("res/map/newMap", true, "Castrolibero");
+		maps[1] = new Map("res/map/map", false ,"Bova Marina");
 
 		setThread(new ThreadWorld(this, semaphore));
 
 	}
 
-	@SuppressWarnings("deprecation")
 	public World(String path) {
 		level = 0;
 		semaphore = new Semaphore(0);
 		people = new ArrayList<DynamicObjects>();
-		
+
 		maps = new Map[2];
-		maps[0] = new Map(path, true);
-		maps[1] = new Map("res/map/map", false);
-		
+		maps[0] = new Map(path, true, "Castrolibero");
+		maps[1] = new Map("res/map/map", false, "Bova Marina");
 
 		setThread(new ThreadWorld(this, semaphore));
 		getThread().start();
-		
+
 	}
 
 	public Map getMap() {
@@ -75,24 +74,24 @@ public class World {
 		return getMap().getListItems();
 	}
 
-	public  void update(float dt) {
-	
-			try {
-				semaphore.acquire();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void update(float dt) {
+
+		try {
+			semaphore.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Iterator<DynamicObjects> it1 = people.iterator();
+		while (it1.hasNext()) {
+			Object ob = (Object) it1.next();
+			if (ob instanceof Man) {
+				((Man) ob).update(dt);
 			}
-			Iterator<DynamicObjects> it1 = people.iterator();
-			while (it1.hasNext()) {
-				Object ob = (Object) it1.next();
-				if (ob instanceof Man) {
-					((Man) ob).update(dt);
-				}
-			}
-		
+		}
+
 		semaphore.release();
-		
+
 	}
 
 	public LinkedList<Tile> getListTile() {
@@ -100,28 +99,29 @@ public class World {
 	}
 
 	public void createBattle() {
-		
+
 		battle = new Battle(Game.character, null);
 	}
 
 	public ArrayList<DynamicObjects> getListDynamicObjects() {
 		return people;
 	}
-	
-	public void nextLevel() throws InterruptedException{
-		
+
+	public void nextLevel() throws InterruptedException {
+
+
+		if (level < 1) {
 			semaphore.acquire();
-		
-		if (level < 2)
 			level++;
 
-		people = new ArrayList<DynamicObjects>();
-		
-		getMap().setCurrent(false);
-		maps[level].setCurrent(true);
-		addDynamicObject();
-		semaphore.release();
-	
+			people = new ArrayList<DynamicObjects>();
+			getMap().setCurrent(false);
+			maps[level].setCurrent(true);
+			people.add(Game.character);
+			addDynamicObject();
+			semaphore.release();
+		}
+
 	}
 
 	public ThreadWorld getThread() {
