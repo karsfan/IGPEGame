@@ -346,6 +346,7 @@ public class BagScreen implements Screen {
 			potionsTable.setVisible(false);
 			weaponsTable.setVisible(false);
 		}
+		
 	}
 
 	@Override

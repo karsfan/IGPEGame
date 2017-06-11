@@ -36,19 +36,13 @@ public class World {
 		level = 0;
 		semaphore = new Semaphore(0);
 		people = new ArrayList<DynamicObjects>();
-<<<<<<< HEAD
 		
-=======
->>>>>>> 6f624bfd6783d6ffcf39a2411f32d4ce8717b57f
 		maps = new Map[2];
 		maps[0] = new Map(path, true);
 		maps[1] = new Map("res/map/map", false);
 		
-<<<<<<< HEAD
-		setThread(new ThreadWorld(this));
-=======
+
 		setThread(new ThreadWorld(this, semaphore));
->>>>>>> 6f624bfd6783d6ffcf39a2411f32d4ce8717b57f
 		getThread().start();
 		
 	}
