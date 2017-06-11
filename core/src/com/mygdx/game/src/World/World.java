@@ -33,9 +33,11 @@ public class World {
 	public World(String path) {
 		level = 0;
 		people = new ArrayList<DynamicObjects>();
-
-		addDynamicObject();
-		addItems();
+		
+		maps = new Map[2];
+		maps[0] = new Map(path, true);
+		maps[1] = new Map("res/map/map", false);
+		
 		setThread(new ThreadWorld(this));
 		getThread().start();
 		getThread().suspend();

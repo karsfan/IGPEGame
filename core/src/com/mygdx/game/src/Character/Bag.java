@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.mygdx.game.src.Map.Item;
+import com.mygdx.game.src.Map.Item.Level;
+import com.mygdx.game.src.Map.StaticObject.Element;
 import com.mygdx.game.src.World.Weapon;
 
 public class Bag {
 	int capacity;
-	public ArrayList<Item> bagItems;
+	public ArrayList<Item> bagItems; 
 	Weapon secondary_weapon;
 
 	public Bag() {
@@ -38,11 +40,10 @@ public class Bag {
 				continue;
 			}
 		} // it controls that the numbers is sufficient to upgrade
-
 	}
 
 	public boolean deletePotion(Item potion) {
-		Iterator<Item> itPotion = bagItems.iterator();
+		Iterator <Item> itPotion = bagItems.iterator();
 		while (itPotion.hasNext()) {
 			Item tool = (Item) itPotion.next();
 			if (tool == potion) {
@@ -51,6 +52,30 @@ public class Bag {
 			}
 		}
 		return false;
+	}
+	
+
+	public int getNumberOf(Element element, Level level) {
+		int numberOf = 0;
+		Iterator <Item> itemIterator = bagItems.iterator();
+		while (itemIterator.hasNext()) {
+			Item searching = (Item) itemIterator.next();
+			if (searching.getElement() == element && searching.level == level) {
+				numberOf++;
+			}
+		}
+		return numberOf;
+	}
+	
+	public void removeItem (Element element, Level level) {
+		Iterator <Item> itemIterator = bagItems.iterator();
+		while (itemIterator.hasNext()) {
+			Item searching = (Item) itemIterator.next();
+			if (searching.getElement() == element && searching.level == level) {
+				itemIterator.remove();
+				break;
+			}
+		}
 	}
 
 }

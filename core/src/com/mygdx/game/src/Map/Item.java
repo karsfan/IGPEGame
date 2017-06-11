@@ -21,13 +21,13 @@ public class Item extends StaticObject {
 	public Level level;
 
 	public Item(float x, float y, Element element, Level level) {
-
 		switch (element) {
 		case COIN:
 			shape = new Rectangle((int) x, (int) y, 11, 11);
 			break;
 		case POTION:
 			shape = new Rectangle((int) x, (int) y, 14, 14);
+			level = Level.FIRST;
 			break;
 		case PARCHMENT:
 			shape = new Rectangle((int) x, (int) y, 10, 10);
@@ -59,6 +59,8 @@ public class Item extends StaticObject {
 			shape.width = 14;
 			shape.height = 14;
 			positionItem();
+			level = Level.FIRST;
+
 			break;
 		case 2:
 			element = Element.PARCHMENT;
@@ -70,7 +72,6 @@ public class Item extends StaticObject {
 		default:
 			break;
 		}
-
 	}
 
 	private void positionItem() {
@@ -83,6 +84,8 @@ public class Item extends StaticObject {
 			positionItem();
 	}
 
+	
+	
 	public String getInfo() {
 		return info;
 	}
@@ -151,7 +154,6 @@ public class Item extends StaticObject {
 		this.element = element;
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public boolean collide(Object e) {
 		Iterator<Tile> it = Game.world.getListTile().iterator();

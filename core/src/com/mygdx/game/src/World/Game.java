@@ -23,9 +23,9 @@ public class Game {
 	public Game(String path, String name) {
 
 		character = new Character(name);
-
 		world = new World(path);
-		world.addDynamicObject();
+		while(!world.addDynamicObject());
+		while(!world.addItems());
 		world.getListDynamicObjects().add(character);
 
 	}

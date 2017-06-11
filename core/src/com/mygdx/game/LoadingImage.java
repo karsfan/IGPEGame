@@ -83,8 +83,11 @@ public class LoadingImage {
 	public static Drawable emptyIconDrawable; 
 	public static ImageButton emptyIcon;
 	
-	public static Drawable arrowDrawable; 
-	public static ImageButton arrow;
+	public static Drawable leftArrowDrawable; 
+	public static Drawable rightArrowDrawable; 
+	public static ImageButton leftArrow;
+	public static ImageButton rightArrow;
+
 	
 	
 	@SuppressWarnings("unchecked")
@@ -156,8 +159,13 @@ public class LoadingImage {
 		swordDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/cazzo.png")));
 		sword = new ImageButton(swordDrawable);
 		
-		arrowDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/arrow.png")));
-		arrow= new ImageButton(arrowDrawable);
+		rightArrowDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/rightArrow.png")));
+		rightArrow = new ImageButton(rightArrowDrawable);
+		
+		leftArrowDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/leftArrow.png")));
+		leftArrow = new ImageButton(leftArrowDrawable);
+
+		
 		
 		emptyIconDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/emptyIcon.png")));
 		emptyIcon = new ImageButton(emptyIconDrawable);

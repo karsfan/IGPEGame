@@ -7,7 +7,7 @@ import com.mygdx.game.GameSlagyom;
 public class DesktopLauncher {
 	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "NICHOLAS GAY";
+		config.title = "SLAGYOM";
 		new LwjglApplication(new GameSlagyom(), config);
 	}
 }
