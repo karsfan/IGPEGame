@@ -17,10 +17,12 @@ public class Bag {
 		bagItems = new ArrayList<Item>();
 	}
 
-	public void addTool(Item item) {
+	public boolean addTool(Item item) {
 		if (bagItems.size() < capacity) {
 			bagItems.add(item);
+			return true;
 		}
+		return false;
 	}
 
 	public void addWeapon(Weapon weapon) {

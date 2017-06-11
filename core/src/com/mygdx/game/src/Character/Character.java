@@ -11,7 +11,6 @@ import com.mygdx.game.src.World.Weapon.Level;
 import com.mygdx.game.src.World.Weapon.Type;
 import com.mygdx.game.PlayScreen;
 import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Map.StaticObject;
 import com.mygdx.game.src.Map.StaticObject.Element;
 
 public class Character extends DynamicObjects implements ICollidable {
@@ -185,19 +184,25 @@ public class Character extends DynamicObjects implements ICollidable {
 		return width;
 	}
 
-	void pickItem(Item item) {
-		if (item.getElement() != Element.COIN)
-			bag.addTool(item);
-		else
+	boolean pickItem(Item item) {
+		if (item.getElement() != Element.COIN) {
+			if (bag.addTool(item)) {
+				item.setPicked(true);
+				return true;
+			}
+		} else {
 			coins++;
+			item.setPicked(true);
+			return true;
+		}
+		return false;
 
-		item.setPicked(true);
 	}
 
 	@SuppressWarnings("static-access")
 	@Override
-	public boolean collide(Object e) {
-		Iterator<StaticObject> it = Game.world.getListObjects().iterator();
+	public synchronized boolean collide(Object e) {
+		Iterator<Tile> it = Game.world.getListTile().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();
 			if (ob instanceof Tile) {
@@ -208,15 +213,23 @@ public class Character extends DynamicObjects implements ICollidable {
 						return true;
 					}
 			}
+
+		}
+
+		Iterator<Item> it2 = Game.world.getListItems().iterator();
+		while (it2.hasNext()) {
+			Object ob = (Object) it2.next();
 			if (ob instanceof Item) {
 				if (((Item) ob).collide(this)) {
-					pickItem((Item) ob);
-					// requestToPick(ob);
-					return true;
-
+					if (pickItem((Item) ob)) {
+						it2.remove();
+						return false;
+					} else {
+						PlayScreen.hud.setDialogText("Zaino pieno! " + "Per raccogliere abbandona qualcosa.");
+						return true;
+					}
 				}
 			}
-
 		}
 		Iterator<DynamicObjects> it1 = Game.world.getListDynamicObjects().iterator();
 		while (it1.hasNext()) {
@@ -230,13 +243,9 @@ public class Character extends DynamicObjects implements ICollidable {
 				}
 			}
 		}
+
 		return false;
 	}
-
-	/*
-	 * private void requestToPick(Object ob) {
-	 * PlayScreen.hud.setDialogText("Vuoi raccogliere?"); }
-	 */
 
 	public void setVelocity(float velocity) {
 		this.velocity = velocity;

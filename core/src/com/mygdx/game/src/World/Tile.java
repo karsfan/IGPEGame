@@ -80,7 +80,7 @@ public class Tile extends StaticObject implements ICollidable {
 		return (float) shape.getHeight();
 	}
 
-	public float getWidht() {
+	public float getWidth() {
 		return (float) shape.getWidth();
 	}
 

@@ -32,10 +32,8 @@ public class PauseScreen implements Screen {
 	private Texture background;
 	private Sprite backgroundSprite;
 	
-	
 	public PauseScreen(final GameSlagyom game) {
 		this.game = game;
-
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
 		viewport.apply();
@@ -85,18 +83,19 @@ public class PauseScreen implements Screen {
 		});
 
 		returnButton.addListener(new ClickListener() {
-			@SuppressWarnings("deprecation")
+			@SuppressWarnings({ "deprecation", "static-access" })
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Game.thread.resume();
+				Game.world.getThread().resume();
 				game.swapScreen(State.PLAYING);
 			}
 		});
 		menuButton.addListener(new ClickListener() {
-			@SuppressWarnings("deprecation")
+			@SuppressWarnings({ "deprecation", "static-access" })
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Game.thread.stop();
+				Game.world.getThread().stop();
+				game.playScreen.dispose();
 				game.swapScreen(State.MENU);
 			}
 		});
@@ -164,7 +163,7 @@ public class PauseScreen implements Screen {
 
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "static-access" })
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
@@ -177,7 +176,7 @@ public class PauseScreen implements Screen {
 		stage.act();
 		stage.draw();
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			Game.thread.resume();
+			Game.world.getThread().resume();
 			game.swapScreen(State.PLAYING);
 		}
 		

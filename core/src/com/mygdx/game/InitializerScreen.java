@@ -153,6 +153,7 @@ public class InitializerScreen implements Screen{
 
 	@Override
 	public void dispose() {
+		System.out.println("qui");
 		MenuScreen.skin.dispose();
 		MenuScreen.atlas.dispose();
 	}

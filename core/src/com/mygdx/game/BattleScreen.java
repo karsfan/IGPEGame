@@ -18,18 +18,17 @@ public class BattleScreen implements Screen {
 
 	public OrthographicCamera gamecam;
 	public Viewport gamePort;
-	public GameSlagyom game;
+	public GameSlagyom gameslagyom;
 	public BattleHud hud;
 
-	public BattleScreen(GameSlagyom game) {
-		this.game = game;
+	public BattleScreen(GameSlagyom gameslagyom) {
+		this.gameslagyom = gameslagyom;
 		gamecam = new OrthographicCamera();
-	
 		gamePort = new ExtendViewport(500, 500, gamecam);
 		gamePort.apply();
 		gamecam.position.x = Game.character.getX();
 		gamecam.position.y = Game.character.getY();
-		hud = new BattleHud(game.batch);
+		hud = new BattleHud(gameslagyom.batch);
 	}
 
 	@Override
@@ -44,22 +43,22 @@ public class BattleScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		game.batch.begin();
+		gameslagyom.batch.begin();
 		draw();
-		game.batch.end();
+		gameslagyom.batch.end();
 		hud.stage.draw();
 		gamePort.apply();
 	}
 
 	private void draw() {
 
-		game.batch.draw(LoadingImage.getBattleBgImage(), 0, 0);
+		gameslagyom.batch.draw(LoadingImage.getBattleBgImage(), 0, 0);
 		@SuppressWarnings("static-access")
 		CharacterBattle tmp = Game.world.battle.character;
-		game.batch.draw(LoadingImage.getBattleFrame(tmp), tmp.getX(), tmp.getY(), tmp.getWidth(), tmp.getHeight());
+		gameslagyom.batch.draw(LoadingImage.getBattleFrame(tmp), tmp.getX(), tmp.getY(), tmp.getWidth(), tmp.getHeight());
 		@SuppressWarnings("static-access")
 		Enemy tmp1 = Game.world.battle.enemy;
-		game.batch.draw(LoadingImage.getBattleFrame(tmp1), tmp1.getX(), tmp1.getY(), tmp1.getWidth(), tmp1.getHeight());
+		gameslagyom.batch.draw(LoadingImage.getBattleFrame(tmp1), tmp1.getX(), tmp1.getY(), tmp1.getWidth(), tmp1.getHeight());
 
 	}
 
@@ -71,13 +70,13 @@ public class BattleScreen implements Screen {
 
 	}
 
-	@SuppressWarnings({ "deprecation" })
+	@SuppressWarnings({ "deprecation", "static-access" })
 	private void handleInput(float dt) {
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			// va messo in pausa e poi in caso bisogna ritornare nel playscreen
-			Game.thread.resume();
-			game.swapScreen(State.PLAYING);
+			Game.world.getThread().resume();
+			gameslagyom.swapScreen(State.PLAYING);
 		}
 		moveCharacter(dt);
 	}

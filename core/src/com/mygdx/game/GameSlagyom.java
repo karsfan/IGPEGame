@@ -24,15 +24,15 @@ public class GameSlagyom extends Game {
 
 	public static Preferences prefs;
 	SpriteBatch batch;
-
+	
 	public GameSlagyom() {
+		
 	}
 
 	@Override
 	public void create() {
-
 		batch = new SpriteBatch();
-		new LoadingImage();
+		//new LoadingImage();
 		menuScreen = new MenuScreen(this);
 		optionScreen = new OptionScreen(this);
 		currentState = State.MENU;
@@ -57,12 +57,12 @@ public class GameSlagyom extends Game {
 
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "static-access" })
 	public void loadGame() {
 		prefs = Gdx.app.getPreferences("My saved game");
 
 		if (currentState == State.PAUSE)
-			com.mygdx.game.src.World.Game.thread.stop();
+			com.mygdx.game.src.World.Game.world.getThread().stop();
 
 		playScreen = new PlayScreen(this, prefs.getString("map"), prefs.getString("name"));
 
