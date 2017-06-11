@@ -21,6 +21,7 @@ public class Bag {
 
 	public boolean addTool(Item item) {
 		if (bagItems.size() < capacity) {
+			System.out.println(bagItems.size());
 			bagItems.add(item);
 			return true;
 		}

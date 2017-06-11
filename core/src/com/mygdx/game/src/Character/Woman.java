@@ -238,7 +238,6 @@ public class Woman extends DynamicObjects implements ICollidable{
 
 	@Override
 	public boolean collide(Object e) {
-		@SuppressWarnings("static-access")
 		Iterator<Tile> it = Game.world.getListTile().iterator();
 		while (it.hasNext()) {
 			Object ob = (Object) it.next();

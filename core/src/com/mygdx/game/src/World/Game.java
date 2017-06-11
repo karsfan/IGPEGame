@@ -30,9 +30,6 @@ public class Game {
 
 	}
 
-	public void play() {
-
-	}
 
 	public void initialize() {
 		setWorld(new World());
