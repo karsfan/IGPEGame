@@ -67,6 +67,7 @@ public class PauseScreen implements Screen {
 				//game.setScreen(game.playScreen);
 				game.saveGame();
 				game.swapScreen(State.PLAYING);
+				Game.world.semaphore.release();
 				PlayScreen.hud.setDialogText("Game saved!");
 			}
 		});
@@ -83,7 +84,7 @@ public class PauseScreen implements Screen {
 		});
 
 		returnButton.addListener(new ClickListener() {
-			@SuppressWarnings({ "deprecation", "static-access" })
+			@SuppressWarnings({ "deprecation" })
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Game.world.getThread().resume();
@@ -163,7 +164,7 @@ public class PauseScreen implements Screen {
 
 	}
 
-	@SuppressWarnings({ "deprecation", "static-access" })
+	@SuppressWarnings({ "deprecation" })
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);

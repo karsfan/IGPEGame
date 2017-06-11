@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.concurrent.Semaphore;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -51,7 +52,6 @@ public class PlayScreen implements Screen {
 		new Game(path, name);
 		this.game = game;
 		hud = new Hud(game.batch);
-		
 
 		gamecam = new OrthographicCamera();
 		gamePort = new ScreenViewport(gamecam);
@@ -63,7 +63,7 @@ public class PlayScreen implements Screen {
 
 	public float start = System.currentTimeMillis();
 
-	@SuppressWarnings({ })
+	@SuppressWarnings({})
 	@Override
 	public void render(float delta) {
 
@@ -131,8 +131,9 @@ public class PlayScreen implements Screen {
 
 	}
 
-	@SuppressWarnings({ "deprecation", "static-access" })
+	@SuppressWarnings({ "deprecation" })
 	private void moveCharacter(float dt) {
+		try{
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
 			Game.character.setVelocity(150f);
 			LoadingImage.setFrameDurationCharacter(0.1f);
@@ -162,20 +163,31 @@ public class PlayScreen implements Screen {
 		} else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			hud.showDialog = !hud.showDialog;
 			hideDialog();
-			Game.world.getThread().resume();
+			Game.world.semaphore.release();
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			Game.world.getThread().suspend();
+			
+				Game.world.semaphore.acquire();
+			
+				// TODO Auto-generated catch block
+			
 			game.swapScreen(GameSlagyom.State.PAUSE);
 
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
 			Game.world.createBattle();
 			game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
 
+		} else if (Gdx.input.isKeyJustPressed(Keys.B)) {
+			// Game.world.getThread().suspend();
+
+			Game.world.nextLevel();
+			// Game.world.getThread().resume();
 		} else
 			Game.character.setState(StateDynamicObject.STANDING);
+		}catch( InterruptedException e ){
+			
+		}
 	}
 
-	@SuppressWarnings("static-access")
 	public synchronized void draw() {
 		ListIterator<Tile> it = (ListIterator<Tile>) Game.world.getListTile().listIterator();
 

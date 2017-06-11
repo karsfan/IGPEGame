@@ -199,7 +199,6 @@ public class Character extends DynamicObjects implements ICollidable {
 
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public synchronized boolean collide(Object e) {
 		Iterator<Tile> it = Game.world.getListTile().iterator();

@@ -25,14 +25,12 @@ public class Game {
 		character = new Character(name);
 
 		world = new World(path);
-		world.addDynamicObject();
+		while(!world.addDynamicObject());
+		while(!world.addItems());
 		world.getListDynamicObjects().add(character);
 
 	}
 
-	public void play() {
-
-	}
 
 	public void initialize() {
 		setWorld(new World());

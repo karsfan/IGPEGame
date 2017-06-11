@@ -43,7 +43,6 @@ public class GameSlagyom extends Game {
 
 	}
 
-	@SuppressWarnings("static-access")
 	public static void saveGame() {
 		prefs.putString("map", com.mygdx.game.src.World.Game.world.getMap().getMapPath());
 		prefs.putString("name", com.mygdx.game.src.World.Game.character.name);
@@ -57,7 +56,7 @@ public class GameSlagyom extends Game {
 
 	}
 
-	@SuppressWarnings({ "deprecation", "static-access" })
+	@SuppressWarnings({ "deprecation" })
 	public void loadGame() {
 		prefs = Gdx.app.getPreferences("My saved game");
 

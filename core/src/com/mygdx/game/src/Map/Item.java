@@ -151,7 +151,6 @@ public class Item extends StaticObject {
 		this.element = element;
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public boolean collide(Object e) {
 		Iterator<Tile> it = Game.world.getListTile().iterator();

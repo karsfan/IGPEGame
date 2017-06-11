@@ -3,6 +3,8 @@ package com.mygdx.game.src.World;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.concurrent.Semaphore;
+
 import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.Man;
 import com.mygdx.game.src.Map.Item;
@@ -13,32 +15,34 @@ public class World {
 	private ArrayList<DynamicObjects> people;
 	public Map[] maps;
 	public Battle battle;
-	private  ThreadWorld thread;
+	private ThreadWorld thread;
+	public Semaphore semaphore;
 	int level;
-
+	public boolean remove = false;
 	public World() {
+		semaphore = new Semaphore(1);
 		level = 0;
 		people = new ArrayList<DynamicObjects>();
 		maps = new Map[2];
 		maps[0] = new Map("res/map/newMap", true);
 		maps[1] = new Map("res/map/map", false);
 
-		//addDynamicObject();
-		// addItems();
-		 setThread(new ThreadWorld(this));
-		// thread.start();
+		setThread(new ThreadWorld(this, semaphore));
+
 	}
 
 	@SuppressWarnings("deprecation")
 	public World(String path) {
 		level = 0;
+		semaphore = new Semaphore(0);
 		people = new ArrayList<DynamicObjects>();
-
-		addDynamicObject();
-		addItems();
-		setThread(new ThreadWorld(this));
+		maps = new Map[2];
+		maps[0] = new Map(path, true);
+		maps[1] = new Map("res/map/map", false);
+		
+		setThread(new ThreadWorld(this, semaphore));
 		getThread().start();
-		getThread().suspend();
+		
 	}
 
 	public Map getMap() {
@@ -58,7 +62,7 @@ public class World {
 	}
 
 	public boolean addItems() {
-		for (int i = 0; i < 554; i++) {
+		for (int i = 0; i < 54; i++) {
 			Item item = new Item();
 			getListItems().add(item);
 		}
@@ -69,16 +73,24 @@ public class World {
 		return getMap().getListItems();
 	}
 
-	public synchronized void update(float dt) {
-
-		Iterator<DynamicObjects> it1 = people.iterator();
-		// System.out.println("qui");
-		while (it1.hasNext()) {
-			Object ob = (Object) it1.next();
-			if (ob instanceof Man) {
-				((Man) ob).update(dt);
+	public  void update(float dt) {
+	
+			try {
+				semaphore.acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
+			Iterator<DynamicObjects> it1 = people.iterator();
+			while (it1.hasNext()) {
+				Object ob = (Object) it1.next();
+				if (ob instanceof Man) {
+					((Man) ob).update(dt);
+				}
+			}
+		
+		semaphore.release();
+		
 	}
 
 	public LinkedList<Tile> getListTile() {
@@ -86,22 +98,28 @@ public class World {
 	}
 
 	public void createBattle() {
+		
 		battle = new Battle(Game.character, null);
 	}
 
 	public ArrayList<DynamicObjects> getListDynamicObjects() {
 		return people;
 	}
-
-	public void nextLevel() {
-		getThread().suspend();
+	
+	public void nextLevel() throws InterruptedException{
+		
+			semaphore.acquire();
+		
 		if (level < 2)
 			level++;
-		people.removeAll(people);
+
+		people = new ArrayList<DynamicObjects>();
+		
 		getMap().setCurrent(false);
 		maps[level].setCurrent(true);
-		getThread().resume();
-		System.out.println("quiiiii");
+		addDynamicObject();
+		semaphore.release();
+	
 	}
 
 	public ThreadWorld getThread() {
