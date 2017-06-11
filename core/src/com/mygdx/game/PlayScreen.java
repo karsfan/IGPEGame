@@ -162,9 +162,9 @@ public class PlayScreen implements Screen {
 		} else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			hud.showDialog = !hud.showDialog;
 			hideDialog();
-			Game.world.thread.resume();
+			Game.world.getThread().resume();
 		} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			Game.world.thread.suspend();
+			Game.world.getThread().suspend();
 			game.swapScreen(GameSlagyom.State.PAUSE);
 
 		} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {

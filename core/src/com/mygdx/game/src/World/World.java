@@ -10,60 +10,69 @@ import com.mygdx.game.src.Map.Map;
 
 public class World {
 
-	private static ArrayList<DynamicObjects> people;
-	public static Map map;
+	private ArrayList<DynamicObjects> people;
+	public Map[] maps;
 	public Battle battle;
-	public static ThreadWorld thread;
+	private  ThreadWorld thread;
+	int level;
 
 	public World() {
-		
+		level = 0;
 		people = new ArrayList<DynamicObjects>();
-		map = new Map("res/map/newMap");
-		
-		addDynamicObject();
-		addItems();
-		thread = new ThreadWorld(this);
-		thread.start();
-	}
-	@SuppressWarnings("deprecation")
-	public World(String path) {
-		
-		people = new ArrayList<DynamicObjects>();
-		map = new Map(path);
-		
-		addDynamicObject();
-		addItems();
-		thread = new ThreadWorld(this);
-		thread.start();
-		thread.suspend();
+		maps = new Map[2];
+		maps[0] = new Map("res/map/newMap", true);
+		maps[1] = new Map("res/map/map", false);
+
+		//addDynamicObject();
+		// addItems();
+		 setThread(new ThreadWorld(this));
+		// thread.start();
 	}
 
-	public static Map getMap() {
-		return map;
+	@SuppressWarnings("deprecation")
+	public World(String path) {
+		level = 0;
+		people = new ArrayList<DynamicObjects>();
+
+		addDynamicObject();
+		addItems();
+		setThread(new ThreadWorld(this));
+		getThread().start();
+		getThread().suspend();
 	}
-	public void addDynamicObject() {
-		for (int i = 0; i < 1500; i++) {
+
+	public Map getMap() {
+		for (int i = 0; i < 2; i++)
+			if (maps[i].current())
+				return maps[i];
+		return null;
+	}
+
+	public boolean addDynamicObject() {
+		// people.clear();
+		for (int i = 0; i < 50; i++) {
 			Man man = new Man();
 			people.add(man);
 		}
+		return true;
 	}
 
-	public void addItems() {
-		for(int i = 0; i< 554; i++)
-		{
+	public boolean addItems() {
+		for (int i = 0; i < 554; i++) {
 			Item item = new Item();
 			getListItems().add(item);
 		}
-	}
-	
-	@SuppressWarnings("static-access")
-	public LinkedList<Item> getListItems(){
-		return map.getListItems();
+		return true;
 	}
 
-	public  synchronized void update(float dt) {
-		
+	public LinkedList<Item> getListItems() {
+		return getMap().getListItems();
+	}
+
+	public synchronized void update(float dt) {
+
 		Iterator<DynamicObjects> it1 = people.iterator();
+		// System.out.println("qui");
 		while (it1.hasNext()) {
 			Object ob = (Object) it1.next();
 			if (ob instanceof Man) {
@@ -72,16 +81,35 @@ public class World {
 		}
 	}
 
-	public static LinkedList<Tile> getListTile() {
-		return map.getListTile();
+	public LinkedList<Tile> getListTile() {
+		return getMap().getListTile();
 	}
 
 	public void createBattle() {
 		battle = new Battle(Game.character, null);
 	}
 
-	public static ArrayList<DynamicObjects> getListDynamicObjects() {
+	public ArrayList<DynamicObjects> getListDynamicObjects() {
 		return people;
+	}
+
+	public void nextLevel() {
+		getThread().suspend();
+		if (level < 2)
+			level++;
+		people.removeAll(people);
+		getMap().setCurrent(false);
+		maps[level].setCurrent(true);
+		getThread().resume();
+		System.out.println("quiiiii");
+	}
+
+	public ThreadWorld getThread() {
+		return thread;
+	}
+
+	public void setThread(ThreadWorld thread) {
+		this.thread = thread;
 	}
 
 }

@@ -7,31 +7,32 @@ public class Game {
 	public static World world;
 	public static Character character;
 
-	@SuppressWarnings("static-access")
+	
+
 	public Game(String name) {
-		
+
 		character = new Character(name);
 		world = new World();
-		
+		while(!world.addDynamicObject());
+		while(!world.addItems());
 		world.getListDynamicObjects().add(character);
-		
+		world.getThread().start();
+
 	}
-	
-	@SuppressWarnings("static-access")
+
 	public Game(String path, String name) {
-			
+
 		character = new Character(name);
-	
+
 		world = new World(path);
-		
+		world.addDynamicObject();
 		world.getListDynamicObjects().add(character);
-	
+
 	}
 
 	public void play() {
-	
-	}
 
+	}
 
 	public void initialize() {
 		setWorld(new World());
@@ -42,11 +43,11 @@ public class Game {
 
 	}
 
-	public static World getWorld() {
+	public World getWorld() {
 		return world;
 	}
 
-	public static void setWorld(World world) {
+	public void setWorld(World world) {
 		Game.world = world;
 	}
 

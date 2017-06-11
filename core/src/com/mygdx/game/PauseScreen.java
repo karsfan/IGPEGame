@@ -32,10 +32,8 @@ public class PauseScreen implements Screen {
 	private Texture background;
 	private Sprite backgroundSprite;
 	
-	
 	public PauseScreen(final GameSlagyom game) {
 		this.game = game;
-
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
 		viewport.apply();
@@ -88,7 +86,7 @@ public class PauseScreen implements Screen {
 			@SuppressWarnings({ "deprecation", "static-access" })
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Game.world.thread.resume();
+				Game.world.getThread().resume();
 				game.swapScreen(State.PLAYING);
 			}
 		});
@@ -96,7 +94,7 @@ public class PauseScreen implements Screen {
 			@SuppressWarnings({ "deprecation", "static-access" })
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Game.world.thread.stop();
+				Game.world.getThread().stop();
 				game.playScreen.dispose();
 				game.swapScreen(State.MENU);
 			}
@@ -178,7 +176,7 @@ public class PauseScreen implements Screen {
 		stage.act();
 		stage.draw();
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			Game.world.thread.resume();
+			Game.world.getThread().resume();
 			game.swapScreen(State.PLAYING);
 		}
 		

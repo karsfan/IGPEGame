@@ -36,7 +36,7 @@ public class Hud {
 
 		nameLabel = new Label(Game.character.name, MenuScreen.skin);
 		healthLabel = new Label(String.format("%03d", health), MenuScreen.skin);
-		villageLabel = new Label(String.format("VILLAGE 1"), MenuScreen.skin);
+		villageLabel = new Label(String.format(Game.world.getMap().getMapPath()), MenuScreen.skin);
 
 		table.add(nameLabel).expandX().pad(20);
 		table.add(villageLabel).expandX().pad(20);

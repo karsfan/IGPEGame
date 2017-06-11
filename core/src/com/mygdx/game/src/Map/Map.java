@@ -9,18 +9,25 @@ import java.util.Scanner;
 import com.mygdx.game.src.World.Tile;
 
 public class Map {
-	private static LinkedList<Tile> listTile;
-	private static LinkedList<Item> listItems;
-	private String mapPath;
+	private LinkedList<Tile> listTile;
+	private LinkedList<Item> listItems;
+	public String mapPath;
+	public boolean current;
 
-	public Map(String path) {
+	public Map(String path, boolean bool) {
+		current = bool;
 		listTile = new LinkedList<Tile>();
 		listItems = new LinkedList<Item>();
 		readMap(path);
 		setMapPath(path);
 	}
 
-	public static LinkedList<Item> getListItems() {
+	public Map() {
+		listTile = new LinkedList<Tile>();
+		listItems = new LinkedList<Item>();
+	}
+
+	public LinkedList<Item> getListItems() {
 		return listItems;
 	}
 
@@ -88,5 +95,21 @@ public class Map {
 
 	public void setMapPath(String mapPath) {
 		this.mapPath = mapPath;
+	}
+
+	public boolean current() {
+		return current;
+	}
+
+	public void set(String path, boolean bool) {
+		current = bool;
+		listTile = new LinkedList<Tile>();
+		listItems = new LinkedList<Item>();
+		readMap(path);
+		setMapPath(path);
+	}
+
+	public void setCurrent(boolean bool) {
+		current = bool;
 	}
 }

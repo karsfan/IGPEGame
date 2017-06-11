@@ -24,13 +24,13 @@ public class GameSlagyom extends Game {
 
 	public static Preferences prefs;
 	SpriteBatch batch;
-
+	
 	public GameSlagyom() {
+		
 	}
 
 	@Override
 	public void create() {
-
 		batch = new SpriteBatch();
 		//new LoadingImage();
 		menuScreen = new MenuScreen(this);
@@ -62,7 +62,7 @@ public class GameSlagyom extends Game {
 		prefs = Gdx.app.getPreferences("My saved game");
 
 		if (currentState == State.PAUSE)
-			com.mygdx.game.src.World.Game.world.thread.stop();
+			com.mygdx.game.src.World.Game.world.getThread().stop();
 
 		playScreen = new PlayScreen(this, prefs.getString("map"), prefs.getString("name"));
 
