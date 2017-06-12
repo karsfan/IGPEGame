@@ -94,7 +94,6 @@ public class PlayScreen implements Screen {
 
 		if (!hud.showDialog) {
 			hideDialog();
-			// textTimer = 0;
 			i = 0;
 		}
 
