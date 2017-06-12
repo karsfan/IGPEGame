@@ -104,9 +104,8 @@ public class PauseScreen implements Screen {
 		bagButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.swapScreen(State.SHOP);
+				//game.swapScreen(State.SHOP);
 				game.swapScreen(State.BAG);
-
 			}
 		});
 
