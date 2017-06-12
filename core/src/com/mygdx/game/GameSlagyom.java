@@ -34,7 +34,7 @@ public class GameSlagyom extends Game {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		//new LoadingImage();
+	
 		menuScreen = new MenuScreen(this);
 		optionScreen = new OptionScreen(this);
 		currentState = State.MENU;
@@ -107,7 +107,7 @@ public class GameSlagyom extends Game {
 			setScreen(initializerScreen);
 			Gdx.input.setInputProcessor(initializerScreen.stage);
 		} else if (currentState == State.BATTLE) {
-			battlescreen = new BattleScreen(this);
+			battlescreen = new BattleScreen(this, com.mygdx.game.src.World.Game.world.battle);
 			setScreen(battlescreen);
 		} else if (currentState == State.PAUSE) {
 			setScreen(pauseScreen);

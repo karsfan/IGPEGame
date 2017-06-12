@@ -1,6 +1,7 @@
 package com.mygdx.game.src.World;
 
 import com.mygdx.game.src.Character.Character;
+import com.mygdx.game.src.Character.Woman;
 
 public class Game {
 
@@ -11,22 +12,24 @@ public class Game {
 
 	public Game(String name) {
 
-		character = new Character(name);
 		world = new World();
+		character = new Character(name);
+		world.getListDynamicObjects().add(character);
 		while(!world.addDynamicObject());
 		while(!world.addItems());
-		world.getListDynamicObjects().add(character);
+		Woman w = new Woman();
+		//world.getListDynamicObjects().add(w);
 		world.getThread().start();
-
+		
 	}
 
 	public Game(String path, String name) {
 
-		character = new Character(name);
 		world = new World(path);
+		character = new Character(name);
+		world.getListDynamicObjects().add(character);
 		while(!world.addDynamicObject());
 		while(!world.addItems());
-		world.getListDynamicObjects().add(character);
 
 	}
 

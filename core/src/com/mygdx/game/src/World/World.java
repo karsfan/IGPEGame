@@ -25,8 +25,8 @@ public class World {
 		level = 0;
 		people = new ArrayList<DynamicObjects>();
 		maps = new Map[2];
-		maps[0] = new Map("res/map/newMap", true, "Castrolibero");
-		maps[1] = new Map("res/map/map", false ,"Bova Marina");
+		maps[0] = new Map("res/map/Map1", true, "Castrolibero");
+		maps[1] = new Map("res/map/newMap", false ,"Bova Marina");
 
 		setThread(new ThreadWorld(this, semaphore));
 
@@ -54,7 +54,6 @@ public class World {
 	}
 
 	public boolean addDynamicObject() {
-		// people.clear();
 		for (int i = 0; i < GameConfig.numMan; i++) {
 			Man man = new Man();
 			people.add(man);
@@ -111,14 +110,15 @@ public class World {
 
 
 		if (level < 1) {
-			semaphore.acquire();
 			level++;
 
+			semaphore.acquire();
 			people = new ArrayList<DynamicObjects>();
 			getMap().setCurrent(false);
 			maps[level].setCurrent(true);
 			people.add(Game.character);
-			addDynamicObject();
+			while(!addDynamicObject());
+			addItems();
 			semaphore.release();
 		}
 

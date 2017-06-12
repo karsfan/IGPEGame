@@ -20,14 +20,16 @@ public class BattleScreen implements Screen {
 	public Viewport gamePort;
 	public GameSlagyom gameslagyom;
 	public BattleHud hud;
+	public Battle battle;
 
-	public BattleScreen(GameSlagyom gameslagyom) {
+	public BattleScreen(GameSlagyom gameslagyom, Battle battle) {
 		this.gameslagyom = gameslagyom;
+		this.battle = battle;
 		gamecam = new OrthographicCamera();
 		gamePort = new ExtendViewport(500, 500, gamecam);
 		gamePort.apply();
-		gamecam.position.x = Game.character.getX();
-		gamecam.position.y = Game.character.getY();
+		gamecam.position.x = battle.character.getX();
+		gamecam.position.y = battle.character.getY();
 		hud = new BattleHud(gameslagyom.batch);
 	}
 
@@ -42,7 +44,7 @@ public class BattleScreen implements Screen {
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		gameslagyom.batch.begin();
 		draw();
 		gameslagyom.batch.end();
@@ -53,12 +55,12 @@ public class BattleScreen implements Screen {
 	private void draw() {
 
 		gameslagyom.batch.draw(LoadingImage.getBattleBgImage(), 0, 0);
-		@SuppressWarnings("static-access")
-		CharacterBattle tmp = Game.world.battle.character;
-		gameslagyom.batch.draw(LoadingImage.getBattleFrame(tmp), tmp.getX(), tmp.getY(), tmp.getWidth(), tmp.getHeight());
-		@SuppressWarnings("static-access")
-		Enemy tmp1 = Game.world.battle.enemy;
-		gameslagyom.batch.draw(LoadingImage.getBattleFrame(tmp1), tmp1.getX(), tmp1.getY(), tmp1.getWidth(), tmp1.getHeight());
+		CharacterBattle tmp = battle.character;
+		gameslagyom.batch.draw(LoadingImage.getBattleFrame(tmp), tmp.getX(), tmp.getY(), tmp.getWidth(),
+				tmp.getHeight());
+		Enemy tmp1 = battle.enemy;
+		gameslagyom.batch.draw(LoadingImage.getBattleFrame(tmp1), tmp1.getX(), tmp1.getY(), tmp1.getWidth(),
+				tmp1.getHeight());
 
 	}
 
@@ -66,7 +68,7 @@ public class BattleScreen implements Screen {
 
 		handleInput(dt);
 		hud.update(dt);
-		if(Battle.update(dt)){
+		if (battle.update(dt)) {
 			gameslagyom.swapScreen(State.PLAYING);
 			Game.world.semaphore.release();
 		}
@@ -83,25 +85,24 @@ public class BattleScreen implements Screen {
 		moveCharacter(dt);
 	}
 
-	@SuppressWarnings("static-access")
 	private void moveCharacter(float dt) {
 
 		if (Gdx.input.isKeyJustPressed(Keys.S))
-			Game.world.battle.character.setState(StateDynamicObject.DEFENDING, dt);
+			battle.character.setState(StateDynamicObject.DEFENDING, dt);
 		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
-			Game.world.battle.character.jump(dt);
+			battle.character.jump(dt);
 		} else if (Gdx.input.isKeyPressed(Keys.LEFT)) {
 			if (Gdx.input.isKeyJustPressed(Keys.A))
-				Game.world.battle.character.fightLeft(dt);
+				battle.character.fightLeft(dt);
 			else
-				Game.world.battle.character.movesLeft(dt);
+				battle.character.movesLeft(dt);
 		} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			if (Gdx.input.isKeyJustPressed(Keys.A))
-				Game.world.battle.character.fightRight(dt);
+				battle.character.fightRight(dt);
 			else
-				Game.world.battle.character.movesRight(dt);
+				battle.character.movesRight(dt);
 		} else {
-			Game.world.battle.character.stand();
+			battle.character.stand();
 		}
 	}
 

@@ -56,9 +56,9 @@ public class LoadingImage {
 	// private static TextureRegion man3Stand;
 	public Animation<TextureRegion>[] man3Animation;
 
-	public static TextureAtlas atlasWoman;
-	// private static TextureRegion woman1Stand;
-	public static Animation<TextureRegion> woman1Animation;
+
+	public static TextureRegion woman1Stand;
+	public static Animation<TextureRegion>[] woman1Animation;
 
 	// private static TextureRegion woman2Stand;
 	public Animation<TextureRegion>[] woman2Animation;
@@ -126,10 +126,10 @@ public class LoadingImage {
 		man1Animation = new Animation[4];
 		man2Animation = new Animation[4];
 		man3Animation = new Animation[4];
-		// woman1Animation = new Animation[4];
+		woman1Animation = new Animation[4];
 		woman2Animation = new Animation[4];
 		woman3Animation = new Animation[4];
-
+				
 		playerStand = new TextureRegion();
 		man1Stand = new TextureRegion();
 		battleCharacterStand = new TextureRegion();
@@ -147,12 +147,6 @@ public class LoadingImage {
 
 		texture = new Texture("assets/lancia.png");
 		createBattleFrame(texture, enemyAnimation, enemyStand);
-		// atlasWoman = new
-		// TextureAtlas("C:/Users/Nicholas/Desktop/gdx/female.pack");
-		// atlasWoman.findRegion("LEFT");
-		// woman1Animation = new Animation<TextureRegion>(0.2f,
-		// atlasWoman.findRegions("LEFT"), PlayMode.LOOP);
-		
 	
 		bluePotionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/bluePotion.png")));
 		bluePotion = new ImageButton(bluePotionDrawable);
@@ -174,8 +168,6 @@ public class LoadingImage {
 		
 		leftArrowDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/leftArrow.png")));
 		leftArrow = new ImageButton(leftArrowDrawable);
-
-		
 		
 		emptyBagIconDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/emptyIcon.png")));
 		emptyBagIcon = new ImageButton(emptyBagIconDrawable);
@@ -186,28 +178,6 @@ public class LoadingImage {
 		
 	}
 
-	public static TextureRegion frameWoman(Object ob) {
-		StateDynamicObject state = ((DynamicObjects) ob).getCurrentState();
-		TextureRegion region = null;
-		switch (state) {
-		case RUNNINGRIGHT:
-			atlasWoman.findRegion("RIGHT");
-			region = woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
-		case RUNNINGLEFT:
-			System.out.println(atlasWoman.findRegion("LEFT"));
-			region = (TextureRegion) woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
-		case RUNNINGDOWN:
-			atlasWoman.findRegion("DOWN");
-			region = woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
-		case RUNNINGUP:
-			atlasWoman.findRegion("UP");
-			region = woman1Animation.getKeyFrame(((DynamicObjects) ob).getStateTimer(), true);
-		default:
-			region = woman1Animation.getKeyFrame(0, true);
-			break;
-		}
-		return region;
-	}
 
 	private void createBattleFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation, TextureRegion stand) {
 		Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -374,6 +344,9 @@ public class LoadingImage {
 		case "Man":
 			animation = man1Animation;
 			break;
+		case "Woman":
+			animation = woman1Animation;
+			break;
 		case "CharacterBattle":
 			animation = battleCharacterAnimation;
 			break;
@@ -396,6 +369,9 @@ public class LoadingImage {
 			break;
 		case "Man":
 			textureRegion = man1Stand;
+			break;
+		case "Woman":
+			textureRegion = woman1Stand;
 			break;
 		case "CharacterBattle":
 			textureRegion = battleCharacterStand;
