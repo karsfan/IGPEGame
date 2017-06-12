@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameSlagyom extends Game {
 
 	public static enum State {
-		MENU, NEWGAME, CONTINUEGAME, OPTIONMENU, PLAYING, BATTLE, PAUSE, WELCOME, BAG
+		MENU, NEWGAME, CONTINUEGAME, OPTIONMENU, PLAYING, BATTLE, PAUSE, WELCOME, BAG, SHOP
 	};
 
 	private static State currentState;
@@ -21,6 +21,8 @@ public class GameSlagyom extends Game {
 	static PauseScreen pauseScreen;
 	static PlayScreen playScreen;
 	static BagScreen bagScreen;
+	static ShopScreen shopScreen;
+
 
 	public static Preferences prefs;
 	SpriteBatch batch;
@@ -120,6 +122,10 @@ public class GameSlagyom extends Game {
 			bagScreen = new BagScreen(this);
 			setScreen(bagScreen);
 			Gdx.input.setInputProcessor(bagScreen.stage);
+		} else if (currentState == State.SHOP) {
+			shopScreen = new ShopScreen(this);
+			setScreen(shopScreen);
+			Gdx.input.setInputProcessor(shopScreen.stage);
 		} else if (currentState == State.CONTINUEGAME) {
 			setScreen(playScreen);
 			Gdx.input.setInputProcessor(null);

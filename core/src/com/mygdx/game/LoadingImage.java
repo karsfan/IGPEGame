@@ -84,8 +84,11 @@ public class LoadingImage {
 	public static Drawable swordDrawable; 
 	public static ImageButton sword;
 	
-	public static Drawable emptyIconDrawable; 
-	public static ImageButton emptyIcon;
+	public static Drawable emptyBagIconDrawable; 
+	public static ImageButton emptyBagIcon;
+	
+	public static Drawable emptyShopIconDrawable; 
+	public static ImageButton emptyShopIcon;
 	
 	public static Drawable leftArrowDrawable; 
 	public static Drawable rightArrowDrawable; 
@@ -174,8 +177,13 @@ public class LoadingImage {
 
 		
 		
-		emptyIconDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/emptyIcon.png")));
-		emptyIcon = new ImageButton(emptyIconDrawable);
+		emptyBagIconDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/emptyIcon.png")));
+		emptyBagIcon = new ImageButton(emptyBagIconDrawable);
+		
+		emptyShopIconDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/shop/emptyIcon.png")));
+		emptyShopIcon = new ImageButton(emptyShopIconDrawable);
+		
+		
 	}
 
 	public static TextureRegion frameWoman(Object ob) {
