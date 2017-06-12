@@ -343,11 +343,7 @@ public class BagScreen implements Screen {
 		stage.act();
 		stage.draw();
 
-<<<<<<< HEAD
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
-=======
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){			
->>>>>>> 98ace6410e14a6ce001327875162378221ef1ecd
 			game.swapScreen(GameSlagyom.State.PLAYING);
 			Game.world.semaphore.release();
 		}

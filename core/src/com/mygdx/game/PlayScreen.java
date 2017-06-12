@@ -65,7 +65,7 @@ public class PlayScreen implements Screen {
 	@SuppressWarnings({})
 	@Override
 	public void render(float delta) {
-		System.out.println(Game.world.semaphore.getQueueLength());
+		//System.out.println(Game.world.semaphore.getQueueLength());
 		update(delta);
 		hud.update();
 		Gdx.gl.glClearColor(0, 0, 0, 1);

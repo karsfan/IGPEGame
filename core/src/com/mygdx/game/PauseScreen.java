@@ -104,7 +104,7 @@ public class PauseScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				game.swapScreen(State.SHOP);
-				game.swapScreen(State.BAG);
+				//game.swapScreen(State.BAG);
 
 			}
 		});
@@ -168,7 +168,7 @@ public class PauseScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		System.out.println(Game.world.semaphore.getQueueLength()+"pausa");
+		//System.out.println(Game.world.semaphore.getQueueLength()+"pausa");
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

@@ -66,8 +66,7 @@ public class Man extends DynamicObjects implements ICollidable {
 	}
 
 	public void movesRight(float dt) {
-		if (dt > 0.017)
-			dt = (float) 0.0165;
+		
 		if (x < GameConfig.WIDTH - width / 2) {
 			x += velocity * dt;
 			if (collide(this)) {
@@ -75,11 +74,15 @@ public class Man extends DynamicObjects implements ICollidable {
 				x -= velocity * dt;
 			}
 		}
+		else{
+			
+			changeDirection(getCurrentState());
+		}
 		if (passi < 50000) {
 			passi++;
 			setState(StateDynamicObject.RUNNINGRIGHT, dt);
 		} else {
-			int rand = (int) (Math.random() * 10);
+			int rand = (int) (Math.random() * 7);
 
 			if (rand == 1) {
 				passi = 0;
@@ -102,20 +105,21 @@ public class Man extends DynamicObjects implements ICollidable {
 
 	public void movesLeft(float dt) {
 
-		if (dt > 0.017)
-			dt = (float) 0.0165;
 		if (x > 5) {
 			x -= velocity * dt;
 			if (collide(this)) {
-				// collision = true;
 				x += velocity * dt;
 			}
+		}
+		else{
+			
+			changeDirection(getCurrentState());
 		}
 		if (passi < 50000) {
 			passi++;
 			setState(StateDynamicObject.RUNNINGLEFT, dt);
 		} else {
-			int rand = (int) (Math.random() * 10);
+			int rand = (int) (Math.random() * 7);
 
 			if (rand == 1) {
 				passi = 0;
@@ -137,21 +141,23 @@ public class Man extends DynamicObjects implements ICollidable {
 	}
 
 	public void movesUp(float dt) {
-		if (dt > 0.017)
-			dt = (float) 0.0165;
+		
 		if (y < GameConfig.HEIGHT - height - 5) {
 			y += velocity * dt;
 			if (collide(this)) {
 				y -= velocity * dt;
-				// collision = true;
 			}
+		}
+		else{
+		
+			changeDirection(getCurrentState());
 		}
 
 		if (passi < 50000) {
 			passi++;
 			setState(StateDynamicObject.RUNNINGUP, dt);
 		} else {
-			int rand = (int) (Math.random() * 10);
+			int rand = (int) (Math.random() * 7);
 
 			if (rand == 1) {
 				passi = 0;
@@ -173,8 +179,7 @@ public class Man extends DynamicObjects implements ICollidable {
 	}
 
 	public void movesDown(float dt) {
-		if (dt > 0.017)
-			dt = (float) 0.0165;
+		
 		if (y > 0) {
 			y -= velocity * dt;
 			if (collide(this)) {
@@ -182,11 +187,15 @@ public class Man extends DynamicObjects implements ICollidable {
 				// collision = true;
 			}
 		}
+		else{
+			
+			changeDirection(getCurrentState());
+		}
 		if (passi < 50000) {
 			passi++;
 			setState(StateDynamicObject.RUNNINGDOWN, dt);
 		} else {
-			int rand = (int) (Math.random() * 10);
+			int rand = (int) (Math.random() * 7);
 
 			if (rand == 1) {
 				passi = 0;
