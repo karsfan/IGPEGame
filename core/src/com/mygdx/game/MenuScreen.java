@@ -103,7 +103,7 @@ public class MenuScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				game.swapScreen(State.OPTIONMENU);
-			//	game.swapScreen(State.PAUSE);
+			
 			}
 		});
 		exitButton.addListener(new ClickListener() {

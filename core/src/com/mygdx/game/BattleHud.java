@@ -21,7 +21,7 @@ public class BattleHud {
 	
 	Integer healthCharacter;
 	Integer healthEnemy;
-	@SuppressWarnings("static-access")
+
 	public BattleHud(SpriteBatch batch) {
 		spriteBatch = batch;
 		
@@ -50,7 +50,7 @@ public class BattleHud {
 		stage.addActor(table);
 
 	}
-	@SuppressWarnings("static-access")
+
 	public void update(float dt){
 		
 		healthCharacter = (int) Game.world.battle.character.getHealth();

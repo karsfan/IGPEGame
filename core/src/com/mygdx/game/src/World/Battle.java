@@ -5,8 +5,8 @@ import com.mygdx.game.src.Character.CharacterBattle;
 
 public class Battle implements Runnable {
 
-	public static CharacterBattle character;
-	public static Enemy enemy;
+	public CharacterBattle character;
+	public Enemy enemy;
 	public static int WIDTH;
 	public static int HEIGHT;
 
@@ -15,7 +15,6 @@ public class Battle implements Runnable {
 		enemy = null;
 	}
 
-	@SuppressWarnings({ "deprecation", "static-access" })
 	public Battle(Character character, Enemy enemy) {
 		this.character = new CharacterBattle(character);
 		// this.enemy = enemy;
@@ -33,7 +32,15 @@ public class Battle implements Runnable {
 
 	}
 
-	public static boolean update(float dt) {
+	public Enemy getEnemy() {
+		return enemy;
+	}
+
+	public void setEnemy(Enemy enemy) {
+		this.enemy = enemy;
+	}
+
+	public  boolean update(float dt) {
 		// moveEnemy(dt);
 		if (enemy.health <= 0){
 			System.out.println("Hai vinto");

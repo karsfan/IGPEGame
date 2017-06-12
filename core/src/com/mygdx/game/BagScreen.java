@@ -339,8 +339,10 @@ public class BagScreen implements Screen {
 		stage.act();
 		stage.draw();
 
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE))
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			game.swapScreen(GameSlagyom.State.PLAYING);
+			Game.world.semaphore.release();
+		}
 
 		if (currentPocket == Pocket.POTIONS) {
 			potionsTable.setVisible(true);

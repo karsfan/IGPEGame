@@ -111,14 +111,15 @@ public class World {
 
 
 		if (level < 1) {
-			semaphore.acquire();
 			level++;
 
+			semaphore.acquire();
 			people = new ArrayList<DynamicObjects>();
 			getMap().setCurrent(false);
 			maps[level].setCurrent(true);
 			people.add(Game.character);
-			addDynamicObject();
+			while(!addDynamicObject());
+			addItems();
 			semaphore.release();
 		}
 

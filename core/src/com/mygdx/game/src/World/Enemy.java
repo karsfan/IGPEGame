@@ -69,22 +69,21 @@ public class Enemy extends DynamicObjects {
 			setStateTimer(getStateTimer() + Gdx.graphics.getDeltaTime());
 		else
 			setStateTimer(0);
-		// System.out.println(getCurrentState() + " "+ stateTimer);
 	}
 
-	@SuppressWarnings("static-access")
+	
 	public void update(float dt) {
 		if (!fighting && !jumping && !doubleJumping) {
 			int rand = (int) (Math.random() * 10);
 			if (rand == 1)
 				;//jump(dt);
-			else if (x - Battle.character.getX() < 100 && x - Battle.character.getX() > 0)
+			else if (x - Game.world.battle.character.getX() < 100 && x - Game.world.battle.character.getX() > 0)
 				fightLeft();
-			else if (Battle.character.getX() - x < 100 && Battle.character.getX() - x > 0)
+			else if (Game.world.battle.character.getX() - x < 100 && Game.world.battle.character.getX() - x > 0)
 				fightRight();
-			else if (Battle.character.getX() > x)
+			else if (Game.world.battle.character.getX() > x)
 				movesRight(dt);
-			else if (x > Battle.character.getX())
+			else if (x > Game.world.battle.character.getX())
 				movesLeft(dt);
 		}
 		if (fighting && fightingTimeCurrent < fightingTime) {
@@ -116,7 +115,7 @@ public class Enemy extends DynamicObjects {
 	public void fightRight() {
 		width += weapon.getWidth();
 		if (collide())
-			Battle.character.decreaseHealth(weapon);
+			Game.world.battle.character.decreaseHealth(weapon);
 		width -= weapon.getWidth();
 
 		setState(StateDynamicObject.FIGHTINGRIGHT);
@@ -127,7 +126,7 @@ public class Enemy extends DynamicObjects {
 	public void fightLeft() {
 		x -= weapon.getWidth();
 		if (collide())
-			Battle.character.decreaseHealth(weapon);
+			Game.world.battle.character.decreaseHealth(weapon);
 		x += weapon.getWidth();
 
 		setState(StateDynamicObject.FIGHTINGLEFT);
@@ -180,7 +179,7 @@ public class Enemy extends DynamicObjects {
 		}
 	}
 
-	@SuppressWarnings("static-access")
+	
 	public boolean collide() {
 
 		if (!((x > Game.world.battle.character.getX() + Game.world.battle.character.getWidth() / 2

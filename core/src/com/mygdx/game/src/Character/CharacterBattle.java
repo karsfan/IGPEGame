@@ -1,7 +1,6 @@
 package com.mygdx.game.src.Character;
 
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
-import com.mygdx.game.src.World.Battle;
 import com.mygdx.game.src.World.Game;
 import com.mygdx.game.src.World.GameConfig;
 import com.mygdx.game.src.World.Weapon;
@@ -59,7 +58,6 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		return character.getWidth();
 	}
 
-	@SuppressWarnings("static-access")
 	public void update(float dt) {
 		if (fighting && fightingTimeCurrent < fightingTime) {
 			fightingTimeCurrent += dt;
@@ -71,8 +69,7 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		dt = 0.35f;
 		if ((jumping || doubleJumping) && character.y + velocityY * dt > 250) {
 			character.y += velocityY * dt;
-			//character.x += velocityX * dt;
-			// System.out.println(character.y+" "+(dt));
+			
 			updateVelocityY(dt);
 			setState(StateDynamicObject.JUMPING, dt);
 
@@ -93,7 +90,7 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 	public void fightRight(float dt) {
 		character.width += character.primary_weapon.getWidth();
 		if (collide())
-			Battle.enemy.decreaseHealth(character.primary_weapon);
+			Game.world.battle.enemy.decreaseHealth(character.primary_weapon);
 		character.width -= character.primary_weapon.getWidth();
 
 		setState(StateDynamicObject.FIGHTINGRIGHT, dt);
@@ -104,7 +101,7 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 	public void fightLeft(float dt) {
 		character.x -= character.primary_weapon.getWidth();
 		if (collide())
-			Battle.enemy.decreaseHealth(character.primary_weapon);
+			Game.world.battle.enemy.decreaseHealth(character.primary_weapon);
 		character.x += character.primary_weapon.getWidth();
 
 		setState(StateDynamicObject.FIGHTINGLEFT, dt);
@@ -175,7 +172,6 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 		return false;
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public boolean collide() {
 

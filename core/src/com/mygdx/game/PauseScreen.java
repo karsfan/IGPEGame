@@ -84,11 +84,10 @@ public class PauseScreen implements Screen {
 		});
 
 		returnButton.addListener(new ClickListener() {
-			@SuppressWarnings({ "deprecation" })
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Game.world.getThread().resume();
 				game.swapScreen(State.PLAYING);
+				Game.world.semaphore.release();
 			}
 		});
 		menuButton.addListener(new ClickListener() {
@@ -167,6 +166,7 @@ public class PauseScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		System.out.println(Game.world.semaphore.getQueueLength()+"pausa");
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
