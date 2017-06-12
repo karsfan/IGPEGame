@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.src.World.Game;
+import com.mygdx.game.src.World.GameConfig;
 import com.mygdx.game.src.World.ICollidable;
 import com.mygdx.game.src.World.Tile;
 import com.mygdx.game.src.World.Weapon;
@@ -26,7 +27,7 @@ public class Character extends DynamicObjects implements ICollidable {
 		super();
 		this.name = name;
 		bag = new Bag();
-		primary_weapon = new Weapon("Lancia", Level.BASIC, Type.LANCIA);
+		primary_weapon = new Weapon(Level.BASIC, Type.LANCIA);
 		health = 100;
 		power = 100;
 		coins = 0;
@@ -113,7 +114,7 @@ public class Character extends DynamicObjects implements ICollidable {
 
 	public void movesRight(float dt) {
 
-		if (x < 1440 - width / 2) {
+		if (x < GameConfig.WIDTH - width / 2) {
 			x += (velocity * dt);
 			if (collide(this))
 				x -= (velocity * dt);
@@ -133,7 +134,7 @@ public class Character extends DynamicObjects implements ICollidable {
 
 	public void movesUp(float dt) {
 
-		if (y < 960 - height - 5) {
+		if (y < GameConfig.HEIGHT - height - 5) {
 			y += (velocity * dt);
 			if (collide(this)) {
 				y -= (velocity * dt);

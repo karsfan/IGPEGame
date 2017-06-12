@@ -66,16 +66,19 @@ public class BattleScreen implements Screen {
 
 		handleInput(dt);
 		hud.update(dt);
-		Battle.update(dt);
+		if(Battle.update(dt)){
+			gameslagyom.swapScreen(State.PLAYING);
+			Game.world.semaphore.release();
+		}
 
 	}
 
-	@SuppressWarnings({ "deprecation" })
 	private void handleInput(float dt) {
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			// va messo in pausa e poi in caso bisogna ritornare nel playscreen
 			gameslagyom.swapScreen(State.PLAYING);
+			Game.world.semaphore.release();
 		}
 		moveCharacter(dt);
 	}

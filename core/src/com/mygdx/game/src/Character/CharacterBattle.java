@@ -3,6 +3,7 @@ package com.mygdx.game.src.Character;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
 import com.mygdx.game.src.World.Battle;
 import com.mygdx.game.src.World.Game;
+import com.mygdx.game.src.World.GameConfig;
 import com.mygdx.game.src.World.Weapon;
 
 public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
@@ -111,9 +112,8 @@ public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
 
 	}
 
-	@SuppressWarnings("static-access")
 	public void updateVelocityY(float dt) {
-		velocityY -= Game.world.battle.gravity * dt;
+		velocityY -= GameConfig.gravity * dt;
 	}
 
 	public void stand() {

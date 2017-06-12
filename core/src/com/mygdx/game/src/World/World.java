@@ -55,7 +55,7 @@ public class World {
 
 	public boolean addDynamicObject() {
 		// people.clear();
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < GameConfig.numMan; i++) {
 			Man man = new Man();
 			people.add(man);
 		}
@@ -63,7 +63,7 @@ public class World {
 	}
 
 	public boolean addItems() {
-		for (int i = 0; i < 54; i++) {
+		for (int i = 0; i < GameConfig.numItems; i++) {
 			Item item = new Item();
 			getListItems().add(item);
 		}

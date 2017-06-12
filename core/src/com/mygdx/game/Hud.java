@@ -34,7 +34,7 @@ public class Hud {
 		table.setFillParent(true);
 
 		nameLabel = new Label(Game.character.name, MenuScreen.skin);
-		healthLabel = new Label(String.format("%03d", Game.character.coins), MenuScreen.skin);
+		healthLabel = new Label(String.format("%3d", Game.character.coins), MenuScreen.skin);
 		villageLabel = new Label(String.format(Game.world.getMap().getNameVillage()), MenuScreen.skin);
 
 		table.add(nameLabel).expandX().pad(20);

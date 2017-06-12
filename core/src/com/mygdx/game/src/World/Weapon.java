@@ -1,5 +1,7 @@
 package com.mygdx.game.src.World;
 
+import java.util.Random;
+
 public class Weapon {
 	public enum Type {
 		SPADA, ARCO, LANCIA, FRECCIA
@@ -9,29 +11,24 @@ public class Weapon {
 		BASIC, NORMAL, RARE
 	};
 
-	public String name;
 	float damage;
 	Level level;
 	Type type;
 	private float width;
 
-	public Weapon(String name, Level level, Type type) {
+	public Weapon(Level level, Type type) {
 
-		this.name = name;
 		this.level = level;
 		this.type = type;
 		switch (this.type) {
 		case SPADA:
-			damage = 10;
-			setWidth(10);
+			setWeapon(type, level);
 			break;
 		case ARCO:
-			damage = 8;
-			setWidth(0);
+			setWeapon(type, level);
 			break;
 		case LANCIA:
-			damage = 8;
-			setWidth(35);
+			setWeapon(type, level);
 			break;
 		case FRECCIA:
 			damage = 8;
@@ -41,19 +38,88 @@ public class Weapon {
 		}
 	}
 
-	public Weapon() {
-		name = new String();
-
+	public Weapon(Level level) {
+		this.level = level;
+		Random rand = new Random();
+		int r = rand.nextInt(5);
+		switch (r) {
+		case 0:
+			type = Type.SPADA;
+			setWeapon(type, level);
+			break;
+		case 1:
+			type = Type.LANCIA;
+			setWeapon(type, level);
+			break;
+		case 2:
+			type = Type.ARCO;
+			setWeapon(type, level);
+			break;
+		default:
+			break;
+		}
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+	public void setWeapon(Type type, Level level) {
+		switch (type) {
+		case SPADA:
+			switch (level) {
+			case BASIC:
+				damage = 10;
+				width = 10;
+				break;
+			case NORMAL:
+				damage = 17;
+				width = 14;
+				break;
+			case RARE:
+				damage = 30;
+				width = 18;
+				break;
+			default:
+				break;
+			}
+			
+		case LANCIA:
+			switch (level) {
+			case BASIC:
+				damage = 8;
+				width = 35;
+				break;
+			case NORMAL:
+				damage = 14;
+				width = 39;
+				break;
+			case RARE:
+				damage = 22;
+				width = 45;
+				break;
+			default:
+				break;
+			}
+			
+		case ARCO:
+			switch (level) {
+			case BASIC:
+				damage = 8;
+				width = 15;
+				break;
+			case NORMAL:
+				damage = 14;
+				width = 15;
+				break;
+			case RARE:
+				damage = 21;
+				width = 15;
+				break;
+			default:
+				break;
+			}
+		default:
+			break;
 
-	public String getName() {
-		return name;
+		}
 	}
-
 	/*
 	 * public void upgrade(Bag bag) { if (level < 3) { level++; powerPoints =
 	 * level * 20; damage += 20; bag.deleteParchments(level); } }

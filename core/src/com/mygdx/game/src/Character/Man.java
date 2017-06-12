@@ -3,6 +3,7 @@ package com.mygdx.game.src.Character;
 import java.util.Iterator;
 
 import com.mygdx.game.src.World.Game;
+import com.mygdx.game.src.World.GameConfig;
 import com.mygdx.game.src.World.ICollidable;
 import com.mygdx.game.src.World.Tile;
 import com.mygdx.game.src.Map.StaticObject.Element;
@@ -67,7 +68,7 @@ public class Man extends DynamicObjects implements ICollidable {
 	public void movesRight(float dt) {
 		if (dt > 0.017)
 			dt = (float) 0.0165;
-		if (x < 1440 - width / 2) {
+		if (x < GameConfig.WIDTH - width / 2) {
 			x += velocity * dt;
 			if (collide(this)) {
 				// collision = true;
@@ -138,7 +139,7 @@ public class Man extends DynamicObjects implements ICollidable {
 	public void movesUp(float dt) {
 		if (dt > 0.017)
 			dt = (float) 0.0165;
-		if (y < 960 - height - 5) {
+		if (y < GameConfig.HEIGHT - height - 5) {
 			y += velocity * dt;
 			if (collide(this)) {
 				y -= velocity * dt;

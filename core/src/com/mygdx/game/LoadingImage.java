@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.src.Character.CharacterBattle;
 import com.mygdx.game.src.Character.DynamicObjects;
 import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
+import com.mygdx.game.src.Map.Item;
+import com.mygdx.game.src.Map.Item.Level;
 import com.mygdx.game.src.Map.StaticObject;
 import com.mygdx.game.src.Map.StaticObject.Element;
 import com.mygdx.game.src.World.Enemy;
@@ -32,8 +34,10 @@ public class LoadingImage {
 	private static Texture tableImage;
 	private static Texture coinImage;
 	private static Texture battleBackground;
-	private static Texture potionImage;
-
+	private static Texture bluPotionImage;
+	private static Texture redPotionImage;
+	private static Texture greenPotionImage;
+	
 	public static TextureRegion battleCharacterStand;
 	public static Animation<TextureRegion>[] battleCharacterAnimation;
 
@@ -109,8 +113,11 @@ public class LoadingImage {
 		battleBackground = new Texture("res/battleBg.png");
 		// ITEM-IMAGE
 		coinImage = new Texture("res/coin.png");
-		potionImage = new Texture("res/bluePotion.png");
-
+		bluPotionImage = new Texture("res/bluePotion.png");
+		greenPotionImage = new Texture("res/greenPotion.png");
+		//redPotionImage = new Texture("res/bag/redPotion.png");
+		
+		
 		playerAnimation = new Animation[4];
 		enemyAnimation = new Animation[4];
 		man1Animation = new Animation[4];
@@ -444,7 +451,10 @@ public class LoadingImage {
 		case PARCHMENT:
 			break;
 		case POTION:
-			texture = potionImage;
+			if(((Item) ob).getLevel()==Level.FIRST)
+			texture = bluPotionImage;
+			if(((Item) ob).getLevel()==Level.SECOND)
+				texture = greenPotionImage;
 			break;
 		default:
 			break;

@@ -167,6 +167,7 @@ public class PlayScreen implements Screen {
 				
 			} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
 				Game.world.createBattle();
+				Game.world.semaphore.acquire();
 				game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
 			} else if (Gdx.input.isKeyJustPressed(Keys.B)) {
 				Game.world.nextLevel();

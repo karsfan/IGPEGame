@@ -59,8 +59,11 @@ public class Item extends StaticObject {
 			shape.width = 14;
 			shape.height = 14;
 			positionItem();
-			level = Level.FIRST;
-
+			r = rand.nextInt(2);
+			if(r == 0)
+				level = Level.FIRST;
+			if (r == 1)
+				level = Level.SECOND;
 			break;
 		case 2:
 			element = Element.PARCHMENT;

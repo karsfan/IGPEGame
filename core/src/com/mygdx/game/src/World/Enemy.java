@@ -33,7 +33,7 @@ public class Enemy extends DynamicObjects {
 		this.health = life;
 		this.power = power;
 		// this.weapon = weapon;
-		this.weapon = new Weapon("Lancia", com.mygdx.game.src.World.Weapon.Level.BASIC, Type.LANCIA);
+		this.weapon = new Weapon(com.mygdx.game.src.World.Weapon.Level.BASIC, Type.LANCIA);
 		this.win_bonus = win_bonus;
 		this.level = level;
 
@@ -135,9 +135,8 @@ public class Enemy extends DynamicObjects {
 
 	}
 
-	@SuppressWarnings("static-access")
 	public void updateVelocityY(float dt) {
-		velocityY -= Game.world.battle.gravity * dt;
+		velocityY -= GameConfig.gravity * dt;
 	}
 
 	public void stand() {
