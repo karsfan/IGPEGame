@@ -28,7 +28,7 @@ public class Enemy extends DynamicObjects {
 
 	public Enemy(String name, float life, float power, Weapon weapon, Pack win_bonus, Level level) {
 
-		velocity = 80;
+		velocity = 60;
 		this.setName(name);
 		this.health = life;
 		this.power = power;

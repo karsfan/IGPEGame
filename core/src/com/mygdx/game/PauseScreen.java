@@ -33,6 +33,7 @@ public class PauseScreen implements Screen {
 	private Sprite backgroundSprite;
 	
 	public PauseScreen(final GameSlagyom game) {
+		
 		this.game = game;
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);

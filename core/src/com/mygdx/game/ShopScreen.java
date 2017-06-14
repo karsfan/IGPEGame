@@ -49,14 +49,17 @@ public class ShopScreen implements Screen {
 	private TextButton delete;
 	private TextButton exit;
 	private Label coins;
-	
+
 	public Item itemSelected;
 	TextButton[] potions;
+
 	public ShopScreen(final GameSlagyom game) {
 		this.game = game;
 		itemSelected = new Item();
 		camera = new OrthographicCamera();
-		viewport = new FitViewport(640, 480);
+		// camera.setToOrtho(false, 640, 480);
+
+		viewport = new FitViewport(640, 480, camera);
 		selection = false;
 		viewport.apply();
 		background = new Texture("res/shop/shopBackground.png");
@@ -65,8 +68,9 @@ public class ShopScreen implements Screen {
 		selectionBackground = new Texture("res/shop/shopSelectionBG.png");
 		selectionBackgroundSprite = new Sprite(selectionBackground);
 
-		camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-		camera.update();
+		// camera.position.set(camera.viewportWidth / 2, camera.viewportHeight /
+		// 2, 0);
+		// camera.update();
 
 		stage = new Stage(viewport, game.batch);
 
@@ -80,29 +84,29 @@ public class ShopScreen implements Screen {
 		buy = new TextButton("Buy", MenuScreen.skin);
 		delete = new TextButton("Delete", MenuScreen.skin);
 		exit = new TextButton("Return", MenuScreen.skin);
-		
+
 		delete.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Game.character.bag.removeItem(itemSelected.getElement(), itemSelected.getLevel());
 				potions[0].setText("Blue potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.FIRST));
 				potions[1].setText("Red potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.SECOND));
-				potions[2].setText("Green potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD)); 
+				potions[2].setText("Green potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD));
 			}
 		});
-		
+
 		exit.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				showInfo (LoadingImage.emptyShopIcon);
+				showInfo(LoadingImage.emptyShopIcon);
 				hideInfo();
 			}
 		});
-		
+
 		LoadingImage.emptyShopIcon.setPosition(41, 43);
 		LoadingImage.rightArrow.setPosition(183, 274);
 		LoadingImage.leftArrow.setPosition(15, 274);
-		coins = new Label ("" + Game.character.coins, MenuScreen.skin);
+		coins = new Label("" + Game.character.coins, MenuScreen.skin);
 		coins.setPosition(99, 274);
 		LoadingImage.emptyShopIcon.setVisible(true);
 
@@ -151,14 +155,26 @@ public class ShopScreen implements Screen {
 		// POTIONS TABLE
 		potionsTable = new Table();
 		Label potionsLabel;
-		
+
 		potionsTable.setLayoutEnabled(false);
 
 		potionsLabel = new Label("Potions", MenuScreen.skin);
 		potions = new TextButton[3];
-		potions[0] = new TextButton("Blue potion    $"/* + Game.character.bag.getNumberOf(Element.POTION, Level.FIRST)*/, MenuScreen.skin);
-		potions[1] = new TextButton("Red potion    $" /*+ Game.character.bag.getNumberOf(Element.POTION, Level.SECOND)*/, MenuScreen.skin);
-		potions[2] = new TextButton("Green potion  $" /*+ Game.character.bag.getNumberOf(Element.POTION, Level.THIRD)*/ , MenuScreen.skin); 
+		potions[0] = new TextButton(
+				"Blue potion    $"/*
+									 * + Game.character.bag.getNumberOf(Element.
+									 * POTION, Level.FIRST)
+									 */, MenuScreen.skin);
+		potions[1] = new TextButton(
+				"Red potion    $" /*
+									 * + Game.character.bag.getNumberOf(Element.
+									 * POTION, Level.SECOND)
+									 */, MenuScreen.skin);
+		potions[2] = new TextButton(
+				"Green potion  $" /*
+									 * + Game.character.bag.getNumberOf(Element.
+									 * POTION, Level.THIRD)
+									 */ , MenuScreen.skin);
 
 		potions[0].addListener(new ClickListener() {
 			@Override
@@ -307,7 +323,7 @@ public class ShopScreen implements Screen {
 		optionsTable.removeActor(icon);
 		optionsTable.add(icon);
 		LoadingImage.emptyShopIcon.setVisible(false);
-		
+
 		selection = true;
 		buy.setVisible(true);
 		delete.setVisible(true);
@@ -332,6 +348,7 @@ public class ShopScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		game.batch.begin();
 		if (selection)
 			selectionBackgroundSprite.draw(game.batch);
@@ -343,7 +360,7 @@ public class ShopScreen implements Screen {
 		stage.act();
 		stage.draw();
 
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){			
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			game.swapScreen(GameSlagyom.State.PLAYING);
 			Game.world.semaphore.release();
 		}
@@ -361,14 +378,19 @@ public class ShopScreen implements Screen {
 			potionsTable.setVisible(false);
 			weaponsTable.setVisible(false);
 		}
-		
-	
+
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		viewport.update(width, height);
-		camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+		// viewport.update(width, height);
+		stage.getViewport().setWorldWidth(width);
+		stage.getViewport().setWorldHeight(height);
+		// camera.viewportHeight = height;
+		// camera.viewportWidth = width;
+		// backgroundSprite.setSize(width, height);
+		// camera.position.set(camera.viewportWidth / 2, camera.viewportHeight /
+		// 2, 0);
 		camera.update();
 	}
 

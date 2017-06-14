@@ -128,8 +128,9 @@ public class Tile extends StaticObject implements ICollidable {
 
 	@Override
 	public boolean collide(Object e) {
+	
 		if (e instanceof Character) {
-			if (!((shape.x  > ((Character) e).getX() + ((Character) e).getWidth() / 2 - 1
+			if (!((shape.x  > ((Character) e).getX() + ((Character) e).getWidth() / 2 
 					|| ((Character) e).getX() > shape.x  + shape.width)
 					|| (shape.y > ((Character) e).getY() + ((Character) e).getHeight() / 2
 							|| ((Character) e).getY() > shape.y + shape.height))) {
@@ -137,7 +138,7 @@ public class Tile extends StaticObject implements ICollidable {
 			}
 		}
 		if (e instanceof Man) {
-			if (!((shape.x > ((Man) e).getX() + ((Man) e).getWidth() / 2 - 1
+			if (!((shape.x > ((Man) e).getX() + ((Man) e).getWidth() / 2 
 					|| ((Man) e).getX() > shape.x + shape.width)
 					|| (shape.y > ((Man) e).getY() + ((Man) e).getHeight() / 2
 							|| ((Man) e).getY() > shape.y + shape.height)))
