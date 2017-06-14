@@ -61,11 +61,10 @@ public class PlayScreen implements Screen {
 		stop = true;
 	}
 
-	
 	@SuppressWarnings({})
 	@Override
 	public void render(float delta) {
-		//System.out.println(Game.world.semaphore.getQueueLength());
+		// System.out.println(Game.world.semaphore.getQueueLength());
 		update(delta);
 		hud.update();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -127,7 +126,6 @@ public class PlayScreen implements Screen {
 
 	}
 
-	
 	private void moveCharacter(float dt) {
 		try {
 			if (Gdx.input.isKeyPressed(Keys.Z)) {
@@ -156,14 +154,16 @@ public class PlayScreen implements Screen {
 				gamecam.position.x = Game.character.getX();
 				gamecam.position.y = Game.character.getY();
 
-			} else if (Gdx.input.isKeyJustPressed(Keys.ENTER) && stop) {
-				hud.showDialog = !hud.showDialog;
+			} else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+				hud.showDialog = false;
 				hideDialog();
-				Game.world.semaphore.release();
-				stop = false;
+				if (stop) {
+					Game.world.semaphore.release();
+					stop = false;
+				}
 			} else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 				game.swapScreen(GameSlagyom.State.PAUSE);
-				
+
 			} else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
 				Game.world.createBattle();
 				Game.world.semaphore.acquire();
@@ -202,7 +202,7 @@ public class PlayScreen implements Screen {
 				game.batch.draw(LoadingImage.getFrame(ob), ((DynamicObjects) ob).getX(), ((DynamicObjects) ob).getY(),
 						((DynamicObjects) ob).getWidth(), ((DynamicObjects) ob).getHeight());
 		}
-		//game.batch.draw(LoadingImage.woman1Stand, 500, 500, 160,160);
+		// game.batch.draw(LoadingImage.woman1Stand, 500, 500, 160,160);
 	}
 
 	@Override

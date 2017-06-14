@@ -84,9 +84,9 @@ public class BagScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Game.character.bag.removeItem(itemSelected.getElement(), itemSelected.getLevel());
-				potions[0].setText("Blue potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.FIRST));
-				potions[1].setText("Red potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.SECOND));
-				potions[2].setText("Green potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD));
+				potions[0].setText("Blue potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.FIRST));
+				potions[1].setText("Green potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.SECOND));
+				potions[2].setText("Red potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD));
 			}
 		});
 
@@ -155,9 +155,9 @@ public class BagScreen implements Screen {
 		potions = new TextButton[3];
 		potions[0] = new TextButton("Blue potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.FIRST),
 				MenuScreen.skin);
-		potions[1] = new TextButton("Red potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.SECOND),
+		potions[1] = new TextButton("Green potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.SECOND),
 				MenuScreen.skin);
-		potions[2] = new TextButton("Green potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD),
+		potions[2] = new TextButton("Red potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD),
 				MenuScreen.skin);
 
 		potions[0].addListener(new ClickListener() {
@@ -172,7 +172,7 @@ public class BagScreen implements Screen {
 		potions[1].addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				showInfo(LoadingImage.redPotion);
+				showInfo(LoadingImage.greenPotion);
 				itemSelected.setElement(Element.POTION);
 				itemSelected.setLevel(Level.SECOND);
 			}
@@ -181,7 +181,7 @@ public class BagScreen implements Screen {
 		potions[2].addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				showInfo(LoadingImage.greenPotion);
+				showInfo(LoadingImage.redPotion);
 				itemSelected.setElement(Element.POTION);
 				itemSelected.setLevel(Level.THIRD);
 			}
