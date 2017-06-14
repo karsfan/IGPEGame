@@ -2,10 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.src.Character.CharacterBattle;
@@ -37,7 +35,7 @@ public class LoadingImage {
 	private static Texture bluPotionImage;
 	private static Texture redPotionImage;
 	private static Texture greenPotionImage;
-	
+
 	public static TextureRegion battleCharacterStand;
 	public static Animation<TextureRegion>[] battleCharacterAnimation;
 
@@ -56,7 +54,6 @@ public class LoadingImage {
 	// private static TextureRegion man3Stand;
 	public Animation<TextureRegion>[] man3Animation;
 
-
 	public static TextureRegion woman1Stand;
 	public static Animation<TextureRegion>[] woman1Animation;
 
@@ -66,40 +63,20 @@ public class LoadingImage {
 	// private static TextureRegion woman3Stand;
 	public Animation<TextureRegion>[] woman3Animation;
 
-	
-	// MODIFICHE RISCHIOSE
-	
-	public static Drawable bluePotionDrawable; 
+	// BAG IMAGE BUTTONS
 	public static ImageButton bluePotion;
-	
-	public static Drawable redPotionDrawable; 
 	public static ImageButton redPotion;
-	
-	public static Drawable greenPotionDrawable; 
 	public static ImageButton greenPotion;
-	
-	public static Drawable spearDrawable; 
 	public static ImageButton spear;
-	
-	public static Drawable swordDrawable; 
 	public static ImageButton sword;
-	
-	public static Drawable emptyBagIconDrawable; 
 	public static ImageButton emptyBagIcon;
-	
-	public static Drawable emptyShopIconDrawable; 
 	public static ImageButton emptyShopIcon;
-	
-	public static Drawable leftArrowDrawable; 
-	public static Drawable rightArrowDrawable; 
 	public static ImageButton leftArrow;
 	public static ImageButton rightArrow;
 
-	
-	
 	@SuppressWarnings("unchecked")
 	public LoadingImage() {
-		// TILEIMAGE
+		// TILES IMAGES
 		homeImage = new Texture("res/home.png");
 		bigHomeImage = new Texture("res/bigHome.png");
 		threeImage = new Texture("res/three.png");
@@ -112,15 +89,33 @@ public class LoadingImage {
 		forest1Image = new Texture("res/forest1.png");
 		forest2Image = new Texture("res/forest2.png");
 		tableImage = new Texture("res/table.png");
-
 		battleBackground = new Texture("res/battleBg.png");
-		// ITEM-IMAGE
+
+		// WORLD ITEM IMAGES
 		coinImage = new Texture("res/coin.png");
 		bluPotionImage = new Texture("res/bluePotion.png");
 		greenPotionImage = new Texture("res/greenPotion.png");
-		//redPotionImage = new Texture("res/bag/redPotion.png");
-		
-		
+		redPotionImage = new Texture("res/redPotion.png");
+
+		// BAG AND SHOP ITEM IMAGES
+		bluePotion = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/bluePotion.png"))));
+		redPotion = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/redPotion.png"))));
+		greenPotion = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/greenPotion.png"))));
+		spear = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/spear.png"))));
+		sword = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/spear.png"))));
+
+		rightArrow = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/rightArrow.png"))));
+		leftArrow = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/leftArrow.png"))));
+
+		emptyBagIcon = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/emptyIcon.png"))));
+		emptyShopIcon = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture("res/shop/emptyIcon.png"))));
+
+		// WORLD ANIMATIONS
 		playerAnimation = new Animation[4];
 		enemyAnimation = new Animation[4];
 		man1Animation = new Animation[4];
@@ -129,7 +124,7 @@ public class LoadingImage {
 		woman1Animation = new Animation[4];
 		woman2Animation = new Animation[4];
 		woman3Animation = new Animation[4];
-				
+
 		playerStand = new TextureRegion();
 		man1Stand = new TextureRegion();
 		battleCharacterStand = new TextureRegion();
@@ -147,37 +142,7 @@ public class LoadingImage {
 
 		texture = new Texture("assets/lancia.png");
 		createBattleFrame(texture, enemyAnimation, enemyStand);
-	
-		bluePotionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/bluePotion.png")));
-		bluePotion = new ImageButton(bluePotionDrawable);
-		
-		redPotionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/redPotion.png")));
-		redPotion = new ImageButton(redPotionDrawable);
-		
-		greenPotionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/greenPotion.png")));
-		greenPotion = new ImageButton(greenPotionDrawable);
-		
-		spearDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/spear.png")));
-		spear = new ImageButton(spearDrawable);
-		
-		swordDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/cazzo.png")));
-		sword = new ImageButton(swordDrawable);
-		
-		rightArrowDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/rightArrow.png")));
-		rightArrow = new ImageButton(rightArrowDrawable);
-		
-		leftArrowDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/leftArrow.png")));
-		leftArrow = new ImageButton(leftArrowDrawable);
-		
-		emptyBagIconDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/bag/emptyIcon.png")));
-		emptyBagIcon = new ImageButton(emptyBagIconDrawable);
-		
-		emptyShopIconDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("res/shop/emptyIcon.png")));
-		emptyShopIcon = new ImageButton(emptyShopIconDrawable);
-		
-		
 	}
-
 
 	private void createBattleFrame(Texture texture, Animation<TextureRegion>[] arrayAnimation, TextureRegion stand) {
 		Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -185,6 +150,7 @@ public class LoadingImage {
 		Animation<TextureRegion> left;
 		Animation<TextureRegion> fightingRight;
 		Animation<TextureRegion> fightingLeft;
+
 		for (int i = 0; i < 8; i++) {
 			frames.add(new TextureRegion(texture, i * 64, 65, 65, 65));
 		}
@@ -208,7 +174,7 @@ public class LoadingImage {
 		}
 		fightingLeft = new Animation<TextureRegion>(0.2f, frames);
 		frames.clear();
-		
+
 		arrayAnimation[0] = right;
 		arrayAnimation[1] = left;
 		arrayAnimation[2] = fightingRight;
@@ -226,6 +192,7 @@ public class LoadingImage {
 		Animation<TextureRegion> left;
 		Animation<TextureRegion> up;
 		Animation<TextureRegion> down;
+
 		for (int i = 0; i < 8; i++) {
 			frames.add(new TextureRegion(texture, i * 64 / 2, 93, 60 / 2, 60 / 2));
 		}
@@ -249,6 +216,7 @@ public class LoadingImage {
 		}
 		up = new Animation<TextureRegion>(0.2f, frames);
 		frames.clear();
+
 		arrayAnimation[0] = right;
 		arrayAnimation[1] = left;
 		arrayAnimation[2] = up;
@@ -435,10 +403,12 @@ public class LoadingImage {
 		case PARCHMENT:
 			break;
 		case POTION:
-			if(((Item) ob).getLevel()==Level.FIRST)
-			texture = bluPotionImage;
-			if(((Item) ob).getLevel()==Level.SECOND)
+			if (((Item) ob).getLevel() == Level.FIRST)
+				texture = bluPotionImage;
+			if (((Item) ob).getLevel() == Level.SECOND)
 				texture = greenPotionImage;
+			if (((Item) ob).getLevel() == Level.THIRD)
+				texture = redPotionImage;
 			break;
 		default:
 			break;

@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -49,6 +50,10 @@ public class Hud {
 		Drawable hudBG = new TextureRegionDrawable(new TextureRegion(new Texture("res/hudBg.png")));
 		
 		table.setBackground(hudBG);
+		
+		textTable.setX(Gdx.graphics.getHeight()/2);
+		textTable.setY(15);
+		
 		stage.addActor(table);
 		stage.addActor(textTable);
 	}
