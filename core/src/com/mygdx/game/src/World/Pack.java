@@ -13,21 +13,21 @@ public class Pack {
 		items = new ArrayList<Item>();
 		switch (level) {
 		case EASY:
-			weapon = new Weapon(Weapon.Level.BASIC);
+			weapon = new Weapon(Weapon.Level.lev1);
 			for (int i = 0; i < 10; i++) {
 				Item item = new Item();
 				items.add(item);
 			}
 
 		case MEDIUM:
-			weapon = new Weapon(Weapon.Level.NORMAL);
+			weapon = new Weapon(Weapon.Level.lev2);
 			for (int i = 0; i < 15; i++) {
 				Item item = new Item();
 				items.add(item);
 			}
 
 		case HARD:
-			weapon = new Weapon(Weapon.Level.RARE);
+			weapon = new Weapon(Weapon.Level.lev3);
 			for (int i = 0; i < 30; i++) {
 				Item item = new Item();
 				items.add(item);

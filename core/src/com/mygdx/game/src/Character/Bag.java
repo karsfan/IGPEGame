@@ -11,7 +11,7 @@ import com.mygdx.game.src.World.Weapon;
 public class Bag {
 	int capacity;
 	public ArrayList<Item> bagItems; 
-	Weapon secondary_weapon;
+	public Weapon secondary_weapon;
 
 	public Bag() {
 		capacity = 50;
@@ -21,7 +21,6 @@ public class Bag {
 
 	public boolean addTool(Item item) {
 		if (bagItems.size() < capacity) {
-			System.out.println(bagItems.size());
 			bagItems.add(item);
 			return true;
 		}

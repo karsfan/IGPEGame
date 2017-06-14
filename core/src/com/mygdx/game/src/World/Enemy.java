@@ -33,7 +33,7 @@ public class Enemy extends DynamicObjects {
 		this.health = life;
 		this.power = power;
 		// this.weapon = weapon;
-		this.weapon = new Weapon(com.mygdx.game.src.World.Weapon.Level.BASIC, Type.LANCIA);
+		this.weapon = new Weapon(com.mygdx.game.src.World.Weapon.Level.lev1, Type.Spear);
 		this.win_bonus = win_bonus;
 		this.level = level;
 

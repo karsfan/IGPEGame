@@ -4,16 +4,18 @@ import java.util.Random;
 
 public class Weapon {
 	public enum Type {
-		SPADA, ARCO, LANCIA, FRECCIA
+		Sword, Bow, Spear, Freccia
 	};
 
 	public enum Level {
-		BASIC, NORMAL, RARE
+		lev1, lev2, lev3
 	};
 
 	float damage;
 	Level level;
+
 	Type type;
+
 	private float width;
 
 	public Weapon(Level level, Type type) {
@@ -21,16 +23,16 @@ public class Weapon {
 		this.level = level;
 		this.type = type;
 		switch (this.type) {
-		case SPADA:
+		case Sword:
 			setWeapon(type, level);
 			break;
-		case ARCO:
+		case Bow:
 			setWeapon(type, level);
 			break;
-		case LANCIA:
+		case Spear:
 			setWeapon(type, level);
 			break;
-		case FRECCIA:
+		case Freccia:
 			damage = 8;
 			setWidth(0);
 		default:
@@ -44,15 +46,15 @@ public class Weapon {
 		int r = rand.nextInt(5);
 		switch (r) {
 		case 0:
-			type = Type.SPADA;
+			type = Type.Sword;
 			setWeapon(type, level);
 			break;
 		case 1:
-			type = Type.LANCIA;
+			type = Type.Spear;
 			setWeapon(type, level);
 			break;
 		case 2:
-			type = Type.ARCO;
+			type = Type.Bow;
 			setWeapon(type, level);
 			break;
 		default:
@@ -62,53 +64,53 @@ public class Weapon {
 
 	public void setWeapon(Type type, Level level) {
 		switch (type) {
-		case SPADA:
+		case Sword:
 			switch (level) {
-			case BASIC:
+			case lev1:
 				damage = 10;
 				width = 10;
 				break;
-			case NORMAL:
+			case lev2:
 				damage = 17;
 				width = 14;
 				break;
-			case RARE:
+			case lev3:
 				damage = 30;
 				width = 18;
 				break;
 			default:
 				break;
 			}
-			
-		case LANCIA:
+
+		case Spear:
 			switch (level) {
-			case BASIC:
+			case lev1:
 				damage = 8;
 				width = 35;
 				break;
-			case NORMAL:
+			case lev2:
 				damage = 14;
 				width = 39;
 				break;
-			case RARE:
+			case lev3:
 				damage = 22;
 				width = 45;
 				break;
 			default:
 				break;
 			}
-			
-		case ARCO:
+
+		case Bow:
 			switch (level) {
-			case BASIC:
+			case lev1:
 				damage = 8;
 				width = 15;
 				break;
-			case NORMAL:
+			case lev2:
 				damage = 14;
 				width = 15;
 				break;
-			case RARE:
+			case lev3:
 				damage = 21;
 				width = 15;
 				break;
@@ -127,6 +129,14 @@ public class Weapon {
 
 	public float getDamage() {
 		return damage;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public Level getLevel() {
+		return level;
 	}
 
 	public float getWidth() {

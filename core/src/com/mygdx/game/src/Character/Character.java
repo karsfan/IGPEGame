@@ -27,7 +27,7 @@ public class Character extends DynamicObjects implements ICollidable {
 		super();
 		this.name = name;
 		bag = new Bag();
-		primary_weapon = new Weapon(Level.BASIC, Type.LANCIA);
+		primary_weapon = new Weapon(Level.lev1, Type.Spear);
 		health = 100;
 		power = 100;
 		coins = 0;

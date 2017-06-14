@@ -145,7 +145,6 @@ public class BagScreen implements Screen {
 
 		// END OPTIONS TABLE
 
-		
 		// POTIONS TABLE
 		potionsTable = new Table();
 		Label potionsLabel;
@@ -201,7 +200,6 @@ public class BagScreen implements Screen {
 		potionsTable.add(potions[2]);
 		// END POTIONS TABLE
 
-		
 		// WEAPON TABLE
 		weaponsTable = new Table();
 		Label weaponsLabel;
@@ -212,9 +210,10 @@ public class BagScreen implements Screen {
 
 		weaponsLabel = new Label("Weapons", MenuScreen.skin);
 		weapons = new TextButton[3];
-		weapons[0] = new TextButton("Ascia  x0", MenuScreen.skin);
-		weapons[1] = new TextButton("Spada  x0", MenuScreen.skin);
-		weapons[2] = new TextButton("Mazza  x0", MenuScreen.skin);
+
+		weapons[0] = new TextButton(Game.character.primary_weapon.getType().toString()+ " " + Game.character.primary_weapon.getLevel().toString(), MenuScreen.skin);
+		weapons[1] = new TextButton("Sword  lev", MenuScreen.skin);
+		weapons[2] = new TextButton("Bow  lev", MenuScreen.skin);
 
 		weapons[0].addListener(new ClickListener() {
 			@Override
@@ -259,13 +258,9 @@ public class BagScreen implements Screen {
 		parchmentsTable.setLayoutEnabled(false);
 
 		parchmentsLabel = new Label("Parchments", MenuScreen.skin);
-		parchments = new TextButton[3];
-		parchments[0] = new TextButton("Parchment1  x" + Game.character.bag.getNumberOf(Element.PARCHMENT, Level.FIRST),
-				MenuScreen.skin);
-		parchments[1] = new TextButton("Parchment2  x" + Game.character.bag.getNumberOf(Element.PARCHMENT, Level.SECOND),
-				MenuScreen.skin);
-		parchments[2] = new TextButton("Parchment3  x" + Game.character.bag.getNumberOf(Element.PARCHMENT, Level.THIRD),
-				MenuScreen.skin);
+		parchments = new TextButton[2];
+		parchments[0] = new TextButton("Parchment1", MenuScreen.skin);
+		parchments[1] = new TextButton("Parchment2", MenuScreen.skin);
 
 		parchments[0].addListener(new ClickListener() {
 			@Override
@@ -281,13 +276,6 @@ public class BagScreen implements Screen {
 			}
 		});
 
-		parchments[2].addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				showInfo(LoadingImage.spear);
-			}
-		});
-
 		parchmentsLabel.setPosition(20, 425);
 		parchmentsTable.add(parchmentsLabel);
 
@@ -297,8 +285,6 @@ public class BagScreen implements Screen {
 		parchments[1].setPosition(250, 370);
 		parchmentsTable.add(parchments[1]);
 
-		parchments[2].setPosition(250, 320);
-		parchmentsTable.add(parchments[2]);
 		// END PARCHMENTS TABLE
 
 		stage.addActor(potionsTable);
