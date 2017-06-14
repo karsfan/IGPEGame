@@ -378,14 +378,14 @@ public class ShopScreen implements Screen {
 			potionsTable.setVisible(false);
 			weaponsTable.setVisible(false);
 		}
-
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		// viewport.update(width, height);
-		stage.getViewport().setWorldWidth(width);
-		stage.getViewport().setWorldHeight(height);
+		stage.getViewport().setScreenSize(width, height);
+		//stage.getViewport().setWorldWidth(width);
+		//stage.getViewport().setWorldHeight(height);
 		// camera.viewportHeight = height;
 		// camera.viewportWidth = width;
 		// backgroundSprite.setSize(width, height);
