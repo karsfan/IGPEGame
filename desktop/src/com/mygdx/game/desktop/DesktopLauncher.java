@@ -11,6 +11,7 @@ public class DesktopLauncher {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		config.width = 854;
 		config.height = 480;
 =======
@@ -19,6 +20,9 @@ public class DesktopLauncher {
 =======
 		
 >>>>>>> 2c8db7dc96448855c7e66d24423185617f72eb0f
+=======
+		
+>>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
 =======
 		
 >>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9

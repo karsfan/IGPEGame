@@ -8,6 +8,7 @@ public class GameConfig {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public static int numMan = 30;
 =======
 	public static int numMan = 20;
@@ -15,6 +16,9 @@ public class GameConfig {
 =======
 	public static int numMan = 20;
 >>>>>>> 2c8db7dc96448855c7e66d24423185617f72eb0f
+=======
+	public static int numMan = 20;
+>>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
 =======
 	public static int numMan = 20;
 >>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9

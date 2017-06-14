@@ -65,8 +65,6 @@ public class PlayScreen implements Screen {
 	@SuppressWarnings({})
 	@Override
 	public void render(float delta) {
-		Gdx.input.setCursorCatched(true);
-
 		update(delta);
 		
 		hud.update();

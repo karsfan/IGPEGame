@@ -379,7 +379,10 @@ public class ShopScreen implements Screen {
 			weaponsTable.setVisible(false);
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
 =======
 >>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
 	}
@@ -388,8 +391,14 @@ public class ShopScreen implements Screen {
 	public void resize(int width, int height) {
 		// viewport.update(width, height);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		stage.getViewport().setWorldWidth(width);
 		stage.getViewport().setWorldHeight(height);
+=======
+		stage.getViewport().setScreenSize(width, height);
+		//stage.getViewport().setWorldWidth(width);
+		//stage.getViewport().setWorldHeight(height);
+>>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
 =======
 		stage.getViewport().setScreenSize(width, height);
 		//stage.getViewport().setWorldWidth(width);

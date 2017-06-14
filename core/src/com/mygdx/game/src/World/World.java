@@ -28,6 +28,7 @@ public class World {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		maps[0] = new Map("res/map/Map1", true, "VILLAGE 1");
 		maps[1] = new Map("res/map/newMap", false ,"VILLAGE 2");
 =======
@@ -38,6 +39,10 @@ public class World {
 		maps[0] = new Map("res/map/Map1", true, "Village one");
 		maps[1] = new Map("res/map/newMap", false ,"Village two");
 >>>>>>> 2c8db7dc96448855c7e66d24423185617f72eb0f
+=======
+		maps[0] = new Map("res/map/Map1", true, "Village one");
+		maps[1] = new Map("res/map/newMap", false ,"Village two");
+>>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
 =======
 		maps[0] = new Map("res/map/Map1", true, "Village one");
 		maps[1] = new Map("res/map/newMap", false ,"Village two");
@@ -56,6 +61,7 @@ public class World {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		maps[0] = new Map(path, true, "VILLAGE 1");
 		maps[1] = new Map("res/map/map", false, "VILLAGE 2");
 =======
@@ -66,6 +72,10 @@ public class World {
 		maps[0] = new Map("res/map/Map1", true, "Village one");
 		maps[1] = new Map("res/map/map", false, "Village two");
 >>>>>>> 2c8db7dc96448855c7e66d24423185617f72eb0f
+=======
+		maps[0] = new Map("res/map/Map1", true, "Village one");
+		maps[1] = new Map("res/map/map", false, "Village two");
+>>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
 =======
 		maps[0] = new Map("res/map/Map1", true, "Village one");
 		maps[1] = new Map("res/map/map", false, "Village two");
