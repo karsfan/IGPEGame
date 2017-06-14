@@ -211,7 +211,7 @@ public class ShopScreen implements Screen {
 		weaponsLabel = new Label("Weapons", MenuScreen.skin);
 		weapons = new TextButton[3];
 		weapons[0] = new TextButton("Ascia", MenuScreen.skin);
-		weapons[1] = new TextButton("Cazzo", MenuScreen.skin);
+		weapons[1] = new TextButton("Spada", MenuScreen.skin);
 		weapons[2] = new TextButton("Mazza", MenuScreen.skin);
 
 		weapons[0].addListener(new ClickListener() {

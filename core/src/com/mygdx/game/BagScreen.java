@@ -50,6 +50,7 @@ public class BagScreen implements Screen {
 	private TextButton exit;
 	public Item itemSelected;
 	TextButton[] potions;
+
 	public BagScreen(final GameSlagyom game) {
 		this.game = game;
 		itemSelected = new Item();
@@ -78,21 +79,21 @@ public class BagScreen implements Screen {
 		use = new TextButton("Use", MenuScreen.skin);
 		delete = new TextButton("Delete", MenuScreen.skin);
 		exit = new TextButton("Return", MenuScreen.skin);
-		
+
 		delete.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Game.character.bag.removeItem(itemSelected.getElement(), itemSelected.getLevel());
 				potions[0].setText("Blue potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.FIRST));
 				potions[1].setText("Red potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.SECOND));
-				potions[2].setText("Green potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD)); 
+				potions[2].setText("Green potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD));
 			}
 		});
-		
+
 		exit.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				showInfo (LoadingImage.emptyBagIcon);
+				showInfo(LoadingImage.emptyBagIcon);
 				hideInfo();
 			}
 		});
@@ -144,17 +145,21 @@ public class BagScreen implements Screen {
 
 		// END OPTIONS TABLE
 
+		
 		// POTIONS TABLE
 		potionsTable = new Table();
 		Label potionsLabel;
-		
+
 		potionsTable.setLayoutEnabled(false);
 
 		potionsLabel = new Label("Potions", MenuScreen.skin);
 		potions = new TextButton[3];
-		potions[0] = new TextButton("Blue potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.FIRST), MenuScreen.skin);
-		potions[1] = new TextButton("Red potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.SECOND), MenuScreen.skin);
-		potions[2] = new TextButton("Green potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD) , MenuScreen.skin); 
+		potions[0] = new TextButton("Blue potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.FIRST),
+				MenuScreen.skin);
+		potions[1] = new TextButton("Red potion    x" + Game.character.bag.getNumberOf(Element.POTION, Level.SECOND),
+				MenuScreen.skin);
+		potions[2] = new TextButton("Green potion  x" + Game.character.bag.getNumberOf(Element.POTION, Level.THIRD),
+				MenuScreen.skin);
 
 		potions[0].addListener(new ClickListener() {
 			@Override
@@ -196,6 +201,7 @@ public class BagScreen implements Screen {
 		potionsTable.add(potions[2]);
 		// END POTIONS TABLE
 
+		
 		// WEAPON TABLE
 		weaponsTable = new Table();
 		Label weaponsLabel;
@@ -206,9 +212,9 @@ public class BagScreen implements Screen {
 
 		weaponsLabel = new Label("Weapons", MenuScreen.skin);
 		weapons = new TextButton[3];
-		weapons[0] = new TextButton("Ascia", MenuScreen.skin);
-		weapons[1] = new TextButton("Cazzo", MenuScreen.skin);
-		weapons[2] = new TextButton("Mazza", MenuScreen.skin);
+		weapons[0] = new TextButton("Ascia  x0", MenuScreen.skin);
+		weapons[1] = new TextButton("Spada  x0", MenuScreen.skin);
+		weapons[2] = new TextButton("Mazza  x0", MenuScreen.skin);
 
 		weapons[0].addListener(new ClickListener() {
 			@Override
@@ -254,9 +260,12 @@ public class BagScreen implements Screen {
 
 		parchmentsLabel = new Label("Parchments", MenuScreen.skin);
 		parchments = new TextButton[3];
-		parchments[0] = new TextButton("Parchment1", MenuScreen.skin);
-		parchments[1] = new TextButton("Parchment2", MenuScreen.skin);
-		parchments[2] = new TextButton("Parchment3", MenuScreen.skin);
+		parchments[0] = new TextButton("Parchment1  x" + Game.character.bag.getNumberOf(Element.PARCHMENT, Level.FIRST),
+				MenuScreen.skin);
+		parchments[1] = new TextButton("Parchment2  x" + Game.character.bag.getNumberOf(Element.PARCHMENT, Level.SECOND),
+				MenuScreen.skin);
+		parchments[2] = new TextButton("Parchment3  x" + Game.character.bag.getNumberOf(Element.PARCHMENT, Level.THIRD),
+				MenuScreen.skin);
 
 		parchments[0].addListener(new ClickListener() {
 			@Override
@@ -301,11 +310,11 @@ public class BagScreen implements Screen {
 
 	private void showInfo(ImageButton icon) {
 		icon.setPosition(41, 43);
-		//optionsTable.add(LoadingImage.emptyBagIcon);
+		// optionsTable.add(LoadingImage.emptyBagIcon);
 		optionsTable.removeActor(icon);
 		optionsTable.add(icon);
 		LoadingImage.emptyBagIcon.setVisible(false);
-		
+
 		selection = true;
 		use.setVisible(true);
 		delete.setVisible(true);
@@ -313,8 +322,8 @@ public class BagScreen implements Screen {
 	}
 
 	private void hideInfo() {
-		//optionsTable.removeActor(LoadingImage.emptyBagIcon);
-		//optionsTable.add(LoadingImage.emptyBagIcon);
+		// optionsTable.removeActor(LoadingImage.emptyBagIcon);
+		// optionsTable.add(LoadingImage.emptyBagIcon);
 		LoadingImage.emptyBagIcon.setVisible(true);
 
 		selection = false;
@@ -343,7 +352,7 @@ public class BagScreen implements Screen {
 		stage.act();
 		stage.draw();
 
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){			
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			game.swapScreen(GameSlagyom.State.PLAYING);
 			Game.world.semaphore.release();
 		}
@@ -361,8 +370,7 @@ public class BagScreen implements Screen {
 			potionsTable.setVisible(false);
 			weaponsTable.setVisible(false);
 		}
-		
-	
+
 	}
 
 	@Override

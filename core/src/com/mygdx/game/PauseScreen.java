@@ -57,6 +57,8 @@ public class PauseScreen implements Screen {
 		TextButton loadGame = new TextButton("Load game", MenuScreen.skin);
 		TextButton exitButton = new TextButton("Exit", MenuScreen.skin);
 		TextButton menuButton = new TextButton("Menu", MenuScreen.skin);
+		
+		
 		//final Drawable noDialog = null;
 
 		// Add listeners to buttons
@@ -103,10 +105,8 @@ public class PauseScreen implements Screen {
 		bagButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				//game.swapScreen(State.SHOP);
 				game.swapScreen(State.BAG);
-				game.swapScreen(State.SHOP);
-				//game.swapScreen(State.BAG);
+			//	game.swapScreen(State.SHOP);
 
 			}
 		});
@@ -120,14 +120,14 @@ public class PauseScreen implements Screen {
 		// Add buttons to table
 		mainTable.add(pauseLabel).pad(30);
 		mainTable.row();
-		mainTable.add(saveGame).padTop(Gdx.graphics.getHeight() / 3 - Gdx.graphics.getHeight() / 5);
+		mainTable.add(bagButton).padTop(Gdx.graphics.getHeight() / 3 - Gdx.graphics.getHeight() / 5);
 		mainTable.row();
-		mainTable.add(loadGame).pad(5);
+		mainTable.add(saveGame).pad(5);
 		mainTable.row().pad(15);
 		
-		mainTable.add(returnButton).pad(5);
+		mainTable.add(loadGame).pad(5);
 		mainTable.row();
-		mainTable.add(bagButton).pad(5);
+		mainTable.add(returnButton).pad(5);
 		mainTable.row();
 		mainTable.add(menuButton).pad(5);
 		mainTable.row();
@@ -135,13 +135,11 @@ public class PauseScreen implements Screen {
 		mainTable.row();
 
 		stage.addActor(mainTable);
-		
-		
-		
+			
 		
 		Table helpTable = new Table(); 
-		helpTable.bottom().padLeft(Gdx.graphics.getWidth()+10);
-
+		helpTable.setFillParent(true);
+		helpTable.bottom();
 		
 		Drawable arrowDraw = new TextureRegionDrawable(new TextureRegion(new Texture("res/help/arrow.png")));
 		final ImageButton arrow = new ImageButton(arrowDraw);

@@ -23,7 +23,7 @@ public class Item extends StaticObject {
 	public Item(float x, float y, Element element, Level level) {
 		switch (element) {
 		case COIN:
-			shape = new Rectangle((int) x, (int) y, 11, 11);
+			shape = new Rectangle((int) x, (int) y, 14, 14);
 			break;
 		case POTION:
 			shape = new Rectangle((int) x, (int) y, 14, 14);
@@ -59,11 +59,13 @@ public class Item extends StaticObject {
 			shape.width = 14;
 			shape.height = 14;
 			positionItem();
-			r = rand.nextInt(2);
+			r = rand.nextInt(3);
 			if(r == 0)
 				level = Level.FIRST;
 			if (r == 1)
 				level = Level.SECOND;
+			if (r == 2)
+				level = Level.THIRD;
 			break;
 		case 2:
 			element = Element.PARCHMENT;

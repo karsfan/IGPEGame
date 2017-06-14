@@ -55,7 +55,6 @@ public class GameSlagyom extends Game {
 		prefs.putInteger("coins", com.mygdx.game.src.World.Game.character.coins);
 
 		prefs.flush();
-
 	}
 
 	@SuppressWarnings({ "deprecation" })
