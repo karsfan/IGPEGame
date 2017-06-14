@@ -22,7 +22,7 @@ public class Character extends DynamicObjects implements ICollidable {
 	public float health;
 	public float power;
 	public int coins;
-
+	public boolean collideDoor=false;
 	public Character(String name) {
 		super();
 		this.name = name;
@@ -220,6 +220,9 @@ public class Character extends DynamicObjects implements ICollidable {
 					if (((Tile) ob).collide(this)) {
 						if (((Tile) ob).getElement() == Element.TABLE)
 							PlayScreen.hud.setDialogText(((Tile) ob).getInfo());
+						else if(((Tile) ob).getElement() == Element.HOME)
+							if(((Tile) ob).collideDoor(this))
+								collideDoor = true;
 						return true;
 					}
 			}

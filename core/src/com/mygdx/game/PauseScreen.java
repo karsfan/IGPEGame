@@ -33,6 +33,7 @@ public class PauseScreen implements Screen {
 	private Sprite backgroundSprite;
 	
 	public PauseScreen(final GameSlagyom game) {
+		
 		this.game = game;
 		camera = new OrthographicCamera();
 		viewport = new ExtendViewport(500, 500, camera);
@@ -171,7 +172,7 @@ public class PauseScreen implements Screen {
 		//System.out.println(Game.world.semaphore.getQueueLength()+"pausa");
 		Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+		Gdx.input.setCursorCatched(false);
 		game.batch.begin();
 		backgroundSprite.draw(game.batch);
 		game.batch.end();
