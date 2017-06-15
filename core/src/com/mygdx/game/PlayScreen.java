@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package it.slagyom;
 
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -16,13 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.GameSlagyom.State;
-import com.mygdx.game.src.Character.DynamicObjects;
-import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
-import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Map.StaticObject;
-import com.mygdx.game.src.World.Game;
-import com.mygdx.game.src.World.Tile;
+import it.slagyom.GameSlagyom.State;
+import it.slagyom.src.Character.DynamicObjects;
+import it.slagyom.src.Character.DynamicObjects.StateDynamicObject;
+import it.slagyom.src.Map.Item;
+import it.slagyom.src.Map.StaticObject;
+import it.slagyom.src.World.Game;
+import it.slagyom.src.World.Tile;
 
 public class PlayScreen implements Screen {
 
@@ -168,7 +168,7 @@ public class PlayScreen implements Screen {
 				else if (Gdx.input.isKeyJustPressed(Keys.Y)) {
 					Game.world.createBattle();
 					Game.world.semaphore.acquire();
-					game.swapScreen(com.mygdx.game.GameSlagyom.State.BATTLE);
+					game.swapScreen(it.slagyom.GameSlagyom.State.BATTLE);
 				} else if (Gdx.input.isKeyJustPressed(Keys.B)) {
 					Game.world.nextLevel();
 				} else
@@ -218,7 +218,7 @@ public class PlayScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		gamePort.update(width, height);
-
+		gamePort.setScreenSize(width, height);
 		// controlli per la posizione della camera
 		if (Gdx.graphics.getWidth() + Game.character.getX() - 1440 > 0
 				&& !(Game.character.getX() - Gdx.graphics.getWidth() / 2 < 0)) {

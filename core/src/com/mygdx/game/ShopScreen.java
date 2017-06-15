@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package it.slagyom;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
@@ -14,12 +14,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Map.Item.Level;
-import com.mygdx.game.src.Map.StaticObject.Element;
-import com.mygdx.game.src.World.Game;
+import it.slagyom.src.Map.Item;
+import it.slagyom.src.Map.Item.Level;
+import it.slagyom.src.Map.StaticObject.Element;
+import it.slagyom.src.World.Game;
 
 public class ShopScreen implements Screen {
 	private enum Category {
@@ -57,9 +59,10 @@ public class ShopScreen implements Screen {
 		this.game = game;
 		itemSelected = new Item();
 		camera = new OrthographicCamera();
-		// camera.setToOrtho(false, 640, 480);
-
-		viewport = new FitViewport(640, 480, camera);
+		viewport = new ExtendViewport(854, 480, camera);
+		//viewport = new ScreenViewport(camera);
+		//viewport = new StretchViewport(640, 480, camera);
+		// viewport = new FitViewport(640, 480, camera);
 		selection = false;
 		viewport.apply();
 		background = new Texture("res/shop/shopBackground.png");
@@ -67,10 +70,6 @@ public class ShopScreen implements Screen {
 
 		selectionBackground = new Texture("res/shop/shopSelectionBG.png");
 		selectionBackgroundSprite = new Sprite(selectionBackground);
-
-		// camera.position.set(camera.viewportWidth / 2, camera.viewportHeight /
-		// 2, 0);
-		// camera.update();
 
 		stage = new Stage(viewport, game.batch);
 
@@ -382,15 +381,13 @@ public class ShopScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// viewport.update(width, height);
-		stage.getViewport().setScreenSize(width, height);
-		//stage.getViewport().setWorldWidth(width);
-		//stage.getViewport().setWorldHeight(height);
-		// camera.viewportHeight = height;
-		// camera.viewportWidth = width;
-		// backgroundSprite.setSize(width, height);
-		// camera.position.set(camera.viewportWidth / 2, camera.viewportHeight /
-		// 2, 0);
+		if (height < 705){
+			width = 1253;
+			Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+		}
+		viewport.update(width, height);
+		//stage.getViewport().setScreenSize(width, height);
+		//camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
 		camera.update();
 	}
 

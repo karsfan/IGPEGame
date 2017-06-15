@@ -1,4 +1,4 @@
-package com.mygdx.game.src.World;
+package it.slagyom.src.World;
 
 public class GameConfig {
 	public static float gravity = 17f;

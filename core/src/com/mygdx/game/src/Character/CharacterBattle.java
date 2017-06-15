@@ -1,11 +1,11 @@
-package com.mygdx.game.src.Character;
+package it.slagyom.src.Character;
 
-import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
-import com.mygdx.game.src.World.Game;
-import com.mygdx.game.src.World.GameConfig;
-import com.mygdx.game.src.World.Weapon;
+import it.slagyom.src.Character.DynamicObjects.StateDynamicObject;
+import it.slagyom.src.World.Game;
+import it.slagyom.src.World.GameConfig;
+import it.slagyom.src.World.Weapon;
 
-public class CharacterBattle implements com.mygdx.game.src.World.ICollidable {
+public class CharacterBattle implements it.slagyom.src.World.ICollidable {
 
 	public Character character;
 

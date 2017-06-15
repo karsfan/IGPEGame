@@ -1,14 +1,14 @@
-package com.mygdx.game.src.World;
+package it.slagyom.src.World;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
-import com.mygdx.game.src.Character.DynamicObjects;
-import com.mygdx.game.src.Character.Man;
-import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Map.Map;
+import it.slagyom.src.Character.DynamicObjects;
+import it.slagyom.src.Character.Man;
+import it.slagyom.src.Map.Item;
+import it.slagyom.src.Map.Map;
 
 public class World {
 
@@ -18,6 +18,7 @@ public class World {
 	private ThreadWorld thread;
 	public Semaphore semaphore;
 	int level;
+	float timerItem=0;
 	public boolean remove = false;
 
 	public World() {
@@ -74,7 +75,7 @@ public class World {
 	}
 
 	public void update(float dt) {
-
+		timerItem+=dt;
 		try {
 			semaphore.acquire();
 		} catch (InterruptedException e) {
@@ -90,6 +91,13 @@ public class World {
 		}
 
 		semaphore.release();
+		if(timerItem>=60)
+		{
+			Item item = new Item();
+			getMap().getListItems().add(item);
+			timerItem = 0;
+		}
+		
 
 	}
 

@@ -1,9 +1,9 @@
-package  com.mygdx.game.src.World;
+package  it.slagyom.src.World;
 
 import java.util.ArrayList;
 
-import com.mygdx.game.src.Map.StaticObject;
-import  com.mygdx.game.src.Tool.Tool;
+import it.slagyom.src.Map.StaticObject;
+import  it.slagyom.src.Tool.Tool;
 
 public class Shop extends StaticObject {
 	

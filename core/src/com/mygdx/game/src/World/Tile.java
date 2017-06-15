@@ -1,12 +1,12 @@
-package com.mygdx.game.src.World;
+package it.slagyom.src.World;
 
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import com.mygdx.game.src.Character.Character;
-import com.mygdx.game.src.Character.Man;
-import com.mygdx.game.src.Map.StaticObject;
+import it.slagyom.src.Character.Character;
+import it.slagyom.src.Character.Man;
+import it.slagyom.src.Map.StaticObject;
 
 public class Tile extends StaticObject implements ICollidable {
 

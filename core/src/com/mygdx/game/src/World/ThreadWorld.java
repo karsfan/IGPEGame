@@ -1,4 +1,4 @@
-package com.mygdx.game.src.World;
+package it.slagyom.src.World;
 
 import java.util.concurrent.Semaphore;
 

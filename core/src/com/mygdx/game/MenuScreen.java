@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package it.slagyom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -15,9 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.levels.editor.Editor;
-import com.mygdx.game.GameSlagyom.State;
+import it.slagyom.GameSlagyom.State;
 
 public class MenuScreen implements Screen {
 	 GameSlagyom game;
@@ -48,7 +49,8 @@ public class MenuScreen implements Screen {
 		returnButton = new TextButton("Return", skin);
 
 		camera = new OrthographicCamera();
-		viewport = new ExtendViewport(500, 500, camera);
+		//viewport = new StretchViewport(640, 480, camera);
+		viewport = new ExtendViewport(854, 480, camera);
 		viewport.apply();
 
 		background = new Texture("res/background.png");
@@ -150,8 +152,9 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		viewport.update(width, height);
-		camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+		//viewport.update(width, height);
+		stage.getViewport().setScreenSize(width, height);
+		//camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
 		camera.update();
 	}
 

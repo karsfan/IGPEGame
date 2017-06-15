@@ -1,14 +1,11 @@
-package com.mygdx.game.src.World;
+package it.slagyom.src.World;
 
-import com.mygdx.game.src.Character.Character;
-import com.mygdx.game.src.Character.Woman;
+import it.slagyom.src.Character.Character;
 
 public class Game {
 
 	public static World world;
 	public static Character character;
-
-	
 
 	public Game(String name) {
 
@@ -17,8 +14,6 @@ public class Game {
 		world.getListDynamicObjects().add(character);
 		while(!world.addDynamicObject());
 		while(!world.addItems());
-		Woman w = new Woman();
-		//world.getListDynamicObjects().add(w);
 		world.getThread().start();
 		
 	}

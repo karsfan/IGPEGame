@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package it.slagyom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.GameSlagyom.State;
-import com.mygdx.game.src.Character.CharacterBattle;
-import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
-import com.mygdx.game.src.World.Battle;
-import com.mygdx.game.src.World.Enemy;
-import com.mygdx.game.src.World.Game;
+import it.slagyom.GameSlagyom.State;
+import it.slagyom.src.Character.CharacterBattle;
+import it.slagyom.src.Character.DynamicObjects.StateDynamicObject;
+import it.slagyom.src.World.Battle;
+import it.slagyom.src.World.Enemy;
+import it.slagyom.src.World.Game;
 
 public class BattleScreen implements Screen {
 

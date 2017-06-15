@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package it.slagyom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -16,10 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Map.Item.Level;
-import com.mygdx.game.src.Map.StaticObject.Element;
-import com.mygdx.game.src.World.Game;
+import it.slagyom.src.Map.Item;
+import it.slagyom.src.Map.Item.Level;
+import it.slagyom.src.Map.StaticObject.Element;
+import it.slagyom.src.World.Game;
 
 public class BagScreen implements Screen {
 	private enum Pocket {
@@ -361,7 +361,8 @@ public class BagScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		viewport.update(width, height);
+		//viewport.update(width, height);
+		stage.getViewport().setScreenSize(width, height);
 		camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
 		camera.update();
 	}

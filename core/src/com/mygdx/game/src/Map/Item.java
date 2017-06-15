@@ -1,12 +1,12 @@
-package com.mygdx.game.src.Map;
+package it.slagyom.src.Map;
 
 import java.awt.Rectangle;
 import java.util.Iterator;
 import java.util.Random;
 
-import com.mygdx.game.src.Character.Character;
-import com.mygdx.game.src.World.Game;
-import com.mygdx.game.src.World.Tile;
+import it.slagyom.src.Character.Character;
+import it.slagyom.src.World.Game;
+import it.slagyom.src.World.Tile;
 
 public class Item extends StaticObject {
 

@@ -1,18 +1,18 @@
-package com.mygdx.game.src.Character;
+package it.slagyom.src.Character;
 
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.src.World.Game;
-import com.mygdx.game.src.World.GameConfig;
-import com.mygdx.game.src.World.ICollidable;
-import com.mygdx.game.src.World.Tile;
-import com.mygdx.game.src.World.Weapon;
-import com.mygdx.game.src.World.Weapon.Level;
-import com.mygdx.game.src.World.Weapon.Type;
-import com.mygdx.game.PlayScreen;
-import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Map.StaticObject.Element;
+import it.slagyom.src.World.Game;
+import it.slagyom.src.World.GameConfig;
+import it.slagyom.src.World.ICollidable;
+import it.slagyom.src.World.Tile;
+import it.slagyom.src.World.Weapon;
+import it.slagyom.src.World.Weapon.Level;
+import it.slagyom.src.World.Weapon.Type;
+import it.slagyom.PlayScreen;
+import it.slagyom.src.Map.Item;
+import it.slagyom.src.Map.StaticObject.Element;
 
 public class Character extends DynamicObjects implements ICollidable {
 

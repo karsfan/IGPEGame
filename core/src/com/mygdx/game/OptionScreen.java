@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package it.slagyom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.GameSlagyom.State;
+import it.slagyom.GameSlagyom.State;
 
 public class OptionScreen implements Screen {
 
@@ -26,6 +26,7 @@ public class OptionScreen implements Screen {
 	private Sprite backgroundSprite;
 
 	public boolean activeMusic;
+	public boolean fullscreen = false; 
 
 	public OptionScreen(final GameSlagyom game) {
 		this.game = game;
@@ -50,6 +51,8 @@ public class OptionScreen implements Screen {
 
 		// Create buttons
 		final TextButton musicButton = new TextButton("Music ON", MenuScreen.skin);
+		final TextButton fullscreenButton = new TextButton("Fullscreen OFF", MenuScreen.skin);
+
 		TextButton returnButton = new TextButton("Return", MenuScreen.skin);
 
 		// Add listeners to buttons
@@ -68,6 +71,22 @@ public class OptionScreen implements Screen {
 				}
 			}
 		});
+		
+		fullscreenButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				fullscreen = !fullscreen;
+				if (!fullscreen){
+					Gdx.graphics.setWindowedMode(854,480);
+					fullscreenButton.setText("Fullscreen OFF");
+				}
+				else{	
+					Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+					fullscreenButton.setText("Fullscreen ON");
+				}
+			}
+		});
+
 
 		returnButton.addListener(new ClickListener() {
 			@Override
@@ -77,6 +96,8 @@ public class OptionScreen implements Screen {
 		});
 		// Add buttons to table
 		mainTable.add(musicButton).pad(5).padTop(Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 5);
+		mainTable.row();
+		mainTable.add(fullscreenButton).pad(5);
 		mainTable.row();
 		mainTable.add(returnButton).pad(5);
 		mainTable.row();

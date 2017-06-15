@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package it.slagyom;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.GameSlagyom.State;
+import it.slagyom.GameSlagyom.State;
 
 public class InitializerScreen implements Screen{
 

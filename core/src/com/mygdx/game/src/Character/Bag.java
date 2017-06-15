@@ -1,12 +1,12 @@
-package com.mygdx.game.src.Character;
+package it.slagyom.src.Character;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Map.Item.Level;
-import com.mygdx.game.src.Map.StaticObject.Element;
-import com.mygdx.game.src.World.Weapon;
+import it.slagyom.src.Map.Item;
+import it.slagyom.src.Map.Item.Level;
+import it.slagyom.src.Map.StaticObject.Element;
+import it.slagyom.src.World.Weapon;
 
 public class Bag {
 	int capacity;

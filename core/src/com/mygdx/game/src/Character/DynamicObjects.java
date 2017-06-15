@@ -1,4 +1,4 @@
-package com.mygdx.game.src.Character;
+package it.slagyom.src.Character;
 
 public class DynamicObjects {
 	public enum StateDynamicObject {

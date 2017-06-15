@@ -1,8 +1,8 @@
-package com.mygdx.game.src.World;
+package it.slagyom.src.World;
 
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.src.Character.DynamicObjects;
-import com.mygdx.game.src.World.Weapon.Type;
+import it.slagyom.src.Character.DynamicObjects;
+import it.slagyom.src.World.Weapon.Type;
 
 public class Enemy extends DynamicObjects {
 
@@ -33,7 +33,7 @@ public class Enemy extends DynamicObjects {
 		this.health = life;
 		this.power = power;
 		// this.weapon = weapon;
-		this.weapon = new Weapon(com.mygdx.game.src.World.Weapon.Level.lev1, Type.Spear);
+		this.weapon = new Weapon(it.slagyom.src.World.Weapon.Level.lev1, Type.Spear);
 		this.win_bonus = win_bonus;
 		this.level = level;
 

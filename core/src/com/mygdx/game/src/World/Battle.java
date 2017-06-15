@@ -1,7 +1,7 @@
-package com.mygdx.game.src.World;
+package it.slagyom.src.World;
 
-import com.mygdx.game.src.Character.Character;
-import com.mygdx.game.src.Character.CharacterBattle;
+import it.slagyom.src.Character.Character;
+import it.slagyom.src.Character.CharacterBattle;
 
 public class Battle implements Runnable {
 

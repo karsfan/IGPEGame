@@ -1,9 +1,9 @@
-package com.mygdx.game.src.World;
+package it.slagyom.src.World;
 
 import java.util.ArrayList;
 
-import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.World.Enemy.Level;
+import it.slagyom.src.Map.Item;
+import it.slagyom.src.World.Enemy.Level;
 
 public class Pack {
 	Weapon weapon;

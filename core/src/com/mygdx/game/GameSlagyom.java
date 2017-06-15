@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package it.slagyom;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -46,13 +46,13 @@ public class GameSlagyom extends Game {
 	}
 
 	public static void saveGame() {
-		prefs.putString("map", com.mygdx.game.src.World.Game.world.getMap().getMapPath());
-		prefs.putString("name", com.mygdx.game.src.World.Game.character.name);
-		prefs.putFloat("xCharPosition", com.mygdx.game.src.World.Game.character.x);
-		prefs.putFloat("yCharPosition", com.mygdx.game.src.World.Game.character.y);
-		prefs.putFloat("health", com.mygdx.game.src.World.Game.character.health);
-		prefs.putFloat("power", com.mygdx.game.src.World.Game.character.power);
-		prefs.putInteger("coins", com.mygdx.game.src.World.Game.character.coins);
+		prefs.putString("map", it.slagyom.src.World.Game.world.getMap().getMapPath());
+		prefs.putString("name", it.slagyom.src.World.Game.character.name);
+		prefs.putFloat("xCharPosition", it.slagyom.src.World.Game.character.x);
+		prefs.putFloat("yCharPosition", it.slagyom.src.World.Game.character.y);
+		prefs.putFloat("health", it.slagyom.src.World.Game.character.health);
+		prefs.putFloat("power", it.slagyom.src.World.Game.character.power);
+		prefs.putInteger("coins", it.slagyom.src.World.Game.character.coins);
 
 		prefs.flush();
 	}
@@ -62,15 +62,15 @@ public class GameSlagyom extends Game {
 		prefs = Gdx.app.getPreferences("My saved game");
 
 		if (currentState == State.PAUSE)
-			com.mygdx.game.src.World.Game.world.getThread().stop();
+			it.slagyom.src.World.Game.world.getThread().stop();
 
 		playScreen = new PlayScreen(this, prefs.getString("map"), prefs.getString("name"));
 
-		com.mygdx.game.src.World.Game.character.x = prefs.getFloat("xCharPosition");
-		com.mygdx.game.src.World.Game.character.y = prefs.getFloat("yCharPosition");
-		com.mygdx.game.src.World.Game.character.health = prefs.getFloat("health");
-		com.mygdx.game.src.World.Game.character.power = prefs.getFloat("power");
-		com.mygdx.game.src.World.Game.character.coins = prefs.getInteger("coins");
+		it.slagyom.src.World.Game.character.x = prefs.getFloat("xCharPosition");
+		it.slagyom.src.World.Game.character.y = prefs.getFloat("yCharPosition");
+		it.slagyom.src.World.Game.character.health = prefs.getFloat("health");
+		it.slagyom.src.World.Game.character.power = prefs.getFloat("power");
+		it.slagyom.src.World.Game.character.coins = prefs.getInteger("coins");
 
 	}
 
@@ -106,12 +106,12 @@ public class GameSlagyom extends Game {
 			setScreen(initializerScreen);
 			Gdx.input.setInputProcessor(initializerScreen.stage);
 		} else if (currentState == State.BATTLE) {
-			battlescreen = new BattleScreen(this, com.mygdx.game.src.World.Game.world.battle);
+			battlescreen = new BattleScreen(this, it.slagyom.src.World.Game.world.battle);
 			setScreen(battlescreen);
 		} else if (currentState == State.PAUSE) {
 			setScreen(pauseScreen);
 			try {
-				com.mygdx.game.src.World.Game.world.semaphore.acquire();
+				it.slagyom.src.World.Game.world.semaphore.acquire();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

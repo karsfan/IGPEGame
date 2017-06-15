@@ -1,4 +1,4 @@
-package com.mygdx.game.src.Map;
+package it.slagyom.src.Map;
 
 import java.awt.Point;
 import java.io.FileReader;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import com.mygdx.game.src.World.Tile;
+import it.slagyom.src.World.Tile;
 
 public class Map {
 	private LinkedList<Tile> listTile;

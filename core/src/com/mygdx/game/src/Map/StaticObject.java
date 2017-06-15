@@ -1,8 +1,8 @@
-package com.mygdx.game.src.Map;
+package it.slagyom.src.Map;
 
 import java.awt.Rectangle;
 
-import com.mygdx.game.src.World.ICollidable;
+import it.slagyom.src.World.ICollidable;
 
 public class StaticObject implements ICollidable {
 

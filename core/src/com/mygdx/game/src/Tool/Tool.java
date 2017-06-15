@@ -1,4 +1,4 @@
-package  com.mygdx.game.src.Tool;
+package  it.slagyom.src.Tool;
 
 public class Tool {
 	public static enum tools{POTION, PARCHMENT, COIN};

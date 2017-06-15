@@ -1,12 +1,12 @@
-package com.mygdx.game.src.Character;
+package it.slagyom.src.Character;
 
 import java.util.Iterator;
 
-import com.mygdx.game.src.World.Game;
-import com.mygdx.game.src.World.GameConfig;
-import com.mygdx.game.src.World.ICollidable;
-import com.mygdx.game.src.World.Tile;
-import com.mygdx.game.src.Map.StaticObject.Element;
+import it.slagyom.src.World.Game;
+import it.slagyom.src.World.GameConfig;
+import it.slagyom.src.World.ICollidable;
+import it.slagyom.src.World.Tile;
+import it.slagyom.src.Map.StaticObject.Element;
 
 public class Man extends DynamicObjects implements ICollidable {
 

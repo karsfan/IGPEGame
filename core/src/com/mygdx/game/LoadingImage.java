@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package it.slagyom;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -6,14 +6,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.src.Character.CharacterBattle;
-import com.mygdx.game.src.Character.DynamicObjects;
-import com.mygdx.game.src.Character.DynamicObjects.StateDynamicObject;
-import com.mygdx.game.src.Map.Item;
-import com.mygdx.game.src.Map.Item.Level;
-import com.mygdx.game.src.Map.StaticObject;
-import com.mygdx.game.src.Map.StaticObject.Element;
-import com.mygdx.game.src.World.Enemy;
+import it.slagyom.src.Character.CharacterBattle;
+import it.slagyom.src.Character.DynamicObjects;
+import it.slagyom.src.Character.DynamicObjects.StateDynamicObject;
+import it.slagyom.src.Map.Item;
+import it.slagyom.src.Map.Item.Level;
+import it.slagyom.src.Map.StaticObject;
+import it.slagyom.src.Map.StaticObject.Element;
+import it.slagyom.src.World.Enemy;
 
 public class LoadingImage {
 
