@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import it.slagyom.src.Map.Item;
@@ -55,7 +56,9 @@ public class BagScreen implements Screen {
 		this.game = game;
 		itemSelected = new Item();
 		camera = new OrthographicCamera();
-		viewport = new FitViewport(640, 480);
+		//viewport = new FitViewport(640, 480);
+		viewport = new ExtendViewport(854,480);
+
 		selection = false;
 		viewport.apply();
 		background = new Texture("res/bag/bagBackground.png");

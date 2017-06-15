@@ -377,10 +377,18 @@ public class ShopScreen implements Screen {
 			potionsTable.setVisible(false);
 			weaponsTable.setVisible(false);
 		}
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
+=======
+>>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
 	}
 
 	@Override
 	public void resize(int width, int height) {
+<<<<<<< HEAD
 		if (height < 705){
 			width = 1253;
 			Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
@@ -388,6 +396,28 @@ public class ShopScreen implements Screen {
 		viewport.update(width, height);
 		//stage.getViewport().setScreenSize(width, height);
 		//camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+=======
+		// viewport.update(width, height);
+<<<<<<< HEAD
+<<<<<<< HEAD
+		stage.getViewport().setWorldWidth(width);
+		stage.getViewport().setWorldHeight(height);
+=======
+		stage.getViewport().setScreenSize(width, height);
+		//stage.getViewport().setWorldWidth(width);
+		//stage.getViewport().setWorldHeight(height);
+>>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
+=======
+		stage.getViewport().setScreenSize(width, height);
+		//stage.getViewport().setWorldWidth(width);
+		//stage.getViewport().setWorldHeight(height);
+>>>>>>> 4675c4d1f931c659ea82ff291bb79348ac51c3f9
+		// camera.viewportHeight = height;
+		// camera.viewportWidth = width;
+		// backgroundSprite.setSize(width, height);
+		// camera.position.set(camera.viewportWidth / 2, camera.viewportHeight /
+		// 2, 0);
+>>>>>>> 1c31d2ebb2e096e3488d8a839652beffce0bf899
 		camera.update();
 	}
 
